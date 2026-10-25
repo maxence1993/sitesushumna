@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tarifs – Sushumna, massages bien-être à Orléans</title>
+  <meta name="description" content="Tarifs des massages bien-être Sushumna à Orléans : 70 € l'heure, 100 € 1h30, 130 € 2h. Formule 4 massages à 200 €.">
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="images/icone.png">
+  <meta property="og:title" content="Tarifs – Sushumna, massages bien-être à Orléans">
+  <meta property="og:description" content="Tarifs des massages bien-être Sushumna à Orléans : 70 € l'heure, 100 € 1h30, 130 € 2h. Formule 4 massages à 200 €.">
+  <meta property="og:image" content="images/logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="lien-evitement" href="#contenu">Aller directement au contenu</a>
+
+  <div class="barre-haut">
+    <div class="conteneur barre-haut__inner">
+      <a href="tel:+33750460110"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#tel"/></svg> 07 50 46 01 10</a>
+      <span class="barre-haut__adresse">4 cours Victor Hugo, 45100 Orléans</span>
+      <button type="button" class="bouton-texte" data-taille-texte aria-pressed="false">A+ Agrandir le texte</button>
+    </div>
+  </div>
+
+  <header class="entete">
+    <div class="conteneur entete__inner">
+      <a href="index.html" class="entete__logo"><img src="images/logo.png" alt="Sushumna – retour à l'accueil" width="900" height="340"></a>
+      <button type="button" class="menu-bouton" aria-expanded="false" aria-controls="menu"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#menu"/></svg> Menu</button>
+      <nav id="menu" class="menu" aria-label="Menu principal">
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="massages.html">Mes massages</a></li>
+          <li><a href="tarifs.html" aria-current="page">Tarifs</a></li>
+          <li><a href="disponibilites.html">Disponibilités</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="questions.html">Questions</a></li>
+        </ul>
+        <a class="bouton bouton--or menu__rdv" href="contact.html#rendez-vous">Prendre rendez-vous</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <section class="en-tete-page">
+      <div class="conteneur">
+        <p class="surtitre">Tarifs</p>
+        <h1>Mes tarifs</h1>
+        <p class="intro">Des prix simples : <strong>tous les massages sont au même prix</strong>, seule la durée compte.</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="conteneur">
+        <h2>Prix selon la durée</h2>
+        <div class="prix-cartes" id="cartes-prix"></div>
+
+        <div class="tableau-defile" style="margin-top:3rem">
+          <table id="tableau-tarifs">
+            <caption>Tous les massages, toutes les durées</caption>
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="tableau-defile" style="margin-top:2rem">
+          <table id="tableau-formules">
+            <caption>Formules et cartes de séances</caption>
+            <thead><tr><th scope="col">Formule</th><th scope="col">Ce qu'elle comprend</th><th scope="col">Prix</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--sable">
+      <div class="conteneur deux-colonnes">
+        <div class="encadre">
+          <h2>Bon à savoir</h2>
+          <ul class="liste-check">
+            <li>Le temps d'échange avant le massage est compris dans la séance.</li>
+            <li>Paiement sur place, à la fin de la séance, <strong>uniquement en espèces</strong>.</li>
+            <li>La formule 4 massages se règle à la première séance.</li>
+            <li>Merci de prévenir au moins 24 heures à l'avance en cas d'empêchement.</li>
+          </ul>
+        </div>
+        <div>
+          <h2>Quelle durée choisir ?</h2>
+          <p><strong>1 heure :</strong> idéal pour une première fois ou pour un moment de détente ciblé.</p>
+          <p><strong>1 heure 30 :</strong> le temps de travailler tout le corps sans se presser.</p>
+          <p><strong>2 heures :</strong> une vraie parenthèse, pour une détente profonde.</p>
+          <p>Vous hésitez ? Parlons-en ensemble au moment de la réservation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section appel">
+      <div class="etroit">
+        <h2>Envie de prendre un moment pour vous ?</h2>
+        <p class="intro" style="color:#fff">Choisissez un créneau en ligne, appelez-moi ou écrivez-moi : je vous réponds avec plaisir.</p>
+        <div class="boutons">
+          <a class="bouton bouton--or bouton--grand" href="contact.html#rendez-vous"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#calendrier"/></svg> Prendre rendez-vous</a>
+          <a class="bouton bouton--grand" href="disponibilites.html">Voir mes disponibilités</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur pied__grille">
+      <div>
+        <div class="pied__logo"><img src="images/logo.png" alt="Sushumna" width="900" height="340" loading="lazy"></div>
+        <p>Massages bien-être sur mesure à Orléans, par Maxence Vaz.</p>
+      </div>
+      <div>
+        <h2>Me contacter</h2>
+        <ul>
+          <li><a href="tel:+33750460110"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#tel"/></svg> 07 50 46 01 10</a></li>
+          <li><a href="mailto:maxence.vaz@outlook.fr"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#mail"/></svg> maxence.vaz@outlook.fr</a></li>
+          <li><a href="https://wa.me/33750460110?text=Bonjour%20Maxence%2C%20je%20souhaiterais%20prendre%20rendez-vous%20pour%20un%20massage." target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#whatsapp"/></svg> WhatsApp</a></li>
+          <li><a href="https://www.instagram.com/massage_sushumna_orleans/" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#instagram"/></svg> Instagram</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Le cabinet</h2>
+        <p>Sushumna<br>4 cours Victor Hugo<br>45100 Orléans</p>
+        <p>Uniquement sur rendez-vous.</p>
+      </div>
+      <div>
+        <h2>Pages</h2>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="massages.html">Mes massages</a></li>
+          <li><a href="tarifs.html">Tarifs</a></li>
+          <li><a href="disponibilites.html">Disponibilités</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="questions.html">Questions</a></li>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="conteneur pied__mention">
+      <p><strong>Important :</strong> le massage bien-être est un soin de détente et de relaxation. Ce n'est pas un acte médical ni un massage thérapeutique : il ne remplace pas un avis, un diagnostic ou un traitement médical.</p>
+      <p>© <span data-annee>2026</span> Sushumna – Maxence Vaz</p>
+    </div>
+  </footer>
+
+  <nav class="actions-mobiles" aria-label="Contact rapide">
+    <a href="tel:+33750460110"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#tel"/></svg>Appeler</a>
+    <a href="https://wa.me/33750460110?text=Bonjour%20Maxence%2C%20je%20souhaiterais%20prendre%20rendez-vous%20pour%20un%20massage." target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#whatsapp"/></svg>WhatsApp</a>
+    <a class="rdv" href="contact.html#rendez-vous"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#calendrier"/></svg>Rendez-vous</a>
+  </nav>
+
+  <script src="mes-contenus/massages-et-tarifs.js"></script>
+  <script src="site.js"></script>
+</body>
+</html>
