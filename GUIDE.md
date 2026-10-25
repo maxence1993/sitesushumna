@@ -106,20 +106,24 @@ Conseils : photos au format JPG, de préférence pas trop lourdes (moins de 1 Mo
 
 ---
 
-## 5. Les autres textes
+## 5. Votre logo
+
+Le logo du site est dans le dossier `images` (`logo.png`). Une version grand format, avec « Sushumna » correctement écrit, est aussi disponible : `images/logo-sushumna-grand.jpg`. Vous pouvez l'utiliser pour Instagram, vos cartes de visite, etc.
+
+## 6. Les autres textes
 
 Les textes de présentation, les questions fréquentes et les horaires sont directement dans les pages :
 
 - `index.html` : l'accueil (phrase d'accroche, « Moi, c'est Maxence »…)
 - `questions.html` : les questions fréquentes
 - `contact.html` : les horaires
-- `mentions-legales.html` : à compléter avec votre numéro SIRET
+- `mentions-legales.html` : vos informations légales (SIRET, hébergeur)
 
 Modifiez seulement le texte visible entre les balises, par exemple `<p>Mon texte</p>` → changez « Mon texte ». Ne touchez pas à ce qui est entre `<` et `>`.
 
 ---
 
-## 6. Le formulaire de rendez-vous
+## 7. Le formulaire de rendez-vous
 
 Les demandes envoyées depuis le formulaire arrivent sur **maxence.vaz@outlook.fr** (service gratuit FormSubmit).
 
@@ -127,7 +131,7 @@ Les demandes envoyées depuis le formulaire arrivent sur **maxence.vaz@outlook.f
 
 ---
 
-## 7. Mettre le site en ligne (gratuit, avec GitHub Pages)
+## 8. Mettre le site en ligne (gratuit, avec GitHub Pages)
 
 ### a) Activer le site
 1. Sur GitHub, ouvrez votre dépôt `sitesushumna`.
@@ -150,4 +154,4 @@ Les demandes envoyées depuis le formulaire arrivent sur **maxence.vaz@outlook.f
 Pour `m-sushumna.fr` : chez votre fournisseur, demandez une **redirection** vers `https://sushumna.fr`.
 
 ### c) Dernière étape
-Dans `mentions-legales.html`, complétez votre numéro SIRET et l'hébergeur (GitHub Inc., si vous gardez GitHub Pages).
+Dans `mentions-legales.html`, l'hébergeur indiqué est GitHub. Si un jour vous changez d'hébergeur, pensez à le modifier.
