@@ -5,15 +5,96 @@ Tout se fait **depuis le site GitHub, dans votre navigateur** (ordinateur ou té
 
 ---
 
-## Le principe en 3 étapes
+## 0. Utiliser GitHub, pas à pas
 
-1. Vous ouvrez un fichier sur GitHub.
-2. Vous cliquez sur le **crayon** ✏️ (« Edit this file ») et vous changez le texte.
-3. Vous cliquez sur le bouton vert **« Commit changes… »**, puis encore **« Commit changes »**.
+GitHub est le site qui garde tous les fichiers de votre site internet. Quand vous changez un fichier sur GitHub, votre site se met à jour tout seul.
+GitHub est en anglais : ce guide vous indique le nom exact de chaque bouton.
 
-Le site se met à jour tout seul en 1 à 2 minutes.
+### Étape 1 – Vous connecter
 
-> 💡 **Pas de panique** : GitHub garde toutes les anciennes versions. Si vous faites une erreur, elle peut toujours être annulée.
+1. Allez sur **https://github.com** (sur ordinateur ou sur le navigateur de votre téléphone : Chrome ou Safari).
+2. En haut à droite, cliquez sur **« Sign in »** (Se connecter).
+3. Entrez votre identifiant (**maxence1993**) ou votre e-mail, puis votre mot de passe, puis cliquez sur **« Sign in »**.
+4. Si GitHub vous envoie un code par e-mail ou par SMS, recopiez-le.
+
+💡 Astuce : ajoutez cette adresse à vos favoris : **https://github.com/maxence1993/sitesushumna**. Vous arriverez directement sur votre site.
+
+### Étape 2 – Ouvrir le dossier de votre site
+
+1. Ouvrez **https://github.com/maxence1993/sitesushumna**.
+2. Vous voyez la liste des fichiers du site : `mes-contenus`, `photos`, `index.html`, etc.
+
+⚠️ **Tant que la maquette n'est pas validée**, elle est rangée dans une « branche » à part (une sorte de brouillon). Si vous ne voyez que le fichier `README.md` :
+1. Au-dessus de la liste des fichiers, à gauche, cliquez sur le bouton gris **« main »** (avec une petite flèche).
+2. Choisissez **« claude/sushumna-massage-website-5fpf2h »**.
+3. Vous voyez maintenant tous les fichiers.
+
+Une fois le site validé et mis en ligne, tout sera dans **main** et vous n'aurez plus besoin de faire ça.
+
+### Étape 3 – Ouvrir le fichier à modifier
+
+1. Cliquez sur le nom du **dossier** (par exemple `mes-contenus`).
+2. Cliquez sur le nom du **fichier** (par exemple `planning.js`).
+3. Le contenu du fichier s'affiche.
+
+### Étape 4 – Passer en mode modification
+
+1. En haut à droite du contenu du fichier, cliquez sur le **crayon** ✏️ (quand vous passez la souris dessus, il est écrit « Edit this file »).
+2. **Sur téléphone** : si vous ne voyez pas le crayon, touchez les **trois petits points « … »** en haut du fichier, puis **« Edit file »**.
+3. Le texte devient modifiable, comme dans un traitement de texte.
+
+### Étape 5 – Faire votre modification
+
+- Touchez ou cliquez à l'endroit voulu, puis effacez et écrivez comme d'habitude.
+- Vous pouvez utiliser **copier** (Ctrl + C) et **coller** (Ctrl + V). Sur Mac, c'est Cmd + C et Cmd + V. Sur téléphone, faites un appui long.
+- Pour retrouver un mot dans un long fichier : cliquez dans le texte, puis tapez **Ctrl + F** (Cmd + F sur Mac).
+- L'onglet **« Preview »** en haut montre le fichier final ; l'onglet **« Edit »** permet de revenir à la modification.
+
+### Étape 6 – Enregistrer (« Commit »)
+
+Sur GitHub, « enregistrer » se dit **« Commit »**.
+
+1. En haut à droite, cliquez sur le bouton vert **« Commit changes… »**.
+2. Une petite fenêtre s'ouvre. Dans **« Commit message »**, vous pouvez écrire en quelques mots ce que vous avez fait (par exemple « Planning semaine du 2 novembre »). Ce n'est pas obligatoire.
+3. Laissez cochée l'option **« Commit directly to the … branch »** (enregistrer directement).
+4. Cliquez sur le bouton vert **« Commit changes »**.
+
+C'est enregistré ! ✅
+
+### Étape 7 – Vérifier sur votre site
+
+1. Attendez **1 à 2 minutes**.
+2. Ouvrez votre site et **rechargez la page** (la flèche en rond, ou tirez la page vers le bas sur téléphone).
+3. Si l'ancienne version s'affiche encore, attendez une minute de plus et rechargez à nouveau.
+
+Pour voir où en est la mise à jour : sur GitHub, cliquez sur l'onglet **« Actions »** en haut. Un rond orange 🟠 veut dire « en cours ». Une coche verte ✅ veut dire « terminé ».
+
+### En cas d'erreur : revenir en arrière
+
+Pas de panique : GitHub garde **toutes** les anciennes versions de chaque fichier.
+
+**Si votre page est vide ou si le planning a disparu**, c'est presque toujours un guillemet `"` ou une virgule `,` oubliés.
+1. Rouvrez le fichier avec le crayon ✏️.
+2. Comparez avec les exemples de ce guide.
+3. Corrigez, puis enregistrez.
+
+**Pour remettre l'ancienne version d'un fichier :**
+1. Ouvrez le fichier sur GitHub (étape 3).
+2. En haut à droite, cliquez sur **« History »** (avec une petite horloge 🕘). Vous voyez la liste de toutes les modifications, de la plus récente à la plus ancienne.
+3. Trouvez la dernière version qui marchait. À droite de cette ligne, cliquez sur le bouton **« <> »** (« View code at this point »).
+4. Ouvrez le même fichier, puis cliquez sur le bouton **« Copy raw file »** (deux petits carrés, en haut à droite) : tout le contenu est copié.
+5. Revenez sur la version actuelle du fichier (cliquez sur le nom du dépôt `sitesushumna` en haut, puis rouvrez le fichier). Cliquez sur le crayon ✏️.
+6. Sélectionnez tout le texte (Ctrl + A, ou Cmd + A sur Mac), puis collez (Ctrl + V).
+7. Enregistrez (étape 6).
+
+Et si vous êtes bloqué, demandez-moi : je peux aussi corriger ou annuler pour vous.
+
+### Les règles d'or
+
+- ✏️ Ne changez que le **texte entre les guillemets** `"…"` et les **nombres**.
+- 🔒 Ne supprimez jamais les guillemets `"`, les virgules `,`, ni les accolades `{ }` et les crochets `[ ]`.
+- 🚫 Les lignes qui commencent par `/*` ou `//` sont des explications pour vous : elles n'apparaissent pas sur le site.
+- 💾 Faites une seule modification à la fois, enregistrez, puis vérifiez sur le site.
 
 ---
 
@@ -38,12 +119,39 @@ Chaque semaine ressemble à ceci :
 - Un jour où vous ne travaillez pas : `"fermé"`.
 - Quelqu'un réserve ? Remplacez simplement `libre` par `pris`.
 
-**Chaque semaine :**
-1. Copiez le bloc d'une semaine, de `{` jusqu'à `},` compris.
-2. Collez-le à la fin de la liste, juste avant le `];` final.
-3. Changez la date et les créneaux.
-4. Vous pouvez supprimer les vieilles semaines (sinon, le site les cache tout seul).
-5. Changez aussi la date en haut : `PLANNING_MIS_A_JOUR_LE = "25/10/2026";`
+**Quand quelqu'un réserve (ou annule) :**
+1. Ouvrez `mes-contenus/planning.js` puis cliquez sur le crayon ✏️ (voir partie 0).
+2. Trouvez le bon jour dans la bonne semaine.
+3. Remplacez le mot `libre` par `pris` devant l'heure réservée (ou `pris` par `libre` en cas d'annulation).
+4. Enregistrez avec « Commit changes ».
+
+**Chaque semaine (par exemple le dimanche soir), pour ajouter la semaine suivante :**
+1. Ouvrez `mes-contenus/planning.js` puis cliquez sur le crayon ✏️.
+2. Sélectionnez le bloc de la dernière semaine : de l'accolade `{` jusqu'à `}` compris, puis copiez-le.
+3. Juste après ce `}`, ajoutez une **virgule**, passez à la ligne et collez.
+4. Dans le bloc collé, changez la date `semaine` (la date du lundi suivant) et les créneaux.
+5. Vous pouvez supprimer le bloc de la semaine passée (sinon, le site le cache tout seul).
+6. En haut du fichier, changez la date : `PLANNING_MIS_A_JOUR_LE = "25/10/2026";`
+7. Enregistrez avec « Commit changes ».
+
+Exemple de fin de fichier avec deux semaines (observez bien la virgule entre les deux blocs, et le `];` tout à la fin) :
+
+```
+  {
+    semaine:  "02/11/2026",
+    lundi:    "9h00 libre, 10h30 pris",
+    ...
+    dimanche: "fermé"
+  },
+  {
+    semaine:  "09/11/2026",
+    lundi:    "9h00 libre, 10h30 libre",
+    ...
+    dimanche: "fermé"
+  }
+
+];
+```
 
 Le site affiche tout seul **la semaine en cours et la suivante**, et grise les créneaux déjà passés.
 
@@ -96,11 +204,30 @@ Toutes les photos vont dans le dossier **`photos`**. Le site a déjà prévu un 
 | `massage-bol-tibetain.jpg` | Massage au bol tibétain |
 | `reflexologie-abdominale.jpg` | Réflexologie abdominale |
 
-**Comment faire :**
-1. Renommez votre photo **exactement** comme dans le tableau (en minuscules, sans accent, avec `.jpg`).
-2. Sur GitHub, ouvrez le dossier `photos`, cliquez sur **« Add file » → « Upload files »**.
-3. Glissez la photo (ou choisissez-la), puis cliquez sur **« Commit changes »**.
-4. Pour **remplacer** une photo, envoyez simplement une nouvelle photo avec le même nom.
+**Étape A – Renommer la photo (avant de l'envoyer)**
+
+Le nom doit être **exactement** celui du tableau : en minuscules, sans accent, sans espace, avec `.jpg` à la fin.
+
+- **Sur ordinateur (Windows)** : clic droit sur la photo → **Renommer**.
+- **Sur Mac** : cliquez une fois sur la photo, appuyez sur la touche **Entrée**, tapez le nouveau nom.
+- **Sur Android** : ouvrez l'application **Fichiers**, faites un appui long sur la photo → **Renommer**.
+- **Sur iPhone** : depuis Photos, touchez **Partager** → **Enregistrer dans Fichiers**. Ensuite, dans l'application **Fichiers**, faites un appui long sur la photo → **Renommer**.
+
+⚠️ Si la photo s'appelle `.jpeg`, `.JPG` ou `.png`, renommez aussi la fin en `.jpg`. Si ça ne marche pas, demandez-moi.
+
+**Étape B – Envoyer la photo sur GitHub**
+1. Ouvrez votre dépôt sur GitHub, puis cliquez sur le dossier **`photos`**.
+2. En haut à droite, cliquez sur **« Add file »**, puis sur **« Upload files »**. Sur téléphone, ce bouton peut s'appeler simplement **« + »** ou se trouver dans le menu **« … »**.
+3. Glissez votre photo dans le cadre, ou cliquez sur **« choose your files »** pour la choisir. Vous pouvez en envoyer plusieurs d'un coup.
+4. Attendez que la photo apparaisse dans la liste, sous le cadre.
+5. En bas, cliquez sur le bouton vert **« Commit changes »**.
+6. Après 1 à 2 minutes, la photo apparaît sur le site, à la place du cadre doré.
+
+**Remplacer une photo** : envoyez simplement une nouvelle photo **avec le même nom**. Elle remplace l'ancienne.
+
+**Supprimer une photo** : dans le dossier `photos`, cliquez sur la photo, puis sur les trois points **« … »** en haut à droite → **« Delete file »** → **« Commit changes »**.
+
+**Astuce pour les massages** : au lieu de renommer la photo, vous pouvez aussi écrire son nom actuel dans `mes-contenus/massages-et-tarifs.js`, sur la ligne `photo: "…"` du massage. Exemple : `photo: "IMG_2041.jpg",`. Attention, le nom doit être recopié exactement, majuscules comprises.
 
 Conseils : photos au format JPG, de préférence pas trop lourdes (moins de 1 Mo, environ 1600 pixels de large). Sur téléphone, l'option « taille moyenne » au moment du partage suffit.
 
