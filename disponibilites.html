@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Disponibilités – Sushumna, massages bien-être à Orléans</title>
+  <meta name="description" content="Consultez les créneaux libres de la semaine pour un massage bien-être à Orléans et réservez en un clic.">
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="images/icone.png">
+  <meta property="og:title" content="Disponibilités – Sushumna, massages bien-être à Orléans">
+  <meta property="og:description" content="Consultez les créneaux libres de la semaine pour un massage bien-être à Orléans et réservez en un clic.">
+  <meta property="og:image" content="images/banniere.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="lien-evitement" href="#contenu">Aller directement au contenu</a>
+
+  <div class="barre-haut">
+    <div class="conteneur barre-haut__inner">
+      <a href="tel:+33750460110"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#tel"/></svg> 07 50 46 01 10</a>
+      <span class="barre-haut__adresse">4 cours Victor Hugo, 45100 Orléans</span>
+      <button type="button" class="bouton-texte" data-taille-texte aria-pressed="false">A+ Agrandir le texte</button>
+    </div>
+  </div>
+
+  <header class="entete">
+    <div class="conteneur entete__inner">
+      <a href="index.html" class="entete__logo"><img src="images/logo.png" alt="Sushumna – retour à l'accueil" width="900" height="340"></a>
+      <button type="button" class="menu-bouton" aria-expanded="false" aria-controls="menu"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#menu"/></svg> Menu</button>
+      <nav id="menu" class="menu" aria-label="Menu principal">
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="massages.html">Mes massages</a></li>
+          <li><a href="tarifs.html">Tarifs</a></li>
+          <li><a href="disponibilites.html" aria-current="page">Disponibilités</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="questions.html">Questions</a></li>
+        </ul>
+        <a class="bouton bouton--or menu__rdv" href="contact.html#rendez-vous">Prendre rendez-vous</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <section class="en-tete-page">
+      <div class="conteneur">
+        <p class="surtitre">Disponibilités</p>
+        <h1>Mes disponibilités</h1>
+        <p class="intro">Voici mes créneaux pour cette semaine et la semaine prochaine. <strong>Touchez un créneau vert</strong> pour le réserver. L'heure indiquée est l'heure de début du massage.</p>
+      </div>
+    </section>
+    <section class="section" style="padding-top:2rem">
+      <div class="conteneur">
+        <ul class="legende" aria-label="Légende">
+          <li><span class="pastille pastille--libre"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#check"/></svg></span> Vert = libre, vous pouvez réserver</li>
+          <li><span class="pastille pastille--pris"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#croix"/></svg></span> Gris barré = déjà pris</li>
+        </ul>
+        <div id="planning">
+          <noscript><p>Pour voir le planning, merci d'activer JavaScript ou de m'appeler au 07 50 46 01 10.</p></noscript>
+        </div>
+        <p class="maj" id="planning-maj"></p>
+
+        <div class="encadre encadre--info" style="margin-top:2.5rem">
+          <h2>Aucun créneau ne vous convient ?</h2>
+          <p>Appelez-moi ou écrivez-moi : il est parfois possible de trouver un autre horaire.</p>
+          <div class="boutons">
+            <a class="bouton" href="tel:+33750460110"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#tel"/></svg> 07 50 46 01 10</a>
+            <a class="bouton" href="https://wa.me/33750460110?text=Bonjour%20Maxence%2C%20je%20souhaiterais%20prendre%20rendez-vous%20pour%20un%20massage." target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#whatsapp"/></svg> WhatsApp</a>
+            <a class="bouton" href="contact.html#rendez-vous"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#discussion"/></svg> Formulaire</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur pied__grille">
+      <div>
+        <div class="pied__logo"><img src="images/logo.png" alt="Sushumna" width="900" height="340" loading="lazy"></div>
+        <p>Massages bien-être sur mesure à Orléans, par Maxence Vaz.</p>
+      </div>
+      <div>
+        <h2>Me contacter</h2>
+        <ul>
+          <li><a href="tel:+33750460110"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#tel"/></svg> 07 50 46 01 10</a></li>
+          <li><a href="mailto:maxence.vaz@outlook.fr"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#mail"/></svg> maxence.vaz@outlook.fr</a></li>
+          <li><a href="https://wa.me/33750460110?text=Bonjour%20Maxence%2C%20je%20souhaiterais%20prendre%20rendez-vous%20pour%20un%20massage." target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#whatsapp"/></svg> WhatsApp</a></li>
+          <li><a href="https://www.instagram.com/massage_sushumna_orleans/" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#instagram"/></svg> Instagram</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Le cabinet</h2>
+        <p>Sushumna<br>4 cours Victor Hugo<br>45100 Orléans</p>
+        <p>Uniquement sur rendez-vous.</p>
+      </div>
+      <div>
+        <h2>Pages</h2>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="massages.html">Mes massages</a></li>
+          <li><a href="tarifs.html">Tarifs</a></li>
+          <li><a href="disponibilites.html">Disponibilités</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="questions.html">Questions</a></li>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="conteneur pied__mention">
+      <p><strong>Important :</strong> le massage bien-être est un soin de détente et de relaxation. Ce n'est pas un acte médical ni un massage thérapeutique : il ne remplace pas un avis, un diagnostic ou un traitement médical.</p>
+      <p>© <span data-annee>2026</span> Sushumna – Maxence Vaz</p>
+    </div>
+  </footer>
+
+  <nav class="actions-mobiles" aria-label="Contact rapide">
+    <a href="tel:+33750460110"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#tel"/></svg>Appeler</a>
+    <a href="https://wa.me/33750460110?text=Bonjour%20Maxence%2C%20je%20souhaiterais%20prendre%20rendez-vous%20pour%20un%20massage." target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#whatsapp"/></svg>WhatsApp</a>
+    <a class="rdv" href="contact.html#rendez-vous"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#calendrier"/></svg>Rendez-vous</a>
+  </nav>
+
+  <script src="mes-contenus/massages-et-tarifs.js"></script>
+  <script src="mes-contenus/planning.js"></script>
+  <script src="site.js"></script>
+</body>
+</html>

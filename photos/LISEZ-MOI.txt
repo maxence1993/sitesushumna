@@ -1,0 +1,16 @@
+Déposez ici vos photos, avec exactement ces noms (en minuscules, en .jpg) :
+
+accueil.jpg                  grande photo de l'accueil (verticale idéalement)
+portrait.jpg                 votre photo
+ambiance-1.jpg               ambiance du cabinet
+ambiance-2.jpg               ambiance du cabinet
+ambiance-3.jpg               ambiance du cabinet
+massage-sur-mesure.jpg
+massage-ayurvedique.jpg
+massage-relaxant.jpg
+massage-chong-mai.jpg
+massage-bol-tibetain.jpg
+reflexologie-abdominale.jpg
+
+Pour remplacer une photo : envoyez-en une nouvelle avec le même nom.
+Plus de détails dans le fichier GUIDE.md.
