@@ -138,19 +138,23 @@
             <input type="hidden" name="_next" value="">
             <input type="text" name="_honey" class="cache" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-            <div class="champ">
-              <label for="nom">Votre nom et prénom <span class="obligatoire">*</span></label>
-              <input id="nom" name="Nom" type="text" autocomplete="name" required>
-            </div>
             <div class="champs-duo">
               <div class="champ">
-                <label for="telephone">Votre téléphone <span class="obligatoire">*</span></label>
-                <input id="telephone" name="Téléphone" type="tel" autocomplete="tel" inputmode="tel" required>
+                <label for="prenom">Votre prénom <span class="obligatoire">*</span></label>
+                <input id="prenom" name="Prénom" type="text" autocomplete="given-name" required>
               </div>
               <div class="champ">
-                <label for="email">Votre e-mail <span class="aide">(facultatif)</span></label>
-                <input id="email" name="email" type="email" autocomplete="email">
+                <label for="nom">Votre nom <span class="obligatoire">*</span></label>
+                <input id="nom" name="Nom" type="text" autocomplete="family-name" required>
               </div>
+            </div>
+            <div class="champ">
+              <label for="telephone">Votre numéro de téléphone <span class="obligatoire">*</span> <span class="aide">Pour que je puisse confirmer votre rendez-vous.</span></label>
+              <input id="telephone" name="Téléphone" type="tel" autocomplete="tel" inputmode="tel" required pattern="[0-9 +.\-]{10,}" title="Votre numéro de téléphone, par exemple 06 12 34 56 78">
+            </div>
+            <div class="champ">
+              <label for="email">Votre e-mail <span class="aide">(facultatif)</span></label>
+              <input id="email" name="email" type="email" autocomplete="email">
             </div>
             <div class="champs-duo">
               <div class="champ">

@@ -251,6 +251,9 @@ Modifiez seulement le texte visible entre les balises, par exemple `<p>Mon texte
 
 Les demandes envoyées depuis le formulaire arrivent sur **maxence.vaz@outlook.fr** (service gratuit FormSubmit).
 
+Le client doit obligatoirement remplir son **prénom**, son **nom** et son **numéro de téléphone** : le formulaire refuse l'envoi sans eux. L'e-mail que vous recevez contient ces 3 informations, plus le créneau choisi, la durée, le massage souhaité, son e-mail (s'il l'a donné) et son message. L'objet de l'e-mail affiche directement le prénom, le nom, le téléphone et le créneau, par exemple :
+« Demande de rendez-vous – Julie Martin – 06 12 34 56 78 – mardi 27 octobre à 17h15 (1 heure) ».
+
 **La toute première fois** que quelqu'un envoie le formulaire (faites un essai vous-même !), vous recevez un e-mail de FormSubmit qui demande de **confirmer votre adresse**. Cliquez sur le bouton de confirmation : ensuite, toutes les demandes arriveront directement dans votre boîte mail. Pensez à regarder dans les spams.
 
 ---
