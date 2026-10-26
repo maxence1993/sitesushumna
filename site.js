@@ -243,9 +243,24 @@
       $("#liste-avis").innerHTML = avis.map(function (a) {
         var n = Math.max(0, Math.min(5, a.etoiles == null ? 5 : a.etoiles));
         return '<figure class="avis"><p class="avis__etoiles" role="img" aria-label="' + n + ' étoiles sur 5">' +
-          "★★★★★".slice(0, n) + '</p><blockquote>« ' + echapper(a.texte) + ' »</blockquote>' +
+          "★★★★★".slice(0, n) + '</p><blockquote class="replie">« ' + echapper(a.texte) + ' »</blockquote>' +
+          '<button type="button" class="avis__suite" aria-expanded="false" hidden>Lire la suite</button><span class="avis__espace"></span>' +
           '<figcaption>' + echapper(a.nom) + ' · avis Google</figcaption></figure>';
       }).join("");
+      // « Lire la suite » seulement pour les avis trop longs
+      $$("#liste-avis .avis").forEach(function (carte) {
+        var texte = $("blockquote", carte), bouton = $(".avis__suite", carte);
+        if (texte.scrollHeight > texte.clientHeight + 4) {
+          bouton.hidden = false;
+          bouton.addEventListener("click", function () {
+            var ouvert = texte.classList.toggle("replie") === false;
+            bouton.setAttribute("aria-expanded", ouvert ? "true" : "false");
+            bouton.textContent = ouvert ? "Réduire" : "Lire la suite";
+          });
+        } else {
+          texte.classList.remove("replie");
+        }
+      });
       $("#liens-avis").innerHTML =
         (lienVoir ? '<a class="bouton" href="' + echapper(lienVoir) + '" target="_blank" rel="noopener">Voir tous les avis Google</a>' : "") +
         (lienDeposer ? '<a class="bouton bouton--or" href="' + echapper(lienDeposer) + '" target="_blank" rel="noopener">Laisser un avis</a>' : "");
