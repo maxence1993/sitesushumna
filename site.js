@@ -239,6 +239,7 @@
     var lienDeposer = window.LIEN_DEPOSER_AVIS || "";
     if (avis.length || lienVoir || lienDeposer) {
       sectionAvis.hidden = false;
+      if (!avis.length) $("#avis-note").textContent = "Découvrez ce que mes clients pensent de leurs massages, directement sur Google.";
       $("#liste-avis").innerHTML = avis.map(function (a) {
         var n = Math.max(0, Math.min(5, a.etoiles == null ? 5 : a.etoiles));
         return '<figure class="avis"><p class="avis__etoiles" role="img" aria-label="' + n + ' étoiles sur 5">' +
