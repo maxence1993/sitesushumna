@@ -15,7 +15,7 @@
       le prénom (ou prénom + initiale), jamais de nom complet.
    ===================================================================== */
 
-var LIEN_VOIR_AVIS = "";
+var LIEN_VOIR_AVIS = "https://maps.app.goo.gl/V4g6ZRbFsGHyuv7dA";
 var LIEN_DEPOSER_AVIS = "";
 
 /* Exemple de bloc (retirez les // devant chaque ligne pour l'utiliser) :
