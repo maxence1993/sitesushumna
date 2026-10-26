@@ -163,7 +163,7 @@ p { margin: 0 0 1em; }
 
 /* ---------- Photos (avec image de remplacement si la photo n'est pas encore là) ---------- */
 .photo { position: relative; background: linear-gradient(145deg, var(--or-clair), var(--sable-2) 60%, #e9d3a8); }
-.photo img { width: 100%; height: 100%; object-fit: cover; }
+.photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
 .photo--absente img { display: none; }
 .photo--absente::before { content: ""; position: absolute; inset: 0; background: url("images/icone.png") center 42% / min(34%, 120px) no-repeat; opacity: .45; }
 .photo--absente::after { content: "Photo à venir · " attr(data-fichier); position: absolute; left: 50%; bottom: 1rem; transform: translateX(-50%); width: max-content; max-width: 90%; text-align: center; background: rgba(255, 253, 248, .85); color: var(--brun-doux); font-size: .8rem; padding: .2em .8em; border-radius: 999px; }
