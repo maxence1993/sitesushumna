@@ -93,7 +93,7 @@
             <caption class="cache">Horaires habituels des massages</caption>
             <tbody>
               <tr><th scope="row">Lundi</th><td>Fermé</td></tr>
-              <tr><th scope="row">Mardi</th><td>13h45 – 17h</td></tr>
+              <tr><th scope="row">Mardi</th><td>13h45 – 17h30</td></tr>
               <tr><th scope="row">Mercredi</th><td>12h30 – 18h<br><span class="horaires__plus">+ un créneau à 21h</span></td></tr>
               <tr><th scope="row">Jeudi</th><td>Fermé</td></tr>
               <tr><th scope="row">Vendredi</th><td>11h – 21h</td></tr>
@@ -119,14 +119,18 @@
 
           <div class="encadre encadre--info creneau-choisi" id="creneau-choisi" role="status">
             <p style="margin:0 0 .6rem"><strong>Vous avez choisi le créneau :</strong><br><span data-creneau-texte></span></p>
-            <p style="margin:0 0 .8rem">Remplissez le formulaire ci-dessous, ou réservez-le directement :</p>
+            <p style="margin:0 0 .8rem">Remplissez le formulaire ci-dessous, ou envoyez votre demande directement :</p>
             <div class="boutons">
               <a class="bouton" href="https://wa.me/33750460110?text=Bonjour%20Maxence%2C%20je%20souhaiterais%20prendre%20rendez-vous%20pour%20un%20massage." data-creneau-whatsapp target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#whatsapp"/></svg> Par WhatsApp</a>
               <a class="bouton" href="tel:+33750460110"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#tel"/></svg> Par téléphone</a>
             </div>
           </div>
 
-          <p>Remplissez ce petit formulaire : je vous recontacte pour confirmer le rendez-vous. Les champs marqués d'une <span class="obligatoire">*</span> sont obligatoires.</p>
+          <div class="encadre encadre--attention avertissement" role="note">
+            <svg class="ic" aria-hidden="true"><use href="images/icones.svg#horloge"/></svg>
+            <p style="margin:0"><strong>Votre réservation n'est pas automatique.</strong> Quand vous choisissez un horaire, vous m'envoyez une <strong>demande</strong>. Votre massage est validé <strong>uniquement quand je vous l'ai confirmé</strong> (par téléphone, SMS ou WhatsApp). Pas d'inquiétude : la confirmation est rapide, je réponds tous les jours entre 9h et 21h.</p>
+          </div>
+          <p style="margin-top:1.2rem">Remplissez ce petit formulaire : je vous recontacte pour confirmer le rendez-vous. Les champs marqués d'une <span class="obligatoire">*</span> sont obligatoires.</p>
 
           <form id="formulaire-rdv" action="https://formsubmit.co/maxence.vaz@outlook.fr" method="POST">
             <input type="hidden" name="_subject" value="Nouvelle demande de rendez-vous – site Sushumna">
@@ -173,8 +177,8 @@
             <div class="champ">
               <label class="case"><input type="checkbox" name="Accord" value="Oui" required> <span>J'accepte que mes informations soient utilisées uniquement pour me recontacter au sujet de ce rendez-vous. <span class="obligatoire">*</span></span></label>
             </div>
-            <button class="bouton bouton--or bouton--grand" type="submit" style="width:100%">Envoyer ma demande</button>
-            <p class="aide" style="margin-top:1rem;font-size:.92rem">Votre rendez-vous n'est confirmé qu'après ma réponse.</p>
+            <button class="bouton bouton--or bouton--grand" type="submit" style="width:100%">Envoyer ma demande de rendez-vous</button>
+            <p class="aide" style="margin-top:1rem;font-size:.95rem"><strong>Rappel :</strong> votre massage n'est validé qu'après ma confirmation.</p>
           </form>
         </div>
       </div>

@@ -216,6 +216,8 @@ p { margin: 0 0 1em; }
 /* ---------- Encadrés ---------- */
 .encadre { background: var(--creme); border: 1px solid var(--bordure); border-radius: var(--rayon); padding: 1.4rem 1.6rem; box-shadow: var(--ombre); }
 .encadre--info { background: #fff8e6; border-color: var(--or); }
+.encadre--attention { background: #fff3d6; border: 2px solid var(--or); box-shadow: none; margin: 1rem 0; padding: 1rem 1.2rem; }
+.encadre--attention .ic { width: 1.8rem; height: 1.8rem; }
 .encadre h2, .encadre h3 { margin-top: 0; }
 .avertissement { display: flex; gap: 1rem; align-items: flex-start; }
 .avertissement .ic { color: var(--or-texte); width: 2rem; height: 2rem; }

@@ -25,7 +25,7 @@
    Le massage doit être terminé avant la fin de la plage. */
 var HORAIRES_HABITUELS = {
   lundi:    "fermé",
-  mardi:    "13h45-17h00",
+  mardi:    "13h45-17h30",
   mercredi: "12h30-18h00, 21h00",
   jeudi:    "fermé",
   vendredi: "11h00-21h00",
@@ -35,12 +35,13 @@ var HORAIRES_HABITUELS = {
 
 
 /* ---------- 2. LES JOURS PARTICULIERS ----------
-   Pour changer les horaires d'un jour précis (vacances, jour férié,
-   journée exceptionnelle). Une ligne par jour, entre guillemets,
-   suivie d'une virgule. Exemples :
-     "01/11/2026 : fermé",
-     "07/11/2026 : 10h00-14h00",
-   Les jours qui ne sont pas dans cette liste suivent les horaires habituels. */
+   Pour changer les horaires d'un jour précis (vacances, journée
+   exceptionnelle). Une ligne par jour, entre guillemets, suivie d'une
+   virgule. Exemples (à adapter) :
+     "15/12/2026 : fermé",
+     "17/12/2026 : 10h00-14h00",
+   Les jours qui ne sont pas dans cette liste suivent les horaires
+   habituels, jours fériés compris. */
 var JOURS_PARTICULIERS = [
 
 ];
@@ -62,5 +63,5 @@ var MASSAGES_RESERVES = [
 /* ---------- 4. RÉGLAGES (à changer rarement) ---------- */
 var PAUSE_APRES_MASSAGE = 15;     // minutes bloquées après chaque massage
 var PRECISION_DES_CRENEAUX = 15;  // les créneaux commencent toutes les 15 minutes
-var DELAI_MINIMUM = 2;            // heures : on ne peut pas réserver moins de 2 h à l'avance
+var DELAI_MINIMUM = 0;            // heures : 0 = réservation possible à la dernière minute
 var NOMBRE_DE_SEMAINES = 2;       // nombre de semaines affichées

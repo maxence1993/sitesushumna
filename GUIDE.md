@@ -106,7 +106,7 @@ Sur la page « Disponibilités », le client choisit d'abord **la durée** (1 h,
 - que le massage se termine avant la fin de vos horaires ;
 - qu'il ne chevauche pas un massage déjà réservé ;
 - qu'il reste **15 minutes de pause après chaque massage** ;
-- qu'on ne réserve pas moins de 2 heures à l'avance.
+- qu'on ne réserve pas un horaire déjà passé (la réservation de dernière minute est possible).
 
 Quand un client touche une heure, il arrive sur le formulaire (ou peut passer par WhatsApp ou le téléphone). **Le rendez-vous n'est confirmé que par vous.** Le site ne bloque pas le créneau tout seul : c'est vous qui l'ajoutez dans la liste des massages réservés (voir plus bas).
 
@@ -117,12 +117,12 @@ Vous n'avez **plus besoin de recopier les semaines** : il suffit de tenir à jou
 ```
 var HORAIRES_HABITUELS = {
   lundi:    "fermé",
-  mardi:    "13h45-17h00",
+  mardi:    "13h45-17h30",
   mercredi: "12h30-18h00, 21h00",
   ...
 };
 ```
-- Une plage : `"13h45-17h00"` (le massage doit être fini avant 17h00).
+- Une plage : `"13h45-17h30"` (le massage doit être fini avant 17h30).
 - Plusieurs plages : `"11h00-13h00, 15h00-21h00"`.
 - Une heure de début seule : `"21h00"` (le massage commence à 21h, quelle que soit sa durée).
 
@@ -130,8 +130,8 @@ var HORAIRES_HABITUELS = {
 
 ```
 var JOURS_PARTICULIERS = [
-  "01/11/2026 : fermé",
-  "07/11/2026 : 10h00-14h00",
+  "15/12/2026 : fermé",
+  "17/12/2026 : 10h00-14h00",
 ];
 ```
 
@@ -149,7 +149,7 @@ Le site bloque ce créneau et les 15 minutes qui suivent. Vous pouvez supprimer 
 
 ⚠️ Chaque ligne est entre guillemets `" "` et se termine par une virgule.
 
-**Réglages** (en bas du fichier) : la pause après chaque massage (15 min), la précision des créneaux (15 min), le délai minimum avant un rendez-vous (2 h) et le nombre de semaines affichées (2).
+**Réglages** (en bas du fichier) : la pause après chaque massage (15 min), la précision des créneaux (15 min), le délai minimum avant un rendez-vous (0 h : dernière minute possible) et le nombre de semaines affichées (2).
 
 ---
 
