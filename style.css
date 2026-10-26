@@ -136,10 +136,17 @@ p { margin: 0 0 1em; }
 .chiffres strong { display: block; font-family: var(--titres); font-size: 1.6rem; color: var(--or-texte); line-height: 1.2; }
 
 /* Cartes */
-.cartes { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); margin-top: 2rem; }
+.cartes { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); margin-top: 2rem; align-items: start; }
+@media (min-width: 960px) {
+  /* sur ordinateur : ayurvédique en 1er, sur mesure en 2e (alternance photo verticale / horizontale) */
+  #resume-massages .carte { order: 3; }
+  #resume-massages .carte:nth-child(1) { order: 2; }
+  #resume-massages .carte:nth-child(2) { order: 1; }
+}
 .carte { background: var(--creme); border: 1px solid var(--bordure); border-radius: var(--rayon); overflow: hidden; box-shadow: var(--ombre); display: flex; flex-direction: column; }
-.carte__photo { aspect-ratio: 3 / 2; flex: none; }
-.carte__photo img { position: absolute; inset: 0; }
+.carte__photo { flex: none; }
+.carte__photo img { height: auto; }
+.carte__photo.photo--absente { aspect-ratio: 3 / 2; }
 .carte__corps { padding: 1.3rem 1.4rem 1.5rem; display: flex; flex-direction: column; flex: 1; }
 .carte h3 { margin: 0 0 .3em; }
 .carte__accroche { color: var(--brun-doux); flex: 1; }
@@ -172,14 +179,14 @@ p { margin: 0 0 1em; }
 .sommaire a:hover { border-color: var(--or); background: var(--or-clair); }
 
 .massage { display: grid; gap: 2rem; background: var(--creme); border: 1px solid var(--bordure); border-radius: calc(var(--rayon) + 6px); box-shadow: var(--ombre); overflow: hidden; margin-bottom: 2.5rem; scroll-margin-top: 110px; }
-.massage__photo { aspect-ratio: 4 / 3; }
-.massage__photo img { position: absolute; inset: 0; }
+.massage__photo { display: flex; align-items: flex-start; background: none; }
+.massage__photo img { height: auto; }
+.massage__photo.photo--absente { min-height: 260px; }
 .massage__texte { padding: 0 1.4rem 1.8rem; }
 .massage h2 { margin-bottom: .1em; }
 .massage__accroche { font-family: var(--titres); font-style: italic; font-size: 1.2rem; color: var(--or-texte); }
 @media (min-width: 900px) {
   .massage { grid-template-columns: 2fr 3fr; gap: 0; }
-  .massage__photo { aspect-ratio: auto; min-height: 100%; }
   .massage__texte { padding: 2.2rem 2.4rem; }
   .massage:nth-of-type(even) .massage__photo { order: 2; }
 }
