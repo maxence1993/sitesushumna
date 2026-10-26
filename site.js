@@ -231,6 +231,26 @@
     }
   }
 
+  /* ---------- Avis clients (page d'accueil) ---------- */
+  var sectionAvis = $("#avis");
+  if (sectionAvis) {
+    var avis = window.AVIS || [];
+    var lienVoir = window.LIEN_VOIR_AVIS || "";
+    var lienDeposer = window.LIEN_DEPOSER_AVIS || "";
+    if (avis.length || lienVoir || lienDeposer) {
+      sectionAvis.hidden = false;
+      $("#liste-avis").innerHTML = avis.map(function (a) {
+        var n = Math.max(0, Math.min(5, a.etoiles == null ? 5 : a.etoiles));
+        return '<figure class="avis"><p class="avis__etoiles" role="img" aria-label="' + n + ' étoiles sur 5">' +
+          "★★★★★".slice(0, n) + '</p><blockquote>« ' + echapper(a.texte) + ' »</blockquote>' +
+          '<figcaption>' + echapper(a.nom) + ' · avis Google</figcaption></figure>';
+      }).join("");
+      $("#liens-avis").innerHTML =
+        (lienVoir ? '<a class="bouton" href="' + echapper(lienVoir) + '" target="_blank" rel="noopener">Voir tous les avis Google</a>' : "") +
+        (lienDeposer ? '<a class="bouton bouton--or" href="' + echapper(lienDeposer) + '" target="_blank" rel="noopener">Laisser un avis</a>' : "");
+    }
+  }
+
   /* ---------- Page « Contact » : formulaire ---------- */
   var formulaire = $("#formulaire-rdv");
   if (formulaire) {
@@ -250,6 +270,10 @@
     });
 
     var params = new URLSearchParams(location.search);
+    if (params.get("cadeau")) {
+      var zoneMessage = $("#message", formulaire);
+      if (zoneMessage && !zoneMessage.value) zoneMessage.value = "Bonjour, je souhaiterais offrir une carte cadeau.\n\nMassage ou durée souhaités : ";
+    }
     if (params.get("massage")) choixMassage.value = params.get("massage");
     var creneau = params.get("creneau");
     if (creneau) {
