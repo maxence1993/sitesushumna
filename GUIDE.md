@@ -98,64 +98,58 @@ Et si vous êtes bloqué, demandez-moi : je peux aussi corriger ou annuler pour 
 
 ---
 
-## 1. Mettre à jour le planning de la semaine
+## 1. Le planning et les réservations
 
 Fichier : **`mes-contenus/planning.js`**
 
-Chaque semaine ressemble à ceci :
+Sur la page « Disponibilités », le client choisit d'abord **la durée** (1 h, 1 h 30 ou 2 h), puis le site lui montre **toutes les heures de début possibles**, de 15 minutes en 15 minutes, sur la semaine en cours et la suivante. Le site calcule tout seul :
+- que le massage se termine avant la fin de vos horaires ;
+- qu'il ne chevauche pas un massage déjà réservé ;
+- qu'il reste **15 minutes de pause après chaque massage** ;
+- qu'on ne réserve pas un horaire déjà passé (la réservation de dernière minute est possible).
+
+Quand un client touche une heure, il arrive sur le formulaire (ou peut passer par WhatsApp ou le téléphone). **Le rendez-vous n'est confirmé que par vous.** Le site ne bloque pas le créneau tout seul : c'est vous qui l'ajoutez dans la liste des massages réservés (voir plus bas).
+
+Vous n'avez **plus besoin de recopier les semaines** : il suffit de tenir à jour 3 choses.
+
+**a) Vos horaires habituels** (à changer rarement)
 
 ```
-  {
-    semaine:  "02/11/2026",
-    lundi:    "9h00 libre, 10h30 pris, 14h00 libre",
-    mardi:    "9h00 pris, 14h00 libre",
-    ...
-    dimanche: "fermé"
-  },
+var HORAIRES_HABITUELS = {
+  lundi:    "fermé",
+  mardi:    "13h45-17h30",
+  mercredi: "12h30-18h00, 21h00",
+  ...
+};
 ```
+- Une plage : `"13h45-17h30"` (le massage doit être fini avant 17h30).
+- Plusieurs plages : `"11h00-13h00, 15h00-21h00"`.
+- Une heure de début seule : `"21h00"` (le massage commence à 21h, quelle que soit sa durée).
 
-- **semaine** : la date du **lundi**, sous la forme jour/mois/année.
-- Pour chaque jour : les heures, séparées par des **virgules**, avec le mot **libre** ou **pris**.
-- Un jour où vous ne travaillez pas : `"fermé"`.
-- Quelqu'un réserve ? Remplacez simplement `libre` par `pris`.
-
-**Quand quelqu'un réserve (ou annule) :**
-1. Ouvrez `mes-contenus/planning.js` puis cliquez sur le crayon ✏️ (voir partie 0).
-2. Trouvez le bon jour dans la bonne semaine.
-3. Remplacez le mot `libre` par `pris` devant l'heure réservée (ou `pris` par `libre` en cas d'annulation).
-4. Enregistrez avec « Commit changes ».
-
-**Chaque semaine (par exemple le dimanche soir), pour ajouter la semaine suivante :**
-1. Ouvrez `mes-contenus/planning.js` puis cliquez sur le crayon ✏️.
-2. Sélectionnez le bloc de la dernière semaine : de l'accolade `{` jusqu'à `}` compris, puis copiez-le.
-3. Juste après ce `}`, ajoutez une **virgule**, passez à la ligne et collez.
-4. Dans le bloc collé, changez la date `semaine` (la date du lundi suivant) et les créneaux.
-5. Vous pouvez supprimer le bloc de la semaine passée (sinon, le site le cache tout seul).
-6. En haut du fichier, changez la date : `PLANNING_MIS_A_JOUR_LE = "25/10/2026";`
-7. Enregistrez avec « Commit changes ».
-
-Exemple de fin de fichier avec deux semaines (observez bien la virgule entre les deux blocs, et le `];` tout à la fin) :
+**b) Les jours particuliers** (vacances, horaires différents un jour précis)
 
 ```
-  {
-    semaine:  "02/11/2026",
-    lundi:    "9h00 libre, 10h30 pris",
-    ...
-    dimanche: "fermé"
-  },
-  {
-    semaine:  "09/11/2026",
-    lundi:    "9h00 libre, 10h30 libre",
-    ...
-    dimanche: "fermé"
-  }
-
+var JOURS_PARTICULIERS = [
+  "15/12/2026 : fermé",
+  "17/12/2026 : 10h00-14h00",
 ];
 ```
 
-Le site affiche tout seul **la semaine en cours et la suivante**, et grise les créneaux déjà passés.
+**c) Les massages réservés** : à chaque nouveau rendez-vous, ajoutez une ligne avec la date, l'heure de début et la durée :
 
-⚠️ À garder en place : les guillemets `" "`, la virgule à la fin de chaque ligne, et la virgule après `}` entre deux semaines.
+```
+var MASSAGES_RESERVES = [
+  "27/10/2026 14h00 1h30",
+  "30/10/2026 11h00 1h",
+];
+```
+Le site bloque ce créneau et les 15 minutes qui suivent. Vous pouvez supprimer les lignes des jours passés de temps en temps.
+
+**Annulation** : supprimez simplement la ligne du rendez-vous.
+
+⚠️ Chaque ligne est entre guillemets `" "` et se termine par une virgule.
+
+**Réglages** (en bas du fichier) : la pause après chaque massage (15 min), la précision des créneaux (15 min), le délai minimum avant un rendez-vous (0 h : dernière minute possible) et le nombre de semaines affichées (2).
 
 ---
 
@@ -171,7 +165,7 @@ var TARIFS = [
 ];
 ```
 
-Changez seulement les nombres (sans le signe €). Juste en dessous, la partie `FORMULES` contient la formule 4 massages.
+Changez seulement les prix (sans le signe €). Le nombre `minutes` est la durée du massage utilisée par le planning : ne le changez que si la durée change. Juste en dessous, la partie `FORMULES` contient la formule 4 massages.
 Les nouveaux prix apparaissent partout : accueil, massages, tarifs et formulaire.
 
 ---

@@ -1,43 +1,70 @@
 /* =====================================================================
    MON PLANNING
    ---------------------------------------------------------------------
-   À mettre à jour chaque semaine.
+   Le site calcule tout seul les créneaux libres des 2 prochaines
+   semaines, de 15 minutes en 15 minutes, pour la durée choisie
+   par le client (1 h, 1 h 30 ou 2 h).
 
-   Pour chaque jour, écrivez les heures séparées par des virgules,
-   suivies du mot  libre  ou  pris.   Exemple :
-        lundi: "9h00 libre, 10h30 pris, 14h00 libre",
+   Vous n'avez que 3 choses à tenir à jour :
+     1. vos HORAIRES HABITUELS (à changer rarement)
+     2. les JOURS PARTICULIERS (vacances, horaires différents un jour précis)
+     3. les MASSAGES RÉSERVÉS (à chaque nouveau rendez-vous)
 
-   - Un jour où vous ne travaillez pas :   dimanche: "fermé",
-   - La date de « semaine » est celle du LUNDI (jour/mois/année).
-   - Le site affiche tout seul la semaine en cours et la suivante.
-     Les semaines passées disparaissent toutes seules.
-   - Vous pouvez préparer plusieurs semaines à l'avance.
+   Règles d'écriture :
+   - Une plage d'horaires :            "13h45-17h00"
+   - Plusieurs plages le même jour :   "11h00-13h00, 15h00-21h00"
+   - Un horaire de début précis seul : "21h00"   (le massage commence
+     à 21h, quelle que soit sa durée)
+   - Un jour sans massage :            "fermé"
+   - Les dates s'écrivent jour/mois/année : 27/10/2026
    ===================================================================== */
 
-var PLANNING_MIS_A_JOUR_LE = "25/10/2026";
 
-var PLANNING = [
+/* ---------- 1. MES HORAIRES HABITUELS ----------
+   Les heures pendant lesquelles un massage peut avoir lieu.
+   Le massage doit être terminé avant la fin de la plage. */
+var HORAIRES_HABITUELS = {
+  lundi:    "fermé",
+  mardi:    "13h45-17h30",
+  mercredi: "12h30-18h00, 21h00",
+  jeudi:    "fermé",
+  vendredi: "11h00-21h00",
+  samedi:   "fermé",
+  dimanche: "12h00-20h00"
+};
 
-  {
-    semaine:  "26/10/2026",
-    lundi:    "9h00 libre, 10h30 pris, 14h00 libre, 15h30 pris, 17h00 libre, 18h30 libre",
-    mardi:    "9h00 pris, 10h30 pris, 14h00 libre, 15h30 libre, 17h00 pris, 18h30 libre",
-    mercredi: "9h00 libre, 10h30 libre, 14h00 pris, 15h30 libre, 17h00 libre, 18h30 pris",
-    jeudi:    "9h00 libre, 10h30 pris, 14h00 pris, 15h30 pris, 17h00 libre, 18h30 libre",
-    vendredi: "9h00 pris, 10h30 libre, 14h00 libre, 15h30 libre, 17h00 pris, 18h30 pris",
-    samedi:   "9h00 libre, 10h30 libre, 12h00 pris",
-    dimanche: "fermé"
-  },
 
-  {
-    semaine:  "02/11/2026",
-    lundi:    "9h00 libre, 10h30 libre, 14h00 libre, 15h30 pris, 17h00 libre, 18h30 libre",
-    mardi:    "9h00 libre, 10h30 pris, 14h00 libre, 15h30 libre, 17h00 libre, 18h30 pris",
-    mercredi: "9h00 pris, 10h30 libre, 14h00 libre, 15h30 libre, 17h00 libre, 18h30 libre",
-    jeudi:    "9h00 libre, 10h30 libre, 14h00 pris, 15h30 libre, 17h00 libre, 18h30 libre",
-    vendredi: "9h00 libre, 10h30 libre, 14h00 libre, 15h30 pris, 17h00 libre, 18h30 libre",
-    samedi:   "9h00 pris, 10h30 libre, 12h00 libre",
-    dimanche: "fermé"
-  }
-
+/* ---------- 2. LES JOURS PARTICULIERS ----------
+   Pour changer les horaires d'un jour précis (vacances, journée
+   exceptionnelle). Une ligne par jour, entre guillemets, suivie d'une
+   virgule. Exemples (à adapter) :
+     "15/12/2026 : fermé",
+     "17/12/2026 : 10h00-14h00",
+   Les jours qui ne sont pas dans cette liste suivent les horaires
+   habituels, jours fériés compris. */
+var JOURS_PARTICULIERS = [
+  "27/10/2026 : 14h00-21h00",
+  "28/10/2026 : 12h30-21h00",
+  "01/11/2026 : 14h00-17h00",
 ];
+
+
+/* ---------- 3. LES MASSAGES RÉSERVÉS ----------
+   À chaque nouveau rendez-vous, ajoutez une ligne :
+     "date  heure de début  durée",
+   Exemples :
+     "27/10/2026 14h00 1h30",
+     "30/10/2026 11h00 1h",
+   Le site bloque alors ce créneau, plus 15 minutes de pause après.
+   Vous pouvez supprimer les lignes des jours passés. */
+var MASSAGES_RESERVES = [
+  "27/10/2026 14h00 3h",
+  "30/10/2026 11h00 1h30",
+];
+
+
+/* ---------- 4. RÉGLAGES (à changer rarement) ---------- */
+var PAUSE_APRES_MASSAGE = 15;     // minutes bloquées après chaque massage
+var PRECISION_DES_CRENEAUX = 15;  // les créneaux commencent toutes les 15 minutes
+var DELAI_MINIMUM = 0;            // heures : 0 = réservation possible à la dernière minute
+var NOMBRE_DE_SEMAINES = 2;       // nombre de semaines affichées
