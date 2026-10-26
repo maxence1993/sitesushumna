@@ -25,7 +25,6 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { font-size: 112.5%; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-html.texte-grand { font-size: 131%; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
 
 body {
@@ -74,8 +73,6 @@ p { margin: 0 0 1em; }
 .barre-haut__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .3rem 1.2rem; padding: .35rem 0; }
 .barre-haut a { color: #fff; text-decoration: none; font-weight: 700; display: inline-flex; gap: .4em; align-items: center; }
 .barre-haut__adresse { display: none; }
-.bouton-texte { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,.6); border-radius: 999px; padding: .25em .9em; font: 700 .9rem var(--texte); cursor: pointer; min-height: 36px; }
-.bouton-texte[aria-pressed="true"] { background: #fff; color: var(--brun); }
 @media (min-width: 700px) { .barre-haut__adresse { display: inline; } }
 
 /* ---------- En-tête et menu ---------- */

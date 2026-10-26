@@ -46,24 +46,6 @@
     });
   }
 
-  /* ---------- Bouton « Agrandir le texte » ---------- */
-  var boutonTexte = $("[data-taille-texte]");
-  function appliquerTaille(grand) {
-    document.documentElement.classList.toggle("texte-grand", grand);
-    if (boutonTexte) {
-      boutonTexte.setAttribute("aria-pressed", grand ? "true" : "false");
-      boutonTexte.textContent = grand ? "A− Texte normal" : "A+ Agrandir le texte";
-    }
-  }
-  try { appliquerTaille(localStorage.getItem("texte-grand") === "oui"); } catch (e) { /* rien */ }
-  if (boutonTexte) {
-    boutonTexte.addEventListener("click", function () {
-      var grand = !document.documentElement.classList.contains("texte-grand");
-      appliquerTaille(grand);
-      try { localStorage.setItem("texte-grand", grand ? "oui" : "non"); } catch (e) { /* rien */ }
-    });
-  }
-
   /* ---------- Photos : image de remplacement tant qu'il n'y a pas de photo ---------- */
   function surveillerPhotos(racine) {
     $$(".photo img", racine).forEach(function (img) {
