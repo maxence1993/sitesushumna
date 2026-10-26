@@ -352,8 +352,14 @@ body { padding-bottom: 76px; }
 .etapes-simples li { margin-bottom: .8em; }
 
 /* ---------- Avis ---------- */
-.cartes--avis { grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); align-items: stretch; }
+.cartes--avis { display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch; }
+.cartes--avis .avis { flex: 0 1 100%; }
+@media (min-width: 700px) { .cartes--avis .avis { flex-basis: calc((100% - 1.5rem) / 2); } }
+@media (min-width: 1000px) { .cartes--avis .avis { flex-basis: calc((100% - 3rem) / 3); } }
 .avis { margin: 0; background: var(--sable); border: 1px solid var(--bordure); border-radius: var(--rayon); padding: 1.5rem; box-shadow: var(--ombre); display: flex; flex-direction: column; }
 .avis__etoiles { color: #b9801a; font-size: 1.5rem; letter-spacing: .1em; margin: 0 0 .4rem; }
-.avis blockquote { margin: 0 0 1rem; font-family: var(--titres); font-style: italic; font-size: 1.1rem; flex: 1; }
+.avis blockquote { margin: 0 0 1rem; font-family: var(--titres); font-style: italic; font-size: 1.05rem; flex: 1; white-space: pre-line; }
+.avis blockquote.replie { display: -webkit-box; -webkit-line-clamp: 8; line-clamp: 8; -webkit-box-orient: vertical; overflow: hidden; flex: none; }
+.avis__suite { align-self: flex-start; background: none; border: 0; padding: .3rem 0; margin: -.4rem 0 1rem; color: var(--or-texte); font: 800 .95rem var(--texte); text-decoration: underline; cursor: pointer; }
+.avis__espace { flex: 1; }
 .avis figcaption { font-weight: 800; color: var(--brun-doux); font-size: .95rem; }
