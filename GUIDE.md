@@ -285,3 +285,30 @@ Pour `m-sushumna.fr` : chez votre fournisseur, demandez une **redirection** vers
 
 ### c) Dernière étape
 Dans `mentions-legales.html`, l'hébergeur indiqué est GitHub. Si un jour vous changez d'hébergeur, pensez à le modifier.
+
+---
+
+## 9. Les avis Google sur le site
+
+Le site peut afficher vos meilleurs avis Google sur la page d'accueil, avec deux boutons : « Voir tous les avis Google » et « Laisser un avis ». Tant que rien n'est rempli, cette partie reste cachée.
+
+Fichier : **`mes-contenus/avis.js`**
+
+1. **Les liens** : dans Google Business Profile, trouvez le lien « Demander des avis » (pour laisser un avis) et le lien de votre fiche (pour voir les avis). Collez-les entre les guillemets de `LIEN_DEPOSER_AVIS` et `LIEN_VOIR_AVIS`.
+2. **Les avis** : recopiez vos plus beaux avis, **mot pour mot**, avec le prénom seulement. Un exemple est donné dans le fichier : retirez les `/*` et `*/` autour, et remplacez la ligne `var AVIS = [];` par le bloc.
+
+Les avis ne se mettent pas à jour tout seuls : c'est vous qui choisissez ceux que vous montrez.
+
+---
+
+## 10. Être visible sur Google (« massage Orléans »)
+
+Le site est déjà préparé : titres et descriptions des pages, texte sur Orléans, fiche d'entreprise cachée pour Google, plan du site (`sitemap.xml`). Personne ne peut garantir une place sur Google, mais voici ce qui aide vraiment, par ordre d'importance :
+
+1. **Créer votre fiche Google Business Profile** (gratuit) sur **google.com/business** : nom « Sushumna », catégorie « Masseur » ou « Centre de massage », adresse 4 cours Victor Hugo, téléphone, horaires, photos, lien du site. Google vous envoie un code par courrier ou par téléphone pour confirmer. C'est ce qui fait apparaître votre cabinet sur la carte quand on cherche « massage Orléans ».
+2. **Demander des avis** à vos clients satisfaits (avec le lien de votre fiche) : les avis comptent beaucoup.
+3. **Déclarer le site à Google** : sur **search.google.com/search-console**, ajoutez `massage-sushumna.com`, puis envoyez le plan du site : `https://massage-sushumna.com/sitemap.xml`.
+4. **Mettre le même nom, la même adresse et le même numéro** partout (Instagram, Google, annuaires) : « Sushumna – 4 cours Victor Hugo, 45100 Orléans – 07 50 46 01 10 ».
+5. Garder le site **à jour** (planning, photos) : Google aime les sites vivants.
+
+Il faut parfois **plusieurs semaines** avant de voir les premiers effets.
