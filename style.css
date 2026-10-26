@@ -25,7 +25,6 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { font-size: 112.5%; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-html.texte-grand { font-size: 131%; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
 
 body {
@@ -74,8 +73,6 @@ p { margin: 0 0 1em; }
 .barre-haut__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .3rem 1.2rem; padding: .35rem 0; }
 .barre-haut a { color: #fff; text-decoration: none; font-weight: 700; display: inline-flex; gap: .4em; align-items: center; }
 .barre-haut__adresse { display: none; }
-.bouton-texte { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,.6); border-radius: 999px; padding: .25em .9em; font: 700 .9rem var(--texte); cursor: pointer; min-height: 36px; }
-.bouton-texte[aria-pressed="true"] { background: #fff; color: var(--brun); }
 @media (min-width: 700px) { .barre-haut__adresse { display: inline; } }
 
 /* ---------- En-tête et menu ---------- */
@@ -132,7 +129,7 @@ p { margin: 0 0 1em; }
 
 .deux-colonnes { display: grid; gap: 2.5rem; align-items: center; }
 @media (min-width: 900px) { .deux-colonnes { grid-template-columns: 1fr 1fr; gap: 4rem; } .deux-colonnes--inverse > :first-child { order: 2; } }
-.photo-arrondie { border-radius: var(--rayon); overflow: hidden; box-shadow: var(--ombre); aspect-ratio: 4 / 3; }
+.photo-arrondie { border-radius: var(--rayon); overflow: hidden; box-shadow: var(--ombre); aspect-ratio: 4 / 5; max-width: 480px; margin-inline: auto; width: 100%; }
 .signature { font-family: var(--titres); font-style: italic; font-size: 1.3rem; color: var(--or-texte); }
 .chiffres { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1.5rem 0; }
 .chiffres div { background: var(--creme); border: 1px solid var(--bordure); border-radius: var(--rayon); padding: .8rem 1.2rem; }
@@ -141,7 +138,8 @@ p { margin: 0 0 1em; }
 /* Cartes */
 .cartes { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); margin-top: 2rem; }
 .carte { background: var(--creme); border: 1px solid var(--bordure); border-radius: var(--rayon); overflow: hidden; box-shadow: var(--ombre); display: flex; flex-direction: column; }
-.carte__photo { aspect-ratio: 3 / 2; }
+.carte__photo { aspect-ratio: 3 / 2; flex: none; }
+.carte__photo img { position: absolute; inset: 0; }
 .carte__corps { padding: 1.3rem 1.4rem 1.5rem; display: flex; flex-direction: column; flex: 1; }
 .carte h3 { margin: 0 0 .3em; }
 .carte__accroche { color: var(--brun-doux); flex: 1; }
@@ -153,7 +151,7 @@ p { margin: 0 0 1em; }
 .etapes h3 { margin-top: 0; }
 
 .galerie { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); margin-top: 2rem; }
-.galerie .photo { aspect-ratio: 1; border-radius: var(--rayon); overflow: hidden; }
+.galerie .photo { aspect-ratio: 3 / 4; border-radius: var(--rayon); overflow: hidden; }
 
 .appel { background: linear-gradient(135deg, var(--brun) 0%, #5b3f26 100%); color: #fff; text-align: center; }
 .appel h2, .appel p { color: #fff; }
@@ -174,12 +172,14 @@ p { margin: 0 0 1em; }
 .sommaire a:hover { border-color: var(--or); background: var(--or-clair); }
 
 .massage { display: grid; gap: 2rem; background: var(--creme); border: 1px solid var(--bordure); border-radius: calc(var(--rayon) + 6px); box-shadow: var(--ombre); overflow: hidden; margin-bottom: 2.5rem; scroll-margin-top: 110px; }
-.massage__photo { min-height: 260px; }
+.massage__photo { aspect-ratio: 4 / 3; }
+.massage__photo img { position: absolute; inset: 0; }
 .massage__texte { padding: 0 1.4rem 1.8rem; }
 .massage h2 { margin-bottom: .1em; }
 .massage__accroche { font-family: var(--titres); font-style: italic; font-size: 1.2rem; color: var(--or-texte); }
 @media (min-width: 900px) {
   .massage { grid-template-columns: 2fr 3fr; gap: 0; }
+  .massage__photo { aspect-ratio: auto; min-height: 100%; }
   .massage__texte { padding: 2.2rem 2.4rem; }
   .massage:nth-of-type(even) .massage__photo { order: 2; }
 }

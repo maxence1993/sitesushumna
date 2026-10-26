@@ -26,6 +26,7 @@
   function identifiant(nom) {
     return String(nom).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   }
+  function cadrage(m) { return m.cadrage ? ' style="object-position:' + echapper(m.cadrage) + '"' : ""; }
   function prix(n) { return n + " €"; }
   function lienWhatsapp(texte) { return "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(texte); }
 
@@ -43,24 +44,6 @@
         boutonMenu.setAttribute("aria-expanded", "false");
         boutonMenu.focus();
       }
-    });
-  }
-
-  /* ---------- Bouton « Agrandir le texte » ---------- */
-  var boutonTexte = $("[data-taille-texte]");
-  function appliquerTaille(grand) {
-    document.documentElement.classList.toggle("texte-grand", grand);
-    if (boutonTexte) {
-      boutonTexte.setAttribute("aria-pressed", grand ? "true" : "false");
-      boutonTexte.textContent = grand ? "A− Texte normal" : "A+ Agrandir le texte";
-    }
-  }
-  try { appliquerTaille(localStorage.getItem("texte-grand") === "oui"); } catch (e) { /* rien */ }
-  if (boutonTexte) {
-    boutonTexte.addEventListener("click", function () {
-      var grand = !document.documentElement.classList.contains("texte-grand");
-      appliquerTaille(grand);
-      try { localStorage.setItem("texte-grand", grand ? "oui" : "non"); } catch (e) { /* rien */ }
     });
   }
 
@@ -93,7 +76,7 @@
   if (resume) {
     resume.innerHTML = massages.map(function (m) {
       return '<article class="carte">' +
-        '<div class="carte__photo photo"><img src="photos/' + echapper(m.photo) + '" alt="" loading="lazy"></div>' +
+        '<div class="carte__photo photo"><img src="photos/' + echapper(m.photo) + '" alt="" loading="lazy"' + cadrage(m) + '></div>' +
         '<div class="carte__corps"><h3>' + echapper(m.nom) + '</h3>' +
         '<p class="carte__accroche">' + echapper(m.accroche) + '</p>' +
         '<a class="carte__lien" href="massages.html#' + identifiant(m.nom) + '">Découvrir ce massage<span class="cache"> : ' + echapper(m.nom) + '</span> →</a></div>' +
@@ -113,7 +96,7 @@
     liste.innerHTML = massages.map(function (m) {
       var apporte = (m.apporte || []).map(function (a) { return "<li>" + echapper(a) + "</li>"; }).join("");
       return '<article class="massage" id="' + identifiant(m.nom) + '">' +
-        '<div class="massage__photo photo"><img src="photos/' + echapper(m.photo) + '" alt="Photo : ' + echapper(m.nom) + '" loading="lazy"></div>' +
+        '<div class="massage__photo photo"><img src="photos/' + echapper(m.photo) + '" alt="Photo : ' + echapper(m.nom) + '" loading="lazy"' + cadrage(m) + '></div>' +
         '<div class="massage__texte">' +
           '<h2>' + echapper(m.nom) + '</h2>' +
           '<p class="massage__accroche">' + echapper(m.accroche) + '</p>' +
