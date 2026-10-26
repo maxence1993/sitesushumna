@@ -380,6 +380,13 @@
         bandeau.classList.add("visible");
       }
     }
+    // objet de l'e-mail reçu : prénom, nom, téléphone et créneau visibles tout de suite
+    formulaire.addEventListener("submit", function () {
+      var objet = $("input[name=_subject]", formulaire);
+      var morceaux = [$("#prenom", formulaire).value + " " + $("#nom", formulaire).value, $("#telephone", formulaire).value, $("#creneau", formulaire).value]
+        .map(function (t) { return t.trim(); }).filter(Boolean);
+      if (objet) objet.value = "Demande de rendez-vous – " + morceaux.join(" – ");
+    });
     var suite = $("input[name=_next]", formulaire);
     if (suite) suite.value = new URL("merci.html", location.href).href;
   }
