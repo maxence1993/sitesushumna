@@ -43,7 +43,9 @@ var HORAIRES_HABITUELS = {
    Les jours qui ne sont pas dans cette liste suivent les horaires
    habituels, jours fériés compris. */
 var JOURS_PARTICULIERS = [
-
+  "27/10/2026 : 14h00-21h00",
+  "28/10/2026 : 12h30-21h00",
+  "01/11/2026 : 14h00-17h00",
 ];
 
 
@@ -56,7 +58,8 @@ var JOURS_PARTICULIERS = [
    Le site bloque alors ce créneau, plus 15 minutes de pause après.
    Vous pouvez supprimer les lignes des jours passés. */
 var MASSAGES_RESERVES = [
-
+  "27/10/2026 14h00 3h",
+  "30/10/2026 11h00 1h30",
 ];
 
 
