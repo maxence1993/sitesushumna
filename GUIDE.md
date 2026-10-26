@@ -229,7 +229,13 @@ Le nom doit être **exactement** celui du tableau : en minuscules, sans accent, 
 
 **Astuce pour les massages** : au lieu de renommer la photo, vous pouvez aussi écrire son nom actuel dans `mes-contenus/massages-et-tarifs.js`, sur la ligne `photo: "…"` du massage. Exemple : `photo: "IMG_2041.jpg",`. Attention, le nom doit être recopié exactement, majuscules comprises.
 
-Conseils : photos au format JPG, de préférence pas trop lourdes (moins de 1 Mo, environ 1600 pixels de large). Sur téléphone, l'option « taille moyenne » au moment du partage suffit.
+**Taille et format des photos**
+- Format **JPG** obligatoire (pas de HEIC, PNG ni PDF).
+- Gardez-les **légères** : idéalement moins de 500 Ko, environ 1000 à 1400 pixels de large. Une photo directement sortie du téléphone pèse 10 à 18 Mo : elle ralentit beaucoup le site. Si vous n'arrivez pas à les réduire, envoyez-les-moi, je m'en occupe.
+- Formats conseillés : photo d'accueil et portrait **verticaux** (4:5), photos d'ambiance **verticales** (3:4). Les photos des massages peuvent être verticales ou horizontales : le site les coupe automatiquement pour qu'elles tiennent dans leur cadre.
+
+**Choisir la partie visible d'une photo de massage**
+Quand une photo est coupée, le site garde par défaut le milieu. Pour garder une autre partie (par exemple les mains, qui sont plus bas), changez la ligne `cadrage` du massage dans `mes-contenus/massages-et-tarifs.js` : `cadrage: "50% 30%"` (le 2e nombre est la hauteur : 0% = le haut de la photo, 100% = le bas).
 
 ---
 

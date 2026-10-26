@@ -35,6 +35,9 @@ var FORMULES = [
    - nom        : le nom affiché
    - accroche   : une petite phrase sous le nom
    - photo      : le nom du fichier photo, à déposer dans le dossier « photos »
+   - cadrage    : la partie de la photo qui reste visible quand elle est coupée
+                  (« 50% 30% » = au milieu, un peu vers le haut ; 0% = tout en haut,
+                  100% = tout en bas). Vous pouvez supprimer cette ligne.
    - consiste   : en quoi consiste le massage
    - pourQui    : à qui il s'adresse
    - apporte    : ce qu'il peut apporter (une ligne par élément)
@@ -45,6 +48,7 @@ var MASSAGES = [
     nom: "Massage sur mesure",
     accroche: "Construit avec vous, selon vos besoins du jour",
     photo: "massage-sur-mesure.jpg",
+    cadrage: "50% 30%",
     consiste: "Nous prenons d'abord le temps d'échanger : vos envies, vos zones de tension, votre état du moment. Je compose ensuite un massage qui peut mêler toutes les techniques que je pratique (relaxant, ayurvédique, Chong Mai, bol tibétain, réflexologie abdominale).",
     pourQui: "Pour vous si vous hésitez entre plusieurs massages, ou si vous souhaitez un moment entièrement personnalisé.",
     apporte: [
@@ -58,6 +62,7 @@ var MASSAGES = [
     nom: "Massage ayurvédique (indien)",
     accroche: "Tonique et énergisant",
     photo: "massage-ayurvedique.jpg",
+    cadrage: "50% 62%",
     consiste: "Inspiré de la tradition indienne, ce massage à l'huile chaude alterne des gestes enveloppants et des mouvements plus dynamiques sur l'ensemble du corps. Les huiles sont choisies selon votre peau et vos envies.",
     pourQui: "Pour vous si vous vous sentez fatigué, « lourd » ou en manque d'énergie, et si vous aimez les massages plutôt toniques.",
     apporte: [
@@ -72,6 +77,7 @@ var MASSAGES = [
     nom: "Massage relaxant",
     accroche: "Relâche et apaise",
     photo: "massage-relaxant.jpg",
+    cadrage: "50% 35%",
     consiste: "Un massage doux et enveloppant, avec des gestes lents et fluides. Il invite le corps à relâcher ses tensions et l'esprit à ralentir.",
     pourQui: "Idéal dans une période de stress ou de fatigue. C'est aussi un très bon choix pour un tout premier massage.",
     apporte: [
@@ -85,6 +91,7 @@ var MASSAGES = [
     nom: "Massage Chong Mai (chinois)",
     accroche: "Pour retrouver son axe et son élan",
     photo: "massage-chong-mai.jpg",
+    cadrage: "50% 45%",
     consiste: "Issu de la tradition chinoise, ce massage énergétique suit l'axe central du corps. Il associe des pressions, des étirements doux et des gestes lents pour aider à rééquilibrer les énergies.",
     pourQui: "Pour vous si vous traversez une période de changement ou de doute : une décision personnelle ou professionnelle à prendre, un moment difficile (séparation, deuil, déception), un manque de confiance en vous.",
     apporte: [
@@ -98,6 +105,7 @@ var MASSAGES = [
     nom: "Massage au bol tibétain",
     accroche: "Se laisser porter par les vibrations du son",
     photo: "massage-bol-tibetain.jpg",
+    cadrage: "50% 50%",
     consiste: "Des bols chantants sont posés sur le corps ou autour de vous, puis frappés doucement. Leurs sons et leurs vibrations se diffusent dans tout le corps, associés à des gestes de massage doux.",
     pourQui: "Pour vous si vous avez du mal à « lâcher prise », si votre esprit tourne en boucle, ou si vous avez envie de découvrir une expérience nouvelle.",
     apporte: [
@@ -111,6 +119,7 @@ var MASSAGES = [
     nom: "Réflexologie abdominale",
     accroche: "Libérer les maux… et les mots",
     photo: "reflexologie-abdominale.jpg",
+    cadrage: "50% 45%",
     consiste: "Le ventre est une zone où l'on garde souvent le stress, les tensions et les émotions. Par des gestes doux et précis sur l'abdomen, cette technique relie le corps, le mental et les émotions.",
     pourQui: "Pour vous si vous vous sentez « noué », si le stress se loge dans votre ventre, ou si vous avez besoin de déposer ce qui vous pèse.",
     apporte: [
