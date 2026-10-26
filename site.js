@@ -145,89 +145,163 @@
     }).join("");
   }
 
-  /* ---------- Page « Disponibilités » ---------- */
+  /* ---------- Page « Disponibilités » : réservation en ligne ---------- */
   function lireDate(texte) {
     var m = String(texte || "").trim().match(/^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{2,4})$/);
     if (!m) return null;
     var annee = +m[3] < 100 ? 2000 + +m[3] : +m[3];
-    var d = new Date(annee, +m[2] - 1, +m[1]);
-    // on se cale toujours sur le lundi de la semaine
-    d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
-    return d;
+    return new Date(annee, +m[2] - 1, +m[1]);
   }
-  function memeJour(a, b) { return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); }
+  function cleJour(d) { return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate(); }
+  function memeJour(a, b) { return cleJour(a) === cleJour(b); }
   function jourMois(d) { return (d.getDate() === 1 ? "1er" : d.getDate()) + " " + MOIS[d.getMonth()]; }
-  function lireCreneaux(texte) {
+  function nomJour(d) { return JOURS[(d.getDay() + 6) % 7]; }
+  // « 13h45 » → 825 minutes après minuit
+  function lireHeure(texte) {
+    var m = String(texte || "").trim().match(/^(\d{1,2})\s*[h:]\s*(\d{0,2})$/i);
+    if (!m) return null;
+    return +m[1] * 60 + (m[2] ? +(m[2].length === 1 ? m[2] + "0" : m[2]) : 0);
+  }
+  function ecrireHeure(min) { var h = Math.floor(min / 60), m = min % 60; return h + "h" + (m < 10 ? "0" : "") + m; }
+  // « 1h30 », « 1h », « 90 » → minutes
+  function lireDuree(texte) {
+    texte = String(texte || "").trim().toLowerCase();
+    var m = texte.match(/^(\d+)\s*h\s*(\d{0,2})/);
+    if (m) return +m[1] * 60 + (m[2] ? +m[2] : 0);
+    m = texte.match(/^(\d+)\s*(min)?$/);
+    return m ? +m[1] : null;
+  }
+  // « 12h30-18h00, 21h00 » → [{debut, fin}] ; fin = null pour un horaire de début seul
+  function lirePlages(texte) {
     texte = String(texte || "").trim();
-    if (!texte || /^ferm/i.test(texte)) return null;
-    return texte.split(/[,;\n]+/).map(function (morceau) {
-      var m = morceau.trim().match(/^(\d{1,2})\s*[h:]\s*(\d{0,2})\s*(.*)$/i);
-      if (!m) return null;
-      var minutes = m[2] ? (m[2].length === 1 ? m[2] + "0" : m[2]) : "00";
-      var libre = /libre|dispo/i.test(m[3]);
-      return { heure: +m[1] + "h" + minutes, h: +m[1], min: +minutes, libre: libre };
+    if (!texte || /^ferm/i.test(texte)) return [];
+    return texte.split(/[,;]+/).map(function (morceau) {
+      var parts = morceau.split(/\s*(?:-|–|à)\s*/);
+      var debut = lireHeure(parts[0]);
+      if (debut == null) return null;
+      var fin = parts.length > 1 ? lireHeure(parts[1]) : null;
+      return { debut: debut, fin: fin };
     }).filter(Boolean);
   }
+  function lireListe(nom) { var v = window[nom]; return Array.isArray(v) ? v : []; }
 
   var zonePlanning = $("#planning");
   if (zonePlanning) {
-    var maintenant = new Date();
-    var aujourdhui = new Date(maintenant.getFullYear(), maintenant.getMonth(), maintenant.getDate());
-    var lundiCourant = new Date(aujourdhui); lundiCourant.setDate(aujourdhui.getDate() - ((aujourdhui.getDay() + 6) % 7));
-    var lundiSuivant = new Date(lundiCourant); lundiSuivant.setDate(lundiCourant.getDate() + 7);
+    var pause = +window.PAUSE_APRES_MASSAGE || 0;
+    var pas = +window.PRECISION_DES_CRENEAUX || 15;
+    var delai = (window.DELAI_MINIMUM == null ? 2 : +window.DELAI_MINIMUM) * 60;
+    var nbSemaines = +window.NOMBRE_DE_SEMAINES || 2;
+    var habituels = window.HORAIRES_HABITUELS || {};
 
-    var semaines = (window.PLANNING || []).map(function (s) {
-      return { debut: lireDate(s.semaine), donnees: s };
-    }).filter(function (s) {
-      if (!s.debut) return false;
-      var fin = new Date(s.debut); fin.setDate(fin.getDate() + 7);
-      return fin > aujourdhui;
-    }).sort(function (a, b) { return a.debut - b.debut; }).slice(0, 2);
+    var particuliers = {};
+    lireListe("JOURS_PARTICULIERS").forEach(function (ligne) {
+      var m = String(ligne).match(/^\s*([\d\/.\-]+)\s*:?\s*(.*)$/);
+      var d = m && lireDate(m[1]);
+      if (d) particuliers[cleJour(d)] = m[2];
+    });
+    var reserves = {};
+    lireListe("MASSAGES_RESERVES").forEach(function (ligne) {
+      var m = String(ligne).trim().split(/\s+/);
+      var d = lireDate(m[0]), debut = lireHeure(m[1]), duree = lireDuree(m.slice(2).join(""));
+      if (!d || debut == null || !duree) return;
+      (reserves[cleJour(d)] = reserves[cleJour(d)] || []).push({ debut: debut, fin: debut + duree });
+    });
 
-    if (!semaines.length) {
-      zonePlanning.innerHTML = '<div class="encadre encadre--info"><h2>Le planning est en cours de mise à jour</h2>' +
-        '<p>Appelez-moi au <a href="tel:+33750460110">' + TELEPHONE + '</a> ou écrivez-moi sur <a href="' + lienWhatsapp("Bonjour Maxence, je souhaiterais prendre rendez-vous.") + '">WhatsApp</a> : je vous donne mes disponibilités avec plaisir.</p></div>';
-    } else {
-      zonePlanning.innerHTML = semaines.map(function (s) {
-        var fin = new Date(s.debut); fin.setDate(fin.getDate() + 6);
-        var badge = memeJour(s.debut, lundiCourant) ? "Cette semaine" : memeJour(s.debut, lundiSuivant) ? "Semaine prochaine" : "";
-        var nbLibres = 0;
-        var jours = JOURS.map(function (nomJour, i) {
-          var date = new Date(s.debut); date.setDate(s.debut.getDate() + i);
-          var creneaux = lireCreneaux(s.donnees[nomJour]);
-          var estAujourdhui = memeJour(date, aujourdhui);
-          var contenu;
-          if (!creneaux || !creneaux.length) {
-            contenu = '<p class="jour__ferme">Fermé</p>';
-          } else {
-            contenu = '<ul class="creneaux">' + creneaux.map(function (c) {
-              var debut = new Date(date); debut.setHours(c.h, c.min);
-              var quand = nomJour + " " + jourMois(date) + " à " + c.heure;
-              if (debut < maintenant) {
-                return '<li><span class="creneau creneau--passe"><span class="creneau__heure">' + c.heure + '</span><span class="creneau__etat">Passé</span></span></li>';
-              }
-              if (c.libre) {
-                nbLibres++;
-                return '<li><a class="creneau creneau--libre" href="contact.html?creneau=' + encodeURIComponent(quand) + '#rendez-vous" aria-label="Réserver le ' + quand + ' (libre)">' +
-                  '<span class="creneau__heure">' + c.heure + '</span><span class="creneau__etat">' + icone("check") + 'Libre</span></a></li>';
-              }
-              return '<li><span class="creneau creneau--pris" aria-label="' + quand + ' : déjà pris"><span class="creneau__heure">' + c.heure + '</span><span class="creneau__etat">Pris</span></span></li>';
-            }).join("") + "</ul>";
-          }
-          return '<div class="jour' + (estAujourdhui ? " jour--aujourdhui" : "") + '"><h3>' +
-            nomJour.charAt(0).toUpperCase() + nomJour.slice(1) + '<span>' + jourMois(date) + (estAujourdhui ? " · aujourd'hui" : "") + "</span></h3>" + contenu + "</div>";
-        }).join("");
-        return '<section class="semaine" aria-labelledby="sem-' + s.debut.getTime() + '">' +
-          '<div class="semaine__titre"><h2 id="sem-' + s.debut.getTime() + '">Semaine du ' + jourMois(s.debut) + " au " + jourMois(fin) + "</h2>" +
-          (badge ? '<span class="semaine__badge">' + badge + "</span>" : "") + "</div>" +
-          '<p class="semaine__resume">' + (nbLibres ? "<strong>" + nbLibres + " créneau" + (nbLibres > 1 ? "x" : "") + " libre" + (nbLibres > 1 ? "s" : "") + "</strong> — touchez un créneau vert pour le réserver." : "Plus de créneau libre cette semaine-là. N'hésitez pas à m'appeler : un créneau se libère parfois.") + "</p>" +
-          '<div class="jours">' + jours + "</div></section>";
-      }).join("");
+    // tous les horaires de début possibles pour un jour et une durée donnés
+    function creneauxDuJour(date, duree, maintenant) {
+      var cle = cleJour(date);
+      var plages = lirePlages(cle in particuliers ? particuliers[cle] : habituels[nomJour(date)]);
+      var pris = reserves[cle] || [];
+      var minimum = -Infinity;
+      if (memeJour(date, maintenant)) minimum = maintenant.getHours() * 60 + maintenant.getMinutes() + delai;
+      else if (date < maintenant) return null;
+      else {
+        var ecart = (date - new Date(maintenant.getFullYear(), maintenant.getMonth(), maintenant.getDate())) / 60000;
+        minimum = maintenant.getHours() * 60 + maintenant.getMinutes() + delai - ecart;
+      }
+      var resultat = [];
+      plages.forEach(function (p) {
+        var fin = p.fin == null ? p.debut : p.fin - duree;   // dernier début possible
+        for (var t = p.debut; t <= fin; t += pas) {
+          if (t < minimum) continue;
+          var libre = pris.every(function (r) { return t + duree + pause <= r.debut || t >= r.fin + pause; });
+          if (libre && resultat.indexOf(t) < 0) resultat.push(t);
+        }
+      });
+      return { ouvert: plages.length > 0, debuts: resultat.sort(function (a, b) { return a - b; }) };
     }
+
+    var zoneDurees = $("#choix-duree");
+    var params = new URLSearchParams(location.search);
+    var dureeChoisie = +params.get("duree") || 0;
+
+    zoneDurees.innerHTML = tarifs.map(function (t) {
+      var min = t.minutes || lireDuree(t.duree.replace(/heures?/, "h"));
+      return '<button type="button" class="duree" data-minutes="' + min + '" aria-pressed="false">' +
+        '<span class="duree__temps">' + echapper(t.duree) + '</span><span class="duree__prix">' + prix(t.prix) + '</span></button>';
+    }).join("");
+
+    function afficher(duree) {
+      $$(".duree", zoneDurees).forEach(function (b) { b.setAttribute("aria-pressed", +b.getAttribute("data-minutes") === duree ? "true" : "false"); });
+      var etape2 = $("#etape-creneau");
+      if (!duree) { etape2.hidden = true; return; }
+      etape2.hidden = false;
+      var tarif = tarifs.filter(function (t) { return (t.minutes || 0) === duree; })[0];
+      var libelle = tarif ? tarif.duree : ecrireHeure(duree).replace(/h00$/, "h");
+      $("#duree-rappel").textContent = libelle + (tarif ? " (" + prix(tarif.prix) + ")" : "");
+
+      var maintenant = new Date();
+      var lundi = new Date(maintenant.getFullYear(), maintenant.getMonth(), maintenant.getDate());
+      lundi.setDate(lundi.getDate() - ((lundi.getDay() + 6) % 7));
+      var html = "";
+      for (var s = 0; s < nbSemaines; s++) {
+        var debutSem = new Date(lundi); debutSem.setDate(lundi.getDate() + 7 * s);
+        var finSem = new Date(debutSem); finSem.setDate(debutSem.getDate() + 6);
+        var total = 0, lignes = "";
+        for (var j = 0; j < 7; j++) {
+          var date = new Date(debutSem); date.setDate(debutSem.getDate() + j);
+          var c = creneauxDuJour(date, duree, maintenant);
+          if (c === null) continue; // jour passé
+          var titre = '<h3 class="jour-ligne__nom">' + nomJour(date).charAt(0).toUpperCase() + nomJour(date).slice(1) +
+            ' <span>' + jourMois(date) + (memeJour(date, maintenant) ? " · aujourd'hui" : "") + '</span></h3>';
+          var contenu;
+          if (!c.ouvert) contenu = '<p class="jour-ligne__info">Fermé</p>';
+          else if (!c.debuts.length) contenu = '<p class="jour-ligne__info">Complet pour cette durée</p>';
+          else {
+            total += c.debuts.length;
+            contenu = '<ul class="heures">' + c.debuts.map(function (t) {
+              var quand = nomJour(date) + " " + jourMois(date) + " à " + ecrireHeure(t);
+              return '<li><a class="heure" href="contact.html?creneau=' + encodeURIComponent(quand + " (" + libelle + ")") +
+                '&duree=' + encodeURIComponent(libelle) + '#rendez-vous" aria-label="Réserver le ' + quand + ', fin à ' + ecrireHeure(t + duree) + '">' +
+                ecrireHeure(t) + '</a></li>';
+            }).join("") + '</ul>';
+          }
+          lignes += '<div class="jour-ligne' + (!c.ouvert || !c.debuts.length ? " jour-ligne--vide" : "") + '">' + titre + contenu + '</div>';
+        }
+        var badge = s === 0 ? "Cette semaine" : s === 1 ? "Semaine prochaine" : "";
+        html += '<section class="semaine"><div class="semaine__titre"><h2>Semaine du ' + jourMois(debutSem) + ' au ' + jourMois(finSem) + '</h2>' +
+          (badge ? '<span class="semaine__badge">' + badge + '</span>' : '') + '</div>' +
+          '<p class="semaine__resume">' + (total ? "<strong>" + total + " horaire" + (total > 1 ? "s" : "") + " possible" + (total > 1 ? "s" : "") + "</strong> pour un massage de " + libelle.toLowerCase() + "." :
+            "Plus de place cette semaine-là pour cette durée. Essayez une durée plus courte, ou appelez-moi : un créneau se libère parfois.") + '</p>' +
+          (lignes || '<p class="jour-ligne__info">Cette semaine est terminée.</p>') + '</section>';
+      }
+      zonePlanning.innerHTML = html;
+    }
+
+    zoneDurees.addEventListener("click", function (e) {
+      var bouton = e.target.closest(".duree");
+      if (!bouton) return;
+      dureeChoisie = +bouton.getAttribute("data-minutes");
+      afficher(dureeChoisie);
+      try { history.replaceState(null, "", "?duree=" + dureeChoisie); } catch (err) { /* rien */ }
+      $("#etape-creneau").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    afficher(dureeChoisie);
+
     var maj = $("#planning-maj");
     if (maj && window.PLANNING_MIS_A_JOUR_LE) {
-      var d = String(window.PLANNING_MIS_A_JOUR_LE).match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-      maj.textContent = "Planning mis à jour le " + (d ? jourMois(new Date(+d[3], +d[2] - 1, +d[1])) + " " + d[3] : window.PLANNING_MIS_A_JOUR_LE) + ".";
+      var dm = lireDate(window.PLANNING_MIS_A_JOUR_LE);
+      maj.textContent = "Planning mis à jour le " + (dm ? jourMois(dm) + " " + dm.getFullYear() : window.PLANNING_MIS_A_JOUR_LE) + ".";
     }
   }
 
@@ -291,6 +365,11 @@
       if (zoneMessage && !zoneMessage.value) zoneMessage.value = "Bonjour, je souhaiterais offrir une carte cadeau.\n\nMassage ou durée souhaités : ";
     }
     if (params.get("massage")) choixMassage.value = params.get("massage");
+    if (params.get("duree")) {
+      Array.prototype.forEach.call(choixDuree.options, function (o) {
+        if (o.value.indexOf(params.get("duree") + " –") === 0) choixDuree.value = o.value;
+      });
+    }
     var creneau = params.get("creneau");
     if (creneau) {
       $("#creneau", formulaire).value = creneau;

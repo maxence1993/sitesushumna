@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Disponibilités massage à Orléans | Sushumna</title>
-  <meta name="description" content="Consultez les créneaux libres de la semaine pour un massage bien-être à Orléans et réservez en un clic.">
+  <title>Réserver un massage à Orléans : disponibilités | Sushumna</title>
+  <meta name="description" content="Choisissez la durée de votre massage (1 h, 1 h 30 ou 2 h) puis votre horaire, à 15 minutes près. Massage bien-être à Orléans, 4 cours Victor Hugo.">
   <link rel="icon" href="images/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="images/icone.png">
   <link rel="canonical" href="https://massage-sushumna.com/disponibilites.html">
@@ -12,8 +12,8 @@
   <meta property="og:locale" content="fr_FR">
   <meta property="og:site_name" content="Sushumna">
   <meta property="og:url" content="https://massage-sushumna.com/disponibilites.html">
-  <meta property="og:title" content="Disponibilités massage à Orléans | Sushumna">
-  <meta property="og:description" content="Consultez les créneaux libres de la semaine pour un massage bien-être à Orléans et réservez en un clic.">
+  <meta property="og:title" content="Réserver un massage à Orléans : disponibilités | Sushumna">
+  <meta property="og:description" content="Choisissez la durée de votre massage (1 h, 1 h 30 ou 2 h) puis votre horaire, à 15 minutes près. Massage bien-être à Orléans, 4 cours Victor Hugo.">
   <meta property="og:image" content="https://massage-sushumna.com/images/logo.jpg">
   <meta name="twitter:card" content="summary">
 
@@ -61,24 +61,25 @@
     <section class="en-tete-page">
       <div class="conteneur">
         <p class="surtitre">Disponibilités</p>
-        <h1>Mes disponibilités</h1>
-        <p class="intro">Voici mes créneaux pour cette semaine et la semaine prochaine. <strong>Touchez un créneau vert</strong> pour le réserver. L'heure indiquée est l'heure de début du massage.</p>
+        <h1>Réserver mon créneau</h1>
+        <p class="intro">En deux étapes : choisissez la durée de votre massage, puis l'heure qui vous convient. Je confirme ensuite votre rendez-vous.</p>
       </div>
     </section>
     <section class="section" style="padding-top:2rem">
       <div class="conteneur">
-        <ul class="legende" aria-label="Légende">
-          <li><span class="pastille pastille--libre"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#check"/></svg></span> Vert = libre, vous pouvez réserver</li>
-          <li><span class="pastille pastille--pris"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#croix"/></svg></span> Gris barré = déjà pris</li>
-        </ul>
-        <div id="planning">
-          <noscript><p>Pour voir le planning, merci d'activer JavaScript ou de m'appeler au 07 50 46 01 10.</p></noscript>
+        <h2 class="etape-titre"><span class="etape-numero">1</span> Choisissez la durée de votre massage</h2>
+        <div class="durees" id="choix-duree" role="group" aria-label="Durée du massage"></div>
+        <noscript><p>Pour voir le planning, merci d'activer JavaScript ou de m'appeler au 07 50 46 01 10.</p></noscript>
+
+        <div id="etape-creneau" class="etape-creneau" hidden>
+          <h2 class="etape-titre"><span class="etape-numero">2</span> Choisissez votre heure de début</h2>
+          <p class="etape-aide">Massage de <strong id="duree-rappel"></strong>. Les heures affichées sont les heures de <strong>début</strong> encore possibles. Touchez celle qui vous convient.</p>
+          <div id="planning" aria-live="polite"></div>
         </div>
-        <p class="maj" id="planning-maj"></p>
 
         <div class="encadre encadre--info" style="margin-top:2.5rem">
-          <h2>Aucun créneau ne vous convient ?</h2>
-          <p>Appelez-moi ou écrivez-moi : il est parfois possible de trouver un autre horaire.</p>
+          <h2>Aucun horaire ne vous convient ?</h2>
+          <p>Appelez-moi ou écrivez-moi : il est parfois possible de trouver un autre moment.</p>
           <div class="boutons">
             <a class="bouton" href="tel:+33750460110"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#tel"/></svg> 07 50 46 01 10</a>
             <a class="bouton" href="https://wa.me/33750460110?text=Bonjour%20Maxence%2C%20je%20souhaiterais%20prendre%20rendez-vous%20pour%20un%20massage." target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#whatsapp"/></svg> WhatsApp</a>

@@ -364,3 +364,27 @@ body { padding-bottom: 76px; }
 .avis__suite { align-self: flex-start; background: none; border: 0; padding: .3rem 0; margin: -.4rem 0 1rem; color: var(--or-texte); font: 800 .95rem var(--texte); text-decoration: underline; cursor: pointer; }
 .avis__espace { flex: 1; }
 .avis figcaption { font-weight: 800; color: var(--brun-doux); font-size: .95rem; }
+
+/* ---------- Réservation : durée puis heure ---------- */
+.etape-titre { display: flex; align-items: center; gap: .7rem; font-size: clamp(1.3rem, 3vw, 1.7rem); margin: 0 0 1rem; }
+.etape-numero { display: inline-grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: 50%; background: var(--or); color: var(--brun); font: 700 1.2rem var(--titres); }
+.durees { display: grid; gap: .6rem; grid-template-columns: repeat(3, 1fr); max-width: 760px; }
+@media (max-width: 499px) { .duree { padding: .8rem .3rem; min-height: 80px; } .duree__temps { font-size: 1rem; } .duree__prix { font-size: 1.25rem; } }
+.duree { display: flex; flex-direction: column; align-items: center; gap: .1rem; padding: 1.1rem 1rem; min-height: 90px; background: var(--creme); border: 2px solid var(--bordure); border-radius: var(--rayon); color: var(--brun); cursor: pointer; font-family: var(--texte); box-shadow: var(--ombre); }
+.duree:hover { border-color: var(--or); }
+.duree__temps { font-weight: 800; font-size: 1.2rem; }
+.duree__prix { font-family: var(--titres); font-size: 1.5rem; color: var(--or-texte); }
+.duree[aria-pressed="true"] { background: var(--or); border-color: var(--brun); }
+.duree[aria-pressed="true"] .duree__prix { color: var(--brun); }
+.etape-creneau { margin-top: 3rem; scroll-margin-top: 110px; }
+.etape-aide { color: var(--brun-doux); }
+.etape-creneau .semaine { margin-top: 2rem; }
+.jour-ligne { display: grid; gap: .5rem 1.5rem; padding: 1rem 1.2rem; background: var(--creme); border: 1px solid var(--bordure); border-radius: var(--rayon); margin-bottom: .7rem; }
+@media (min-width: 800px) { .jour-ligne { grid-template-columns: 170px 1fr; align-items: start; } }
+.jour-ligne--vide { background: transparent; padding-block: .6rem; }
+.jour-ligne__nom { margin: 0; font-size: 1.15rem; }
+.jour-ligne__nom span { display: block; font-family: var(--texte); font-size: .9rem; font-weight: 700; color: var(--brun-doux); }
+.jour-ligne__info { margin: 0; color: var(--pris); font-style: italic; align-self: center; }
+.heures { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .45rem; }
+.heure { display: inline-grid; place-items: center; min-width: 74px; min-height: 46px; padding: .3rem .6rem; border-radius: 10px; border: 2px solid var(--libre); background: var(--libre-fond); color: var(--libre); font-weight: 800; text-decoration: none; }
+.heure:hover, .heure:focus-visible { background: var(--libre); color: #fff; }

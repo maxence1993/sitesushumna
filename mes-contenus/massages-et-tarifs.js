@@ -11,11 +11,12 @@
    ===================================================================== */
 
 
-/* ---------- 1. LES PRIX (identiques pour tous les massages) ---------- */
+/* ---------- 1. LES PRIX (identiques pour tous les massages) ----------
+   « minutes » sert au planning en ligne : c'est la durée du massage. */
 var TARIFS = [
-  { duree: "1 heure",    prix: 70  },
-  { duree: "1 heure 30", prix: 100 },
-  { duree: "2 heures",   prix: 130 }
+  { duree: "1 heure",    minutes: 60,  prix: 70  },
+  { duree: "1 heure 30", minutes: 90,  prix: 100 },
+  { duree: "2 heures",   minutes: 120, prix: 130 }
 ];
 
 
