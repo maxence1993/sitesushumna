@@ -165,7 +165,7 @@ var TARIFS = [
 ];
 ```
 
-Changez seulement les prix (sans le signe €). Le nombre `minutes` est la durée du massage utilisée par le planning : ne le changez que si la durée change. Juste en dessous, la partie `FORMULES` contient les formules 4 massages (4 × 1h, et 4 × 2h), avec pour chacune sa description et sa règle de règlement (`reglement`).
+Changez seulement les prix (sans le signe €). Le nombre `minutes` est la durée du massage utilisée par le planning : ne le changez que si la durée change. Juste en dessous, la partie `FORMULES` contient les formules 4 massages (4 × 1h, et 4 × 2h), avec pour chacune sa description, sa règle de règlement (`reglement`) et la durée de chaque massage (`minutes`, utilisée pour proposer les horaires du premier rendez-vous). Les formules apparaissent aussi dans le choix de l'étape 1 de la réservation.
 Les nouveaux prix apparaissent partout : accueil, massages, tarifs et formulaire.
 
 ---

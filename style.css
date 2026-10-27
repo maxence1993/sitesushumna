@@ -415,3 +415,15 @@ body { padding-bottom: 76px; }
 
 .prix-carte__reglement { margin: .8rem 0 0; font-size: .95rem; color: var(--brun); }
 .duree__court { display: none; }
+
+/* ---------- Formules dans le choix de la durée ---------- */
+.etape-sous-titre { font-size: 1.15rem; margin: 1.6rem 0 .8rem; }
+.etape-sous-titre span { font-family: var(--texte); font-weight: 600; font-size: .95rem; color: var(--brun-doux); }
+.durees--formules { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 760px; }
+.duree--formule { background: linear-gradient(150deg, var(--or-clair), var(--creme)); border-color: var(--or); }
+.duree--formule .duree__temps { font-size: 1.05rem; text-align: center; white-space: normal; }
+.duree__sous { font-size: .85rem; font-weight: 800; color: var(--brun-doux); }
+.duree--formule[aria-pressed="true"] { background: var(--or); border-color: var(--brun); }
+.note-formule-planning { margin: .9rem 0 0; padding: .7rem 1rem; border-left: 4px solid var(--or); background: var(--creme); border-radius: 0 10px 10px 0; max-width: 760px; }
+.note-formule-planning.note--active { background: #fff3d6; border: 2px solid var(--or); border-radius: 12px; font-weight: 600; }
+@media (max-width: 499px) { .durees--formules { grid-template-columns: repeat(2, minmax(0, 1fr)); } .duree--formule .duree__temps { font-size: .95rem; } }
