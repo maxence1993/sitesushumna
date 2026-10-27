@@ -191,6 +191,15 @@
   function lireListe(nom) { var v = window[nom]; return Array.isArray(v) ? v : []; }
 
   var choisirCreneau = null, oublierCreneau = null;   // renseignés par le formulaire (page « Prendre rendez-vous »)
+  var rafraichirPlanning = null;                      // renseigné par le planning
+  var enLigne = window.ReservationEnLigne || null;    // réservation en ligne (reservation-en-ligne.js), si activée
+  function isoJour(d) { return d.getFullYear() + "-" + (d.getMonth() < 9 ? "0" : "") + (d.getMonth() + 1) + "-" + (d.getDate() < 10 ? "0" : "") + d.getDate(); }
+
+  // textes qui changent selon que la réservation en ligne est activée ou non
+  $$("[data-mode-reservation]").forEach(function (el) {
+    el.hidden = el.getAttribute("data-mode-reservation") !== (enLigne ? "en-ligne" : "demande");
+  });
+
   var zonePlanning = $("#planning");
   if (zonePlanning) {
     var pause = +window.PAUSE_APRES_MASSAGE || 0;
@@ -286,8 +295,52 @@
       var noteEtape2 = $("#note-formule-etape2"); if (noteEtape2) noteEtape2.hidden = !formuleChoisie;
 
       var maintenant = new Date();
-      var lundi = new Date(maintenant.getFullYear(), maintenant.getMonth(), maintenant.getDate());
+      var aujourdhui = new Date(maintenant.getFullYear(), maintenant.getMonth(), maintenant.getDate());
+      var lundi = new Date(aujourdhui);
       lundi.setDate(lundi.getDate() - ((lundi.getDay() + 6) % 7));
+
+      if (!enLigne) {
+        // planning calculé à partir de mes-contenus/planning.js
+        dessinerPlanning(lundi, maintenant, duree, libelle, etiquette, function (date) {
+          var c = creneauxDuJour(date, duree, maintenant);
+          return c && { ouvert: c.ouvert, debuts: c.debuts.map(function (t) { return { minutes: t, debut: "" }; }) };
+        });
+        return;
+      }
+
+      // planning lu dans mon Google Agenda, par l'API (14 jours maximum par appel)
+      var numero = ++demandeEnCours;
+      var finPlanning = new Date(lundi); finPlanning.setDate(lundi.getDate() + 7 * nbSemaines);
+      var morceaux = [];
+      for (var d = new Date(aujourdhui); d < finPlanning; d.setDate(d.getDate() + 14)) {
+        var reste = Math.round((finPlanning - d) / 86400000);
+        morceaux.push(enLigne.disponibilites(isoJour(d), Math.min(14, reste), duree));
+      }
+      zonePlanning.innerHTML = '<p class="jour-ligne__info">Chargement des horaires disponibles…</p>';
+      Promise.all(morceaux).then(function (reponses) {
+        if (numero !== demandeEnCours) return;     // le client a changé de durée entre-temps
+        var jours = {};
+        for (var i = 0; i < reponses.length; i++) {
+          if (reponses[i].statut !== 200) throw new Error("planning");
+          (reponses[i].donnees.days || []).forEach(function (j) { jours[j.date] = j; });
+        }
+        dessinerPlanning(lundi, maintenant, duree, libelle, etiquette, function (date) {
+          if (date < aujourdhui) return null;
+          var j = jours[isoJour(date)];
+          if (!j) return { ouvert: false, debuts: [] };
+          return { ouvert: j.open, tropTot: j.tooSoon, debuts: j.slots.map(function (c) { return { minutes: lireHeure(c.time), debut: c.start }; }) };
+        });
+      }).catch(function () {
+        if (numero !== demandeEnCours) return;
+        zonePlanning.innerHTML = '<div class="encadre encadre--attention" role="alert"><p style="margin:0"><strong>Le planning en ligne est momentanément indisponible.</strong> ' +
+          'Appelez-moi au <a href="tel:+33750460110">' + TELEPHONE + '</a> ou écrivez-moi sur <a href="' + lienWhatsapp("Bonjour Maxence, je souhaiterais prendre rendez-vous pour un massage.") + '" target="_blank" rel="noopener">WhatsApp</a> : je vous trouve un créneau.</p></div>';
+      });
+    }
+    var demandeEnCours = 0;
+    rafraichirPlanning = function () { afficher(); };
+
+    // dessine les semaines ; infoJour(date) → null (jour passé) ou { ouvert, tropTot, debuts: [{ minutes, debut }] }
+    function dessinerPlanning(lundi, maintenant, duree, libelle, etiquette, infoJour) {
       var html = "";
       for (var s = 0; s < nbSemaines; s++) {
         var debutSem = new Date(lundi); debutSem.setDate(lundi.getDate() + 7 * s);
@@ -295,19 +348,24 @@
         var total = 0, lignes = "";
         for (var j = 0; j < 7; j++) {
           var date = new Date(debutSem); date.setDate(debutSem.getDate() + j);
-          var c = creneauxDuJour(date, duree, maintenant);
+          var c = infoJour(date);
           if (c === null) continue; // jour passé
           var titre = '<h3 class="jour-ligne__nom">' + nomJour(date).charAt(0).toUpperCase() + nomJour(date).slice(1) +
             ' <span>' + jourMois(date) + (memeJour(date, maintenant) ? " · aujourd'hui" : "") + '</span></h3>';
           var contenu;
           if (!c.ouvert) contenu = '<p class="jour-ligne__info">Fermé</p>';
+          else if (!c.debuts.length && c.tropTot) contenu = '<p class="jour-ligne__info">Moins de 24h à l\'avance : réservation <a href="tel:+33750460110">par téléphone</a></p>';
           else if (!c.debuts.length) contenu = '<p class="jour-ligne__info">Complet pour cette durée</p>';
           else {
             total += c.debuts.length;
-            contenu = '<ul class="heures">' + c.debuts.map(function (t) {
+            contenu = '<ul class="heures">' + c.debuts.map(function (h) {
+              var t = h.minutes;
               var quand = nomJour(date) + " " + jourMois(date) + " à " + ecrireHeure(t);
-              return '<li><a class="heure" data-quand="' + echapper(quand) + '" data-duree="' + echapper(libelle) + '" data-etiquette="' + echapper(etiquette) + '" href="contact.html?creneau=' + encodeURIComponent(quand + " (" + etiquette + ")") +
-                '&duree=' + encodeURIComponent(libelle) + '#formulaire" aria-label="Réserver le ' + quand + ', fin à ' + ecrireHeure(t + duree) + '">' +
+              var enLigneParams = h.debut ? '&debut=' + encodeURIComponent(h.debut) + '&minutes=' + duree : '';
+              return '<li><a class="heure" data-quand="' + echapper(quand) + '" data-duree="' + echapper(libelle) + '" data-etiquette="' + echapper(etiquette) + '"' +
+                (h.debut ? ' data-debut="' + echapper(h.debut) + '" data-minutes="' + duree + '"' : '') +
+                ' href="contact.html?creneau=' + encodeURIComponent(quand + " (" + etiquette + ")") +
+                '&duree=' + encodeURIComponent(libelle) + enLigneParams + '#formulaire" aria-label="Réserver le ' + quand + ', fin à ' + ecrireHeure(t + duree) + '">' +
                 ecrireHeure(t) + '</a></li>';
             }).join("") + '</ul>';
           }
@@ -329,7 +387,8 @@
       e.preventDefault();
       $$("a.heure.heure--choisie", zonePlanning).forEach(function (a) { a.classList.remove("heure--choisie"); });
       lien.classList.add("heure--choisie");
-      choisirCreneau(lien.getAttribute("data-quand"), lien.getAttribute("data-duree"), lien.getAttribute("data-etiquette"));
+      choisirCreneau(lien.getAttribute("data-quand"), lien.getAttribute("data-duree"), lien.getAttribute("data-etiquette"),
+        lien.getAttribute("data-debut"), +lien.getAttribute("data-minutes"));
     });
     function choisir(formule, minutes) {
       formuleChoisie = formule;
@@ -411,12 +470,31 @@
     });
 
     var creneauAffiche = $("#creneau-choisi");
-    function afficherCreneau(quand) {
+    // créneau du planning en ligne : { debut: "2026-11-03T14:00:00+01:00", minutes: 90, quand: "mardi 3 novembre à 14h00 (1h30)" }
+    var creneauEnLigne = null;
+    function afficherCreneau(quand, debut, minutes) {
       $("#creneau", formulaire).value = quand;
       if (creneauAffiche) {
         $("[data-creneau-texte]", creneauAffiche).textContent = quand;
         $("[data-creneau-whatsapp]", creneauAffiche).href = lienWhatsapp("Bonjour Maxence, je souhaiterais réserver le créneau du " + quand + ".");
         creneauAffiche.classList.add("visible");
+      }
+      majCreneauEnLigne(enLigne && debut && minutes ? { debut: debut, minutes: minutes, quand: quand } : null);
+    }
+
+    // réservation directe dans l'agenda : bouton, rappel et case anti-robot
+    var zoneAntiRobot = $("#zone-anti-robot", formulaire);
+    var antiRobot = null, antiRobotEnCours = null;
+    function majCreneauEnLigne(creneau) {
+      creneauEnLigne = creneau;
+      var direct = !!creneau;
+      var bouton = $("button[type=submit]", formulaire);
+      if (bouton && !bouton.disabled) bouton.textContent = direct ? "Réserver ce créneau" : "Envoyer ma demande de rendez-vous";
+      $$("[data-si-creneau-en-ligne]").forEach(function (el) { el.hidden = !direct; });
+      $$("[data-sans-creneau-en-ligne]").forEach(function (el) { el.hidden = direct; });
+      if (!direct || !zoneAntiRobot) return;
+      if (!antiRobot && !antiRobotEnCours) {
+        antiRobotEnCours = enLigne.antiRobot($("#anti-robot", zoneAntiRobot)).then(function (w) { antiRobot = w; }, function () { antiRobotEnCours = null; });
       }
     }
     function choisirDuree(libelle) {
@@ -426,9 +504,9 @@
       if (typeof majNoteFormule === "function") majNoteFormule();
     }
     // clic sur un horaire du planning, sur cette même page
-    choisirCreneau = function (quand, libelle, etiquette) {
-      afficherCreneau(quand + " (" + (etiquette || libelle) + ")");
+    choisirCreneau = function (quand, libelle, etiquette, debut, minutes) {
       choisirDuree(libelle);
+      afficherCreneau(quand + " (" + (etiquette || libelle) + ")", debut, minutes);
       var cible = $("#formulaire");
       if (cible) cible.scrollIntoView({ behavior: "smooth", block: "start" });
     };
@@ -437,7 +515,13 @@
       choisirDuree(libelle);
       $("#creneau", formulaire).value = "";
       if (creneauAffiche) creneauAffiche.classList.remove("visible");
+      majCreneauEnLigne(null);
     };
+    // le client réécrit le créneau ou change la durée à la main : ce n'est plus le créneau du planning
+    $("#creneau", formulaire).addEventListener("input", function () { if (creneauEnLigne) majCreneauEnLigne(null); });
+    choixDuree.addEventListener("change", function () {
+      if (creneauEnLigne) oublierCreneau(choixDuree.value.split(" –")[0]);
+    });
 
     // une formule est choisie : on précise comment se prennent les rendez-vous
     var noteFormule = $("#note-formule");
@@ -453,7 +537,7 @@
     }
     if (params.get("massage")) choixMassage.value = params.get("massage");
     if (params.get("duree")) choisirDuree(params.get("duree"));
-    if (params.get("creneau")) afficherCreneau(params.get("creneau"));
+    if (params.get("creneau")) afficherCreneau(params.get("creneau"), params.get("debut"), +params.get("minutes"));
     majNoteFormule();
     // ---- vérification et envoi du formulaire (le client reste sur le site) ----
     var boiteErreur = $("#form-erreur", formulaire);
@@ -529,10 +613,80 @@
       });
     }
 
+    // ---- réservation directe dans l'agenda (créneau choisi dans le planning en ligne) ----
+    var CHAMPS_API = { firstName: "#prenom", lastName: "#nom", phone: "#telephone", email: "#email", message: "#message" };
+    function reserverEnLigne() {
+      var jeton = antiRobot ? antiRobot.jeton() : "";
+      if (!jeton) {
+        montrerErreur("<strong>Encore une étape :</strong> merci de valider la vérification anti-robot juste au-dessus du bouton.", zoneAntiRobot);
+        return;
+      }
+      var v = function (id) { return $(id, formulaire).value.trim(); };
+      var creneau = creneauEnLigne;
+      var texteBouton = boutonEnvoi.textContent;
+      boutonEnvoi.disabled = true;
+      boutonEnvoi.textContent = "Réservation en cours…";
+      montrerInfo("Réservation en cours, merci de ne pas fermer la page.");
+
+      enLigne.reserver({
+        firstName: v("#prenom"),
+        lastName: v("#nom"),
+        phone: v("#telephone"),
+        email: v("#email"),
+        message: v("#message"),
+        massage: choixMassage.value === "Je ne sais pas encore" ? "" : choixMassage.value,
+        formula: choixDuree.value.indexOf("Formule") === 0 ? choixDuree.value : "",
+        start: creneau.debut,
+        duration: creneau.minutes,
+        turnstileToken: jeton
+      }).then(function (rep) {
+        boutonEnvoi.disabled = false;
+        boutonEnvoi.textContent = texteBouton;
+        antiRobot.reinitialiser();   // un jeton ne sert qu'une fois
+        if (rep.statut === 201) return confirmer(creneau);
+        if (rep.statut === 409) {
+          oublierCreneau(choixDuree.value.split(" –")[0]);
+          if (rafraichirPlanning) rafraichirPlanning();
+          return montrerErreur("<strong>Ce créneau vient d'être pris.</strong> Le planning a été mis à jour : merci de choisir un autre horaire.");
+        }
+        if (rep.statut === 400 && rep.donnees.fields) {
+          var champ = null;
+          Object.keys(rep.donnees.fields).forEach(function (cle) { if (!champ && CHAMPS_API[cle]) champ = $(CHAMPS_API[cle], formulaire); });
+          return montrerErreur("<strong>Merci de vérifier le formulaire :</strong> " +
+            Object.keys(rep.donnees.fields).map(function (cle) { return echapper(rep.donnees.fields[cle]); }).join(", ") + ".", champ);
+        }
+        if (rep.statut === 403 && rep.donnees.error === "turnstile_failed") {
+          return montrerErreur("<strong>La vérification anti-robot a échoué.</strong> Merci de la refaire, puis de cliquer à nouveau sur « Réserver ce créneau ».");
+        }
+        if (rep.statut === 429) return montrerErreur("<strong>Trop de tentatives.</strong> Merci de patienter une minute avant de réessayer.");
+        montrerErreur("<strong>La réservation n'a pas pu être enregistrée.</strong> Pour être sûr d'avoir votre créneau, vous pouvez " + liensSecours() + ".");
+      });
+    }
+
+    function confirmer(creneau) {
+      var zone = $("#reservation-confirmee");
+      if (!zone) { window.location.href = "merci.html"; return; }
+      var prenom = $("#prenom", formulaire).value.trim();
+      zone.innerHTML =
+        '<h2>C\'est réservé, merci ' + echapper(prenom) + ' !</h2>' +
+        '<p>Votre massage du <strong>' + echapper(creneau.quand) + '</strong> est bien enregistré dans mon agenda. ' +
+        'Je vous contacterai au ' + echapper($("#telephone", formulaire).value.trim()) + ' si besoin.</p>' +
+        '<p><strong>Un empêchement ?</strong> Merci de me prévenir <strong>au moins 24h à l\'avance</strong> par téléphone, SMS ou WhatsApp au ' +
+        '<a href="tel:+33750460110">' + TELEPHONE + '</a> : le rendez-vous est alors déplacé ou annulé sans frais.</p>' +
+        '<p style="margin-bottom:0">Adresse : Sushumna, 4 cours Victor Hugo, 45100 Orléans.</p>';
+      zone.hidden = false;
+      formulaire.hidden = true;
+      if (creneauAffiche) creneauAffiche.classList.remove("visible");
+      zone.setAttribute("tabindex", "-1");
+      zone.scrollIntoView({ behavior: "smooth", block: "center" });
+      zone.focus({ preventScroll: true });
+    }
+
     formulaire.addEventListener("submit", function (e) {
       e.preventDefault();
       if (!verifier()) return;
       if ($("input[name=_honey]", formulaire).value) return; // champ piège rempli : c'est un robot
+      if (creneauEnLigne) { reserverEnLigne(); return; }
 
       var prenom = $("#prenom", formulaire).value.trim(), nom = $("#nom", formulaire).value.trim();
       var morceaux = [prenom + " " + nom, $("#telephone", formulaire).value.trim(), $("#creneau", formulaire).value.trim()].filter(Boolean);

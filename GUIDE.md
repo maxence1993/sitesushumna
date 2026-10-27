@@ -102,6 +102,8 @@ Et si vous êtes bloqué, demandez-moi : je peux aussi corriger ou annuler pour 
 
 Fichier : **`mes-contenus/planning.js`**
 
+> 💡 Si la **réservation en ligne** est activée (section 11), les créneaux viennent de votre Google Agenda et ce fichier ne sert plus.
+
 Sur la page « Disponibilités », le client choisit d'abord **la durée** (1h, 1h30 ou 2h), puis le site lui montre **toutes les heures de début possibles**, de 15 minutes en 15 minutes, sur la semaine en cours et la suivante. Le site calcule tout seul :
 - que le massage se termine avant la fin de vos horaires ;
 - qu'il ne chevauche pas un massage déjà réservé ;
@@ -309,3 +311,32 @@ Le site est déjà préparé : titres et descriptions des pages, texte sur Orlé
 5. Garder le site **à jour** (planning, photos) : Google aime les sites vivants.
 
 Il faut parfois **plusieurs semaines** avant de voir les premiers effets.
+
+---
+
+## 11. La réservation en ligne reliée à Google Agenda
+
+Quand elle est activée, le planning du site affiche **les vrais créneaux libres de votre Google Agenda**, et chaque réservation crée directement un rendez-vous (en **lavande**) dans votre agenda principal. Vous n'avez plus besoin de remplir « LES MASSAGES RÉSERVÉS » dans `planning.js`.
+
+Elle repose sur votre petite API privée **agenda-api** (dépôt privé, hébergé chez Cloudflare). Son fichier `README.md` explique pas à pas la configuration Google et Cloudflare.
+
+### Activer ou couper la réservation en ligne
+
+1. Ouvrez le fichier **`reservation-en-ligne.js`** (à la racine du site).
+2. En haut, remplissez :
+   - `API_URL` : l'adresse de votre API, par exemple `"https://agenda-api.mon-sous-domaine.workers.dev"` ;
+   - `TURNSTILE_SITE_KEY` : la **clé de site** Turnstile (publique).
+3. Enregistrez (« Commit »).
+
+Pour revenir à l'ancien fonctionnement (planning de `planning.js` + demande à confirmer), remettez simplement `var API_URL = "";`.
+
+⚠️ Ne mettez **jamais** de mot de passe, d'identifiant Google ou de clé **secrète** dans les fichiers du site : tout le monde peut les lire. Ils vont uniquement dans Cloudflare (voir le README d'agenda-api).
+
+### Au quotidien
+
+- **Fermer un jour, partir en vacances, bloquer un moment** : créez un événement dans Google Agenda. Le site le voit tout de suite.
+- **Annuler un rendez-vous** : supprimez-le dans Google Agenda, le créneau redevient libre.
+- **Changer vos horaires habituels ou un jour particulier** : fichier `wrangler.toml` du dépôt **agenda-api** (mêmes règles d'écriture que `planning.js`).
+- **Rendez-vous à moins de 24h** : impossible en ligne, le site invite à vous appeler.
+- **Un client choisit un horaire du planning** : son rendez-vous est enregistré immédiatement. Pensez à l'appeler si besoin (son numéro est dans la description du rendez-vous).
+- **Un client remplit le formulaire sans choisir d'horaire** : c'est toujours une demande, que vous recevez par e-mail comme avant.
