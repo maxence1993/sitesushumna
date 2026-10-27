@@ -121,7 +121,8 @@
       return '<div class="prix-carte prix-carte--forfait">' +
         (f.avantage ? '<span class="etiquette">' + echapper(f.avantage) + '</span>' : '') +
         '<div class="prix-carte__duree">' + echapper(f.nom) + '</div>' +
-        '<div class="prix-carte__prix">' + prix(f.prix) + '</div><div>' + echapper(f.detail) + '</div></div>';
+        '<div class="prix-carte__prix">' + prix(f.prix) + '</div><div>' + echapper(f.detail) + '</div>' +
+        (f.reglement ? '<p class="prix-carte__reglement"><strong>' + echapper(f.reglement) + '</strong></p>' : '') + '</div>';
     }
     cartesPrix.innerHTML = tarifs.map(function (t) {
       return '<div class="prix-carte"><div class="prix-carte__duree">' + echapper(t.duree) + '</div>' +
@@ -144,7 +145,7 @@
   var tableauFormules = $("#tableau-formules");
   if (tableauFormules) {
     tableauFormules.querySelector("tbody").innerHTML = formules.map(function (f) {
-      return '<tr><th scope="row">' + echapper(f.nom) + "</th><td>" + echapper(f.detail) + '</td><td class="prix">' + prix(f.prix) + "</td></tr>";
+      return '<tr><th scope="row">' + echapper(f.nom) + "</th><td>" + echapper(f.detail) + (f.reglement ? "<br><strong>" + echapper(f.reglement) + "</strong>" : "") + '</td><td class="prix">' + prix(f.prix) + "</td></tr>";
     }).join("");
   }
 
@@ -237,7 +238,7 @@
 
     var zoneDurees = $("#choix-duree");
     var params = new URLSearchParams(location.search);
-    var dureeChoisie = 0;   // durée de départ : minutes (« 60 ») ou libellé (« 1 heure ») venant de l'adresse
+    var dureeChoisie = 0;   // durée de départ : minutes (« 60 ») ou libellé (« 1h ») venant de l'adresse
     (function () {
       var demande = params.get("duree") || "";
       if (+demande) dureeChoisie = +demande;
@@ -246,10 +247,8 @@
 
     zoneDurees.innerHTML = tarifs.map(function (t) {
       var min = t.minutes || lireDuree(t.duree.replace(/heures?/, "h"));
-      var court = Math.floor(min / 60) + (min % 60 ? "h" + (min % 60 < 10 ? "0" : "") + (min % 60) : " h");   // 60 → « 1 h », 90 → « 1h30 »
-      return '<button type="button" class="duree" data-minutes="' + min + '" aria-pressed="false" aria-label="' + echapper(t.duree) + ', ' + prix(t.prix) + '">' +
-        '<span class="duree__temps"><span class="duree__long">' + echapper(t.duree) + '</span><span class="duree__court" aria-hidden="true">' + court + '</span></span>' +
-        '<span class="duree__prix">' + prix(t.prix) + '</span></button>';
+      return '<button type="button" class="duree" data-minutes="' + min + '" aria-pressed="false">' +
+        '<span class="duree__temps">' + echapper(t.duree) + '</span><span class="duree__prix">' + prix(t.prix) + '</span></button>';
     }).join("");
 
     function afficher(duree) {
@@ -392,6 +391,7 @@
       Array.prototype.forEach.call(choixDuree.options, function (o) {
         if (o.value.indexOf(libelle + " –") === 0) choixDuree.value = o.value;
       });
+      if (typeof majNoteFormule === "function") majNoteFormule();
     }
     // clic sur un horaire du planning, sur cette même page
     choisirCreneau = function (quand, libelle) {
@@ -408,6 +408,13 @@
       if (creneauAffiche) creneauAffiche.classList.remove("visible");
     };
 
+    // une formule est choisie : on précise comment se prennent les rendez-vous
+    var noteFormule = $("#note-formule");
+    function majNoteFormule() {
+      if (noteFormule) noteFormule.hidden = choixDuree.value.indexOf("Formule") !== 0;
+    }
+    choixDuree.addEventListener("change", majNoteFormule);
+
     var params = new URLSearchParams(location.search);
     if (params.get("cadeau")) {
       var zoneMessage = $("#message", formulaire);
@@ -416,6 +423,7 @@
     if (params.get("massage")) choixMassage.value = params.get("massage");
     if (params.get("duree")) choisirDuree(params.get("duree"));
     if (params.get("creneau")) afficherCreneau(params.get("creneau"));
+    majNoteFormule();
     // ---- vérification et envoi du formulaire (le client reste sur le site) ----
     var boiteErreur = $("#form-erreur", formulaire);
     var boutonEnvoi = $("button[type=submit]", formulaire);

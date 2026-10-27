@@ -14,23 +14,25 @@
 /* ---------- 1. LES PRIX (identiques pour tous les massages) ----------
    « minutes » sert au planning en ligne : c'est la durée du massage. */
 var TARIFS = [
-  { duree: "1 heure",    minutes: 60,  prix: 70  },
-  { duree: "1 heure 30", minutes: 90,  prix: 100 },
-  { duree: "2 heures",   minutes: 120, prix: 130 }
+  { duree: "1h",    minutes: 60,  prix: 70  },
+  { duree: "1h30",  minutes: 90,  prix: 100 },
+  { duree: "2h",    minutes: 120, prix: 130 }
 ];
 
 
 /* ---------- 2. LES FORMULES ET CARTES DE SÉANCES ---------- */
 var FORMULES = [
   {
-    nom: "Formule 4 massages d'1 heure",
-    detail: "4 massages d'1 heure, à utiliser sur 2 mois (soit 4 heures en tout). Vous pouvez choisir un massage différent à chaque séance.",
+    nom: "Formule 4 massages d'1h",
+    detail: "4 massages d'1h, à utiliser sur 2 mois (soit 4h en tout). Vous pouvez choisir un massage différent à chaque séance. Les 3 autres rendez-vous sont pris ensemble lors du premier rendez-vous.",
+    reglement: "Règlement en une fois, au premier massage.",
     prix: 200,
     avantage: "80 € d'économie"
   },
   {
-    nom: "Formule 4 massages de 2 heures",
-    detail: "4 massages de 2 heures, à utiliser sur 2 mois (soit 8 heures en tout). Vous pouvez choisir un massage différent à chaque séance.",
+    nom: "Formule 4 massages de 2h",
+    detail: "4 massages de 2h, à utiliser sur 2 mois (soit 8h en tout). Vous pouvez choisir un massage différent à chaque séance. Les 3 autres rendez-vous sont pris ensemble lors du premier rendez-vous.",
+    reglement: "Règlement en une fois, ou en deux fois : 200 € au premier massage et 200 € au deuxième. Tout doit être réglé au deuxième massage.",
     prix: 400,
     avantage: "120 € d'économie"
   }
