@@ -383,23 +383,30 @@
     // ---- vérification et envoi du formulaire (le client reste sur le site) ----
     var boiteErreur = $("#form-erreur", formulaire);
     var boutonEnvoi = $("button[type=submit]", formulaire);
+    var boutonWhatsapp = $("#envoi-whatsapp", formulaire);
     var ADRESSE_ENVOI = "https://formsubmit.co/ajax/maxence.vaz@outlook.fr";
+    var DELAI_MAXIMUM = 25000; // on attend la réponse au plus 25 secondes
 
+    function montrerInfo(html) {
+      boiteErreur.innerHTML = html;
+      boiteErreur.hidden = false;
+      boiteErreur.classList.add("form-erreur--info");
+    }
     function montrerErreur(html, champ) {
       boiteErreur.innerHTML = html;
+      boiteErreur.classList.remove("form-erreur--info");
       boiteErreur.hidden = false;
       boiteErreur.scrollIntoView({ behavior: "smooth", block: "center" });
       if (champ) champ.focus({ preventScroll: true });
     }
     function chiffres(texte) { return String(texte).replace(/\D/g, ""); }
 
-    formulaire.addEventListener("submit", function (e) {
-      e.preventDefault();
+    // vérifie les champs obligatoires ; renvoie true si tout est bon
+    function verifier() {
       boiteErreur.hidden = true;
       $$(".champ--erreur", formulaire).forEach(function (c) { c.classList.remove("champ--erreur"); });
-
       var prenom = $("#prenom", formulaire), nom = $("#nom", formulaire), tel = $("#telephone", formulaire);
-      var accord = $("input[name=Accord]", formulaire);
+      var accord = $("input[name=Accord]", formulaire), mail = $("#email", formulaire);
       var manques = [], premier = null;
       function probleme(champ, texte) {
         manques.push(texte);
@@ -412,43 +419,83 @@
       if (!tel.value.trim()) probleme(tel, "votre <strong>numéro de téléphone</strong>");
       else if (nbChiffres < 9 || nbChiffres > 15) probleme(tel, "un <strong>numéro de téléphone valide</strong> (par exemple 06 12 34 56 78)");
       if (!accord.checked) probleme(accord, "la <strong>case d'accord</strong> en bas du formulaire");
-      var mail = $("#email", formulaire);
       if (mail.value.trim() && !/^\S+@\S+\.\S+$/.test(mail.value.trim())) probleme(mail, "une <strong>adresse e-mail valide</strong> (ou laissez ce champ vide)");
-
       if (manques.length) {
         montrerErreur("<strong>Il manque encore :</strong> " + manques.join(", ") + ".", premier);
-        return;
+        return false;
       }
+      return true;
+    }
 
-      // objet de l'e-mail reçu : prénom, nom, téléphone et créneau visibles tout de suite
-      var morceaux = [prenom.value.trim() + " " + nom.value.trim(), tel.value.trim(), $("#creneau", formulaire).value.trim()].filter(Boolean);
+    // la demande écrite en texte simple (pour WhatsApp et l'e-mail)
+    function texteDemande() {
+      var v = function (id) { return $(id, formulaire).value.trim(); };
+      var lignes = ["Bonjour Maxence, je souhaiterais prendre rendez-vous.", "",
+        "Prénom : " + v("#prenom"), "Nom : " + v("#nom"), "Téléphone : " + v("#telephone")];
+      if (v("#email")) lignes.push("E-mail : " + v("#email"));
+      lignes.push("Massage : " + v("#massage"), "Durée : " + v("#duree"));
+      if (v("#creneau")) lignes.push("Créneau souhaité : " + v("#creneau"));
+      if (v("#message")) lignes.push("", "Message : " + v("#message"));
+      return lignes.join("\n");
+    }
+    function liensSecours() {
+      var texte = texteDemande();
+      return '<a href="' + lienWhatsapp(texte) + '" target="_blank" rel="noopener">envoyer votre demande par WhatsApp</a>, ' +
+        '<a href="mailto:maxence.vaz@outlook.fr?subject=' + encodeURIComponent("Demande de rendez-vous") + "&body=" + encodeURIComponent(texte) + '">par e-mail</a>' +
+        ' ou appeler le <a href="tel:+33750460110">07 50 46 01 10</a>';
+    }
+
+    // bouton « envoyer par WhatsApp » : ne dépend d'aucun service extérieur
+    if (boutonWhatsapp) {
+      boutonWhatsapp.addEventListener("click", function () {
+        if (!verifier()) return;
+        window.open(lienWhatsapp(texteDemande()), "_blank", "noopener");
+      });
+    }
+
+    formulaire.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!verifier()) return;
+      if ($("input[name=_honey]", formulaire).value) return; // champ piège rempli : c'est un robot
+
+      var prenom = $("#prenom", formulaire).value.trim(), nom = $("#nom", formulaire).value.trim();
+      var morceaux = [prenom + " " + nom, $("#telephone", formulaire).value.trim(), $("#creneau", formulaire).value.trim()].filter(Boolean);
       var objet = $("input[name=_subject]", formulaire);
       if (objet) objet.value = "Demande de rendez-vous – " + morceaux.join(" – ");
 
       var texteBouton = boutonEnvoi.textContent;
       boutonEnvoi.disabled = true;
       boutonEnvoi.textContent = "Envoi en cours…";
+      montrerInfo("Envoi en cours, cela peut prendre quelques secondes. Merci de ne pas fermer la page.");
 
       var donnees = new FormData(formulaire);
       donnees.delete("_next");
       donnees.delete("_honey");
-      if ($("input[name=_honey]", formulaire).value) { boutonEnvoi.disabled = false; boutonEnvoi.textContent = texteBouton; return; }
 
+      var termine = false;
       function echec() {
+        if (termine) return;
+        termine = true;
         boutonEnvoi.disabled = false;
         boutonEnvoi.textContent = texteBouton;
-        montrerErreur("<strong>Votre demande n'a pas pu être envoyée.</strong> Vous pouvez réessayer dans un instant, ou me joindre directement : " +
-          '<a href="tel:+33750460110">07 50 46 01 10</a> · <a href="' + lienWhatsapp("Bonjour Maxence, je souhaiterais prendre rendez-vous.") + '" target="_blank" rel="noopener">WhatsApp</a>.');
+        montrerErreur("<strong>Je n'ai pas pu confirmer l'envoi de votre demande.</strong> Pour être sûr que je la reçoive, vous pouvez " + liensSecours() + ".");
       }
-      fetch(ADRESSE_ENVOI, { method: "POST", headers: { Accept: "application/json" }, body: donnees })
+      function reussite() {
+        if (termine) return;
+        termine = true;
+        window.location.href = "merci.html";
+      }
+      var controle = window.AbortController ? new AbortController() : null;
+      var minuteur = setTimeout(function () { if (controle) controle.abort(); echec(); }, DELAI_MAXIMUM);
+      fetch(ADRESSE_ENVOI, { method: "POST", headers: { Accept: "application/json" }, body: donnees, signal: controle ? controle.signal : undefined })
         .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, json: j }; }); })
         .then(function (res) {
-          if (res.ok && (res.json.success === true || res.json.success === "true")) {
-            window.location.href = "merci.html";
-          } else { echec(); }
+          clearTimeout(minuteur);
+          if (res.ok && (res.json.success === true || res.json.success === "true")) reussite(); else echec();
         })
-        .catch(echec);
+        .catch(function () { clearTimeout(minuteur); echec(); });
     });
+
     var suite = $("input[name=_next]", formulaire);
     if (suite) suite.value = new URL("merci.html", location.href).href;
   }
