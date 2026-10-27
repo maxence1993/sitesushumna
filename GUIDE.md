@@ -102,7 +102,7 @@ Et si vous êtes bloqué, demandez-moi : je peux aussi corriger ou annuler pour 
 
 Fichier : **`mes-contenus/planning.js`**
 
-Sur la page « Disponibilités », le client choisit d'abord **la durée** (1 h, 1 h 30 ou 2 h), puis le site lui montre **toutes les heures de début possibles**, de 15 minutes en 15 minutes, sur la semaine en cours et la suivante. Le site calcule tout seul :
+Sur la page « Disponibilités », le client choisit d'abord **la durée** (1h, 1h30 ou 2h), puis le site lui montre **toutes les heures de début possibles**, de 15 minutes en 15 minutes, sur la semaine en cours et la suivante. Le site calcule tout seul :
 - que le massage se termine avant la fin de vos horaires ;
 - qu'il ne chevauche pas un massage déjà réservé ;
 - qu'il reste **15 minutes de pause après chaque massage** ;
@@ -159,13 +159,13 @@ Fichier : **`mes-contenus/massages-et-tarifs.js`**, en haut :
 
 ```
 var TARIFS = [
-  { duree: "1 heure",    prix: 70  },
-  { duree: "1 heure 30", prix: 100 },
-  { duree: "2 heures",   prix: 130 }
+  { duree: "1h",   minutes: 60,  prix: 70  },
+  { duree: "1h30", minutes: 90,  prix: 100 },
+  { duree: "2h",   minutes: 120, prix: 130 }
 ];
 ```
 
-Changez seulement les prix (sans le signe €). Le nombre `minutes` est la durée du massage utilisée par le planning : ne le changez que si la durée change. Juste en dessous, la partie `FORMULES` contient les formules 4 massages (4 × 1 heure, et 4 × 2 heures).
+Changez seulement les prix (sans le signe €). Le nombre `minutes` est la durée du massage utilisée par le planning : ne le changez que si la durée change. Juste en dessous, la partie `FORMULES` contient les formules 4 massages (4 × 1h, et 4 × 2h), avec pour chacune sa description et sa règle de règlement (`reglement`).
 Les nouveaux prix apparaissent partout : accueil, massages, tarifs et formulaire.
 
 ---
@@ -252,7 +252,7 @@ Modifiez seulement le texte visible entre les balises, par exemple `<p>Mon texte
 Les demandes envoyées depuis le formulaire arrivent sur **maxence.vaz@outlook.fr** (service gratuit FormSubmit).
 
 Le client doit obligatoirement remplir son **prénom**, son **nom** et son **numéro de téléphone** : le formulaire refuse l'envoi sans eux. L'e-mail que vous recevez contient ces 3 informations, plus le créneau choisi, la durée, le massage souhaité, son e-mail (s'il l'a donné) et son message. L'objet de l'e-mail affiche directement le prénom, le nom, le téléphone et le créneau, par exemple :
-« Demande de rendez-vous – Julie Martin – 06 12 34 56 78 – mardi 27 octobre à 17h15 (1 heure) ».
+« Demande de rendez-vous – Julie Martin – 06 12 34 56 78 – mardi 27 octobre à 17h15 (1h) ».
 
 **La toute première fois** que quelqu'un envoie le formulaire (faites un essai vous-même !), vous recevez un e-mail de FormSubmit qui demande de **confirmer votre adresse**. Cliquez sur le bouton de confirmation : ensuite, toutes les demandes arriveront directement dans votre boîte mail. Pensez à regarder dans les spams.
 
@@ -276,7 +276,7 @@ Le client doit obligatoirement remplir son **prénom**, son **nom** et son **num
 3. Ajoutez une ligne de type **CNAME** : sous-domaine `www` → `maxence1993.github.io.`
 4. Supprimez les anciennes lignes A ou CNAME qui existaient déjà pour `sushumna.fr` et `www`.
 5. Sur GitHub, dans **Settings → Pages → Custom domain**, écrivez `sushumna.fr` puis **Save**.
-6. Attendez quelques heures (parfois jusqu'à 24 h), puis cochez **Enforce HTTPS** (le petit cadenas).
+6. Attendez quelques heures (parfois jusqu'à 24h), puis cochez **Enforce HTTPS** (le petit cadenas).
 
 Pour `m-sushumna.fr` : chez votre fournisseur, demandez une **redirection** vers `https://sushumna.fr`.
 

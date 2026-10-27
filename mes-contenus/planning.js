@@ -3,7 +3,7 @@
    ---------------------------------------------------------------------
    Le site calcule tout seul les créneaux libres des 2 prochaines
    semaines, de 15 minutes en 15 minutes, pour la durée choisie
-   par le client (1 h, 1 h 30 ou 2 h).
+   par le client (1h, 1h30 ou 2h).
 
    Vous n'avez que 3 choses à tenir à jour :
      1. vos HORAIRES HABITUELS (à changer rarement)
