@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Nunito:wght@400;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=11">
 </head>
 <body>
   <a class="lien-evitement" href="#contenu">Aller directement au contenu</a>
@@ -62,17 +62,26 @@
       <div class="conteneur">
         <p class="surtitre">Contact et rendez-vous</p>
         <h1>Prendre rendez-vous</h1>
-        <p class="intro">Choisissez la façon qui vous convient le mieux. Je suis joignable tous les jours de 9h à 21h, et je vous réponds le plus vite possible.</p>
+        <p class="intro">Trois étapes simples : choisissez la durée, puis votre horaire, puis laissez-moi vos coordonnées. Je vous confirme ensuite votre rendez-vous. Vous préférez parler à quelqu'un ? Je suis joignable tous les jours de 9h à 21h.</p>
       </div>
     </section>
-    <section class="section" style="padding-top:2rem">
+    <section class="section" id="rendez-vous" style="padding-top:2rem;padding-bottom:1rem">
       <div class="conteneur">
-        <div class="moyens">
-          <a class="moyen" href="tel:+33750460110"><span class="moyen__icone"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#tel"/></svg></span><span><strong>Par téléphone</strong><span>07 50 46 01 10</span></span></a>
-          <a class="moyen" href="https://wa.me/33750460110?text=Bonjour%20Maxence%2C%20je%20souhaiterais%20prendre%20rendez-vous%20pour%20un%20massage." target="_blank" rel="noopener"><span class="moyen__icone"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#whatsapp"/></svg></span><span><strong>Par WhatsApp</strong><span>Écrivez-moi un message</span></span></a>
-          <a class="moyen" href="https://www.instagram.com/massage_sushumna_orleans/" target="_blank" rel="noopener"><span class="moyen__icone"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#instagram"/></svg></span><span><strong>Sur Instagram</strong><span>@massage_sushumna_orleans</span></span></a>
-          <a class="moyen" href="mailto:maxence.vaz@outlook.fr"><span class="moyen__icone"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#mail"/></svg></span><span><strong>Par e-mail</strong><span>maxence.vaz@outlook.fr</span></span></a>
-          <a class="moyen" href="disponibilites.html"><span class="moyen__icone"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#calendrier"/></svg></span><span><strong>En ligne</strong><span>Choisir un créneau libre</span></span></a>
+        <div class="contacts-rapides" style="margin:0 0 2rem">
+          <a class="bouton bouton--brun" href="tel:+33750460110"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#tel"/></svg> Appeler</a>
+          <a class="bouton" href="https://wa.me/33750460110?text=Bonjour%20Maxence%2C%20je%20souhaiterais%20prendre%20rendez-vous%20pour%20un%20massage." target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#whatsapp"/></svg> WhatsApp</a>
+          <a class="bouton" href="https://www.instagram.com/massage_sushumna_orleans/" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#instagram"/></svg> Instagram</a>
+        </div>
+        <h2 class="etape-titre"><span class="etape-numero">1</span> Choisissez la durée de votre massage</h2>
+        <div class="durees" id="choix-duree" role="group" aria-label="Durée du massage"></div>
+        <noscript><p>Pour voir le planning, merci d'activer JavaScript ou de m'appeler au 07 50 46 01 10.</p></noscript>
+
+        <div id="etape-creneau" class="etape-creneau" hidden>
+          <h2 class="etape-titre"><span class="etape-numero">2</span> Choisissez votre heure de début</h2>
+          <p class="etape-aide">Massage de <strong id="duree-rappel"></strong>. Les heures affichées sont les heures de <strong>début</strong> encore possibles. Touchez celle qui vous convient.</p>
+          
+          <p class="etape-aide"><strong>Pour un rendez-vous le jour même</strong>, appelez-moi ou écrivez-moi sur WhatsApp : c'est le plus rapide.</p>
+          <div id="planning" aria-live="polite"></div>
         </div>
       </div>
     </section>
@@ -114,12 +123,12 @@
           <p style="margin-top:1rem">Je réponds aux messages entre 9h et 21h.</p>
         </div>
 
-        <div class="formulaire" id="rendez-vous">
-          <h2>Demande de rendez-vous</h2>
+        <div class="formulaire" id="formulaire">
+          <h2 class="etape-titre"><span class="etape-numero">3</span> Vos coordonnées</h2>
 
           <div class="encadre encadre--info creneau-choisi" id="creneau-choisi" role="status">
             <p style="margin:0 0 .6rem"><strong>Vous avez choisi le créneau :</strong><br><span data-creneau-texte></span></p>
-            <p style="margin:0 0 .8rem">Remplissez le formulaire ci-dessous, ou envoyez votre demande directement :</p>
+            <p style="margin:0 0 .8rem">Complétez vos coordonnées ci-dessous, ou envoyez votre demande directement. <a href="#rendez-vous">Changer de créneau</a></p>
             <div class="boutons">
               <a class="bouton" href="https://wa.me/33750460110?text=Bonjour%20Maxence%2C%20je%20souhaiterais%20prendre%20rendez-vous%20pour%20un%20massage." data-creneau-whatsapp target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#whatsapp"/></svg> Par WhatsApp</a>
               <a class="bouton" href="tel:+33750460110"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#tel"/></svg> Par téléphone</a>
@@ -191,6 +200,18 @@
         </div>
       </div>
     </section>
+
+    <section class="section">
+      <div class="conteneur">
+        <h2 class="centre">Vous préférez me contacter directement ?</h2>
+        <div class="moyens">
+          <a class="moyen" href="tel:+33750460110"><span class="moyen__icone"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#tel"/></svg></span><span><strong>Par téléphone</strong><span>07 50 46 01 10</span></span></a>
+          <a class="moyen" href="https://wa.me/33750460110?text=Bonjour%20Maxence%2C%20je%20souhaiterais%20prendre%20rendez-vous%20pour%20un%20massage." target="_blank" rel="noopener"><span class="moyen__icone"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#whatsapp"/></svg></span><span><strong>Par WhatsApp</strong><span>Écrivez-moi un message</span></span></a>
+          <a class="moyen" href="https://www.instagram.com/massage_sushumna_orleans/" target="_blank" rel="noopener"><span class="moyen__icone"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#instagram"/></svg></span><span><strong>Sur Instagram</strong><span>@massage_sushumna_orleans</span></span></a>
+          <a class="moyen" href="mailto:maxence.vaz@outlook.fr"><span class="moyen__icone"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#mail"/></svg></span><span><strong>Par e-mail</strong><span>maxence.vaz@outlook.fr</span></span></a>
+                  </div>
+      </div>
+    </section>
   </main>
 
   <footer class="pied">
@@ -241,6 +262,7 @@
   </nav>
 
   <script src="mes-contenus/massages-et-tarifs.js"></script>
-  <script src="site.js?v=8"></script>
+  <script src="mes-contenus/planning.js"></script>
+  <script src="site.js?v=11"></script>
 </body>
 </html>

@@ -185,6 +185,7 @@
   }
   function lireListe(nom) { var v = window[nom]; return Array.isArray(v) ? v : []; }
 
+  var choisirCreneau = null, oublierCreneau = null;   // renseignés par le formulaire (page « Prendre rendez-vous »)
   var zonePlanning = $("#planning");
   if (zonePlanning) {
     var pause = +window.PAUSE_APRES_MASSAGE || 0;
@@ -233,12 +234,19 @@
 
     var zoneDurees = $("#choix-duree");
     var params = new URLSearchParams(location.search);
-    var dureeChoisie = +params.get("duree") || 0;
+    var dureeChoisie = 0;   // durée de départ : minutes (« 60 ») ou libellé (« 1 heure ») venant de l'adresse
+    (function () {
+      var demande = params.get("duree") || "";
+      if (+demande) dureeChoisie = +demande;
+      else tarifs.forEach(function (t) { if (t.duree === demande) dureeChoisie = t.minutes || 0; });
+    })();
 
     zoneDurees.innerHTML = tarifs.map(function (t) {
       var min = t.minutes || lireDuree(t.duree.replace(/heures?/, "h"));
-      return '<button type="button" class="duree" data-minutes="' + min + '" aria-pressed="false">' +
-        '<span class="duree__temps">' + echapper(t.duree) + '</span><span class="duree__prix">' + prix(t.prix) + '</span></button>';
+      var court = Math.floor(min / 60) + (min % 60 ? "h" + (min % 60 < 10 ? "0" : "") + (min % 60) : " h");   // 60 → « 1 h », 90 → « 1h30 »
+      return '<button type="button" class="duree" data-minutes="' + min + '" aria-pressed="false" aria-label="' + echapper(t.duree) + ', ' + prix(t.prix) + '">' +
+        '<span class="duree__temps"><span class="duree__long">' + echapper(t.duree) + '</span><span class="duree__court" aria-hidden="true">' + court + '</span></span>' +
+        '<span class="duree__prix">' + prix(t.prix) + '</span></button>';
     }).join("");
 
     function afficher(duree) {
@@ -271,8 +279,8 @@
             total += c.debuts.length;
             contenu = '<ul class="heures">' + c.debuts.map(function (t) {
               var quand = nomJour(date) + " " + jourMois(date) + " à " + ecrireHeure(t);
-              return '<li><a class="heure" href="contact.html?creneau=' + encodeURIComponent(quand + " (" + libelle + ")") +
-                '&duree=' + encodeURIComponent(libelle) + '#rendez-vous" aria-label="Réserver le ' + quand + ', fin à ' + ecrireHeure(t + duree) + '">' +
+              return '<li><a class="heure" data-quand="' + echapper(quand) + '" data-duree="' + echapper(libelle) + '" href="contact.html?creneau=' + encodeURIComponent(quand + " (" + libelle + ")") +
+                '&duree=' + encodeURIComponent(libelle) + '#formulaire" aria-label="Réserver le ' + quand + ', fin à ' + ecrireHeure(t + duree) + '">' +
                 ecrireHeure(t) + '</a></li>';
             }).join("") + '</ul>';
           }
@@ -288,10 +296,19 @@
       zonePlanning.innerHTML = html;
     }
 
+    zonePlanning.addEventListener("click", function (e) {
+      var lien = e.target.closest ? e.target.closest("a.heure") : null;
+      if (!lien || !choisirCreneau) return;        // sur la page Disponibilités : le lien mène au formulaire
+      e.preventDefault();
+      $$("a.heure.heure--choisie", zonePlanning).forEach(function (a) { a.classList.remove("heure--choisie"); });
+      lien.classList.add("heure--choisie");
+      choisirCreneau(lien.getAttribute("data-quand"), lien.getAttribute("data-duree"));
+    });
     zoneDurees.addEventListener("click", function (e) {
       var bouton = e.target.closest(".duree");
       if (!bouton) return;
       dureeChoisie = +bouton.getAttribute("data-minutes");
+      if (oublierCreneau) oublierCreneau(dureeChoisie);
       afficher(dureeChoisie);
       try { history.replaceState(null, "", "?duree=" + dureeChoisie); } catch (err) { /* rien */ }
       $("#etape-creneau").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -359,27 +376,43 @@
       choixDuree.appendChild(opt);
     });
 
+    var creneauAffiche = $("#creneau-choisi");
+    function afficherCreneau(quand) {
+      $("#creneau", formulaire).value = quand;
+      if (creneauAffiche) {
+        $("[data-creneau-texte]", creneauAffiche).textContent = quand;
+        $("[data-creneau-whatsapp]", creneauAffiche).href = lienWhatsapp("Bonjour Maxence, je souhaiterais réserver le créneau du " + quand + ".");
+        creneauAffiche.classList.add("visible");
+      }
+    }
+    function choisirDuree(libelle) {
+      Array.prototype.forEach.call(choixDuree.options, function (o) {
+        if (o.value.indexOf(libelle + " –") === 0) choixDuree.value = o.value;
+      });
+    }
+    // clic sur un horaire du planning, sur cette même page
+    choisirCreneau = function (quand, libelle) {
+      afficherCreneau(quand + " (" + libelle + ")");
+      choisirDuree(libelle);
+      var cible = $("#formulaire");
+      if (cible) cible.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    // le client change la durée : l'ancien créneau n'a plus de sens
+    oublierCreneau = function (minutes) {
+      var tarif = tarifs.filter(function (t) { return (t.minutes || 0) === minutes; })[0];
+      if (tarif) choisirDuree(tarif.duree);
+      $("#creneau", formulaire).value = "";
+      if (creneauAffiche) creneauAffiche.classList.remove("visible");
+    };
+
     var params = new URLSearchParams(location.search);
     if (params.get("cadeau")) {
       var zoneMessage = $("#message", formulaire);
       if (zoneMessage && !zoneMessage.value) zoneMessage.value = "Bonjour, je souhaiterais offrir une carte cadeau.\n\nMassage ou durée souhaités : ";
     }
     if (params.get("massage")) choixMassage.value = params.get("massage");
-    if (params.get("duree")) {
-      Array.prototype.forEach.call(choixDuree.options, function (o) {
-        if (o.value.indexOf(params.get("duree") + " –") === 0) choixDuree.value = o.value;
-      });
-    }
-    var creneau = params.get("creneau");
-    if (creneau) {
-      $("#creneau", formulaire).value = creneau;
-      var bandeau = $("#creneau-choisi");
-      if (bandeau) {
-        $("[data-creneau-texte]", bandeau).textContent = creneau;
-        $("[data-creneau-whatsapp]", bandeau).href = lienWhatsapp("Bonjour Maxence, je souhaiterais réserver le créneau du " + creneau + ".");
-        bandeau.classList.add("visible");
-      }
-    }
+    if (params.get("duree")) choisirDuree(params.get("duree"));
+    if (params.get("creneau")) afficherCreneau(params.get("creneau"));
     // ---- vérification et envoi du formulaire (le client reste sur le site) ----
     var boiteErreur = $("#form-erreur", formulaire);
     var boutonEnvoi = $("button[type=submit]", formulaire);
