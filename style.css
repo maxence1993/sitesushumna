@@ -427,3 +427,12 @@ body { padding-bottom: 76px; }
 .note-formule-planning { margin: .9rem 0 0; padding: .7rem 1rem; border-left: 4px solid var(--or); background: var(--creme); border-radius: 0 10px 10px 0; max-width: 760px; }
 .note-formule-planning.note--active { background: #fff3d6; border: 2px solid var(--or); border-radius: 12px; font-weight: 600; }
 @media (max-width: 499px) { .durees--formules { grid-template-columns: repeat(2, minmax(0, 1fr)); } .duree--formule .duree__temps { font-size: .95rem; } }
+
+/* Horaires pour me joindre : l'horaire reste sur une seule ligne */
+.horaires--contact td { white-space: nowrap; }
+@media (max-width: 560px) {
+  .horaires--contact, .horaires--contact tbody, .horaires--contact tr, .horaires--contact th, .horaires--contact td { display: block; }
+  .horaires--contact tr { padding: .6rem 0; border-top: 1px solid var(--bordure); }
+  .horaires--contact th, .horaires--contact td { border: 0; padding: 0; text-align: left; }
+  .horaires--contact td { margin-top: .1rem; color: var(--or-texte); font-size: 1.1rem; }
+}
