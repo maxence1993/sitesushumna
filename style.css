@@ -338,7 +338,7 @@ body { padding-bottom: 76px; }
 .cadeau-teaser { background: linear-gradient(150deg, var(--or-clair), var(--creme)); border: 2px solid var(--or); border-radius: var(--rayon); padding: 1.6rem; box-shadow: var(--ombre); }
 .cadeau-teaser h2 { margin-top: 0; }
 .carte-cadeau { display: grid; grid-template-columns: 34% 1fr; width: 100%; max-width: 560px; margin-inline: auto; aspect-ratio: 946 / 432; background: #fff; border: 1px solid var(--bordure); border-radius: 6px; box-shadow: 0 14px 34px rgba(92, 67, 48, .22); overflow: hidden; container-type: inline-size; }
-.carte-cadeau__gauche { position: relative; background: #e8cb91 url("images/carte-fond.jpg") bottom / 100% auto no-repeat; display: flex; flex-direction: column; justify-content: space-between; padding: 4cqw 3cqw; }
+.carte-cadeau__gauche { position: relative; background: #e8cb91 url("images/carte-fond.jpg?v=2") bottom / 100% auto no-repeat; display: flex; flex-direction: column; justify-content: space-between; padding: 4cqw 3cqw; }
 .carte-cadeau__gauche img { width: 100%; height: auto; }
 .carte-cadeau__tel { font-family: "Great Vibes", cursive; font-size: 6.4cqw; color: var(--brun); text-align: center; white-space: nowrap; }
 .carte-cadeau__droite { padding: 3cqw 4cqw; display: flex; flex-direction: column; justify-content: space-between; }
