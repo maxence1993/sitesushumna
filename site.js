@@ -380,12 +380,74 @@
         bandeau.classList.add("visible");
       }
     }
-    // objet de l'e-mail reçu : prénom, nom, téléphone et créneau visibles tout de suite
-    formulaire.addEventListener("submit", function () {
+    // ---- vérification et envoi du formulaire (le client reste sur le site) ----
+    var boiteErreur = $("#form-erreur", formulaire);
+    var boutonEnvoi = $("button[type=submit]", formulaire);
+    var ADRESSE_ENVOI = "https://formsubmit.co/ajax/maxence.vaz@outlook.fr";
+
+    function montrerErreur(html, champ) {
+      boiteErreur.innerHTML = html;
+      boiteErreur.hidden = false;
+      boiteErreur.scrollIntoView({ behavior: "smooth", block: "center" });
+      if (champ) champ.focus({ preventScroll: true });
+    }
+    function chiffres(texte) { return String(texte).replace(/\D/g, ""); }
+
+    formulaire.addEventListener("submit", function (e) {
+      e.preventDefault();
+      boiteErreur.hidden = true;
+      $$(".champ--erreur", formulaire).forEach(function (c) { c.classList.remove("champ--erreur"); });
+
+      var prenom = $("#prenom", formulaire), nom = $("#nom", formulaire), tel = $("#telephone", formulaire);
+      var accord = $("input[name=Accord]", formulaire);
+      var manques = [], premier = null;
+      function probleme(champ, texte) {
+        manques.push(texte);
+        if (champ.closest(".champ")) champ.closest(".champ").classList.add("champ--erreur");
+        if (!premier) premier = champ;
+      }
+      if (!prenom.value.trim()) probleme(prenom, "votre <strong>prénom</strong>");
+      if (!nom.value.trim()) probleme(nom, "votre <strong>nom</strong>");
+      var nbChiffres = chiffres(tel.value).length;
+      if (!tel.value.trim()) probleme(tel, "votre <strong>numéro de téléphone</strong>");
+      else if (nbChiffres < 9 || nbChiffres > 15) probleme(tel, "un <strong>numéro de téléphone valide</strong> (par exemple 06 12 34 56 78)");
+      if (!accord.checked) probleme(accord, "la <strong>case d'accord</strong> en bas du formulaire");
+      var mail = $("#email", formulaire);
+      if (mail.value.trim() && !/^\S+@\S+\.\S+$/.test(mail.value.trim())) probleme(mail, "une <strong>adresse e-mail valide</strong> (ou laissez ce champ vide)");
+
+      if (manques.length) {
+        montrerErreur("<strong>Il manque encore :</strong> " + manques.join(", ") + ".", premier);
+        return;
+      }
+
+      // objet de l'e-mail reçu : prénom, nom, téléphone et créneau visibles tout de suite
+      var morceaux = [prenom.value.trim() + " " + nom.value.trim(), tel.value.trim(), $("#creneau", formulaire).value.trim()].filter(Boolean);
       var objet = $("input[name=_subject]", formulaire);
-      var morceaux = [$("#prenom", formulaire).value + " " + $("#nom", formulaire).value, $("#telephone", formulaire).value, $("#creneau", formulaire).value]
-        .map(function (t) { return t.trim(); }).filter(Boolean);
       if (objet) objet.value = "Demande de rendez-vous – " + morceaux.join(" – ");
+
+      var texteBouton = boutonEnvoi.textContent;
+      boutonEnvoi.disabled = true;
+      boutonEnvoi.textContent = "Envoi en cours…";
+
+      var donnees = new FormData(formulaire);
+      donnees.delete("_next");
+      donnees.delete("_honey");
+      if ($("input[name=_honey]", formulaire).value) { boutonEnvoi.disabled = false; boutonEnvoi.textContent = texteBouton; return; }
+
+      function echec() {
+        boutonEnvoi.disabled = false;
+        boutonEnvoi.textContent = texteBouton;
+        montrerErreur("<strong>Votre demande n'a pas pu être envoyée.</strong> Vous pouvez réessayer dans un instant, ou me joindre directement : " +
+          '<a href="tel:+33750460110">07 50 46 01 10</a> · <a href="' + lienWhatsapp("Bonjour Maxence, je souhaiterais prendre rendez-vous.") + '" target="_blank" rel="noopener">WhatsApp</a>.');
+      }
+      fetch(ADRESSE_ENVOI, { method: "POST", headers: { Accept: "application/json" }, body: donnees })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, json: j }; }); })
+        .then(function (res) {
+          if (res.ok && (res.json.success === true || res.json.success === "true")) {
+            window.location.href = "merci.html";
+          } else { echec(); }
+        })
+        .catch(echec);
     });
     var suite = $("input[name=_next]", formulaire);
     if (suite) suite.value = new URL("merci.html", location.href).href;

@@ -390,3 +390,9 @@ body { padding-bottom: 76px; }
 .heures { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .45rem; }
 .heure { display: inline-grid; place-items: center; min-width: 74px; min-height: 46px; padding: .3rem .6rem; border-radius: 10px; border: 2px solid var(--libre); background: var(--libre-fond); color: var(--libre); font-weight: 800; text-decoration: none; }
 .heure:hover, .heure:focus-visible { background: var(--libre); color: #fff; }
+
+/* ---------- Formulaire : erreurs bien visibles ---------- */
+.form-erreur { background: #fdeceb; border: 2px solid #b3261e; border-radius: 12px; padding: .9rem 1.1rem; margin: 0 0 1rem; color: #5c130d; font-weight: 600; }
+.form-erreur a { color: #5c130d; }
+.champ--erreur input:not([type=checkbox]) { border-color: #b3261e; background: #fff8f7; }
+.champ--erreur .case { outline: 2px solid #b3261e; outline-offset: 4px; border-radius: 6px; }
