@@ -122,7 +122,8 @@
         (f.avantage ? '<span class="etiquette">' + echapper(f.avantage) + '</span>' : '') +
         '<div class="prix-carte__duree">' + echapper(f.nom) + '</div>' +
         '<div class="prix-carte__prix">' + prix(f.prix) + '</div><div>' + echapper(f.detail) + '</div>' +
-        (f.reglement ? '<p class="prix-carte__reglement"><strong>' + echapper(f.reglement) + '</strong></p>' : '') + '</div>';
+        (f.reglement ? '<p class="prix-carte__reglement"><strong>' + echapper(f.reglement) + '</strong></p>' : '') +
+        (cartesFormules && f.minutes ? '<p><a class="bouton" href="contact.html?duree=' + encodeURIComponent(f.nom) + '#rendez-vous">Réserver cette formule</a></p>' : '') + '</div>';
     }
     cartesPrix.innerHTML = tarifs.map(function (t) {
       return '<div class="prix-carte"><div class="prix-carte__duree">' + echapper(t.duree) + '</div>' +
@@ -238,9 +239,13 @@
 
     var zoneDurees = $("#choix-duree");
     var params = new URLSearchParams(location.search);
-    var dureeChoisie = 0;   // durée de départ : minutes (« 60 ») ou libellé (« 1h ») venant de l'adresse
-    (function () {
+    var zoneFormules = $("#choix-formule");
+    var formuleChoisie = null;   // la formule 4 massages choisie (ou null : un massage seul)
+    var dureeChoisie = 0;        // durée du massage à placer (celle du premier massage pour une formule)
+    (function () {               // point de départ : minutes (« 60 »), durée (« 1h ») ou formule, venant de l'adresse
       var demande = params.get("duree") || "";
+      formules.forEach(function (f) { if (f.nom === demande && f.minutes) { formuleChoisie = f; dureeChoisie = f.minutes; } });
+      if (formuleChoisie) return;
       if (+demande) dureeChoisie = +demande;
       else tarifs.forEach(function (t) { if (t.duree === demande) dureeChoisie = t.minutes || 0; });
     })();
@@ -251,14 +256,34 @@
         '<span class="duree__temps">' + echapper(t.duree) + '</span><span class="duree__prix">' + prix(t.prix) + '</span></button>';
     }).join("");
 
-    function afficher(duree) {
-      $$(".duree", zoneDurees).forEach(function (b) { b.setAttribute("aria-pressed", +b.getAttribute("data-minutes") === duree ? "true" : "false"); });
+    if (zoneFormules) {
+      zoneFormules.innerHTML = formules.map(function (f, i) {
+        if (!f.minutes) return "";
+        return '<button type="button" class="duree duree--formule" data-formule="' + i + '" aria-pressed="false">' +
+          '<span class="duree__temps">' + echapper(f.nom.replace(/^Formule\s+/, "")) + '</span><span class="duree__prix">' + prix(f.prix) + '</span>' +
+          (f.avantage ? '<span class="duree__sous">' + echapper(f.avantage) + '</span>' : '') + '</button>';
+      }).join("");
+    }
+    function libelleDuree(minutes) {
+      var t = tarifs.filter(function (x) { return (x.minutes || 0) === minutes; })[0];
+      return t ? t.duree : ecrireHeure(minutes).replace(/h00$/, "h");
+    }
+
+    function afficher() {
+      var duree = dureeChoisie;
+      $$(".duree[data-minutes]", zoneDurees).forEach(function (b) { b.setAttribute("aria-pressed", !formuleChoisie && +b.getAttribute("data-minutes") === duree ? "true" : "false"); });
+      if (zoneFormules) $$(".duree[data-formule]", zoneFormules).forEach(function (b) { b.setAttribute("aria-pressed", formules[+b.getAttribute("data-formule")] === formuleChoisie ? "true" : "false"); });
+      var noteChoix = $("#note-formule-planning");
+      if (noteChoix) noteChoix.classList.toggle("note--active", !!formuleChoisie);
       var etape2 = $("#etape-creneau");
       if (!duree) { etape2.hidden = true; return; }
       etape2.hidden = false;
       var tarif = tarifs.filter(function (t) { return (t.minutes || 0) === duree; })[0];
-      var libelle = tarif ? tarif.duree : ecrireHeure(duree).replace(/h00$/, "h");
-      $("#duree-rappel").textContent = libelle + (tarif ? " (" + prix(tarif.prix) + ")" : "");
+      var libelle = formuleChoisie ? formuleChoisie.nom : libelleDuree(duree);   // ce qui part dans le formulaire
+      var etiquette = formuleChoisie ? formuleChoisie.nom + ", 1er massage" : libelle;
+      $("#duree-rappel").textContent = formuleChoisie ? formuleChoisie.nom + " (" + prix(formuleChoisie.prix) + ")" : libelle + (tarif ? " (" + prix(tarif.prix) + ")" : "");
+      var intro = $("#rappel-intro"); if (intro) intro.textContent = formuleChoisie ? "Premier massage de la" : "Massage de";
+      var noteEtape2 = $("#note-formule-etape2"); if (noteEtape2) noteEtape2.hidden = !formuleChoisie;
 
       var maintenant = new Date();
       var lundi = new Date(maintenant.getFullYear(), maintenant.getMonth(), maintenant.getDate());
@@ -281,7 +306,7 @@
             total += c.debuts.length;
             contenu = '<ul class="heures">' + c.debuts.map(function (t) {
               var quand = nomJour(date) + " " + jourMois(date) + " à " + ecrireHeure(t);
-              return '<li><a class="heure" data-quand="' + echapper(quand) + '" data-duree="' + echapper(libelle) + '" href="contact.html?creneau=' + encodeURIComponent(quand + " (" + libelle + ")") +
+              return '<li><a class="heure" data-quand="' + echapper(quand) + '" data-duree="' + echapper(libelle) + '" data-etiquette="' + echapper(etiquette) + '" href="contact.html?creneau=' + encodeURIComponent(quand + " (" + etiquette + ")") +
                 '&duree=' + encodeURIComponent(libelle) + '#formulaire" aria-label="Réserver le ' + quand + ', fin à ' + ecrireHeure(t + duree) + '">' +
                 ecrireHeure(t) + '</a></li>';
             }).join("") + '</ul>';
@@ -291,7 +316,7 @@
         var badge = s === 0 ? "Cette semaine" : s === 1 ? "Semaine prochaine" : "";
         html += '<section class="semaine"><div class="semaine__titre"><h2>Semaine du ' + jourMois(debutSem) + ' au ' + jourMois(finSem) + '</h2>' +
           (badge ? '<span class="semaine__badge">' + badge + '</span>' : '') + '</div>' +
-          '<p class="semaine__resume">' + (total ? "<strong>" + total + " horaire" + (total > 1 ? "s" : "") + " possible" + (total > 1 ? "s" : "") + "</strong> pour un massage de " + libelle.toLowerCase() + "." :
+          '<p class="semaine__resume">' + (total ? "<strong>" + total + " horaire" + (total > 1 ? "s" : "") + " possible" + (total > 1 ? "s" : "") + "</strong> pour " + (formuleChoisie ? "le premier massage de la formule" : "un massage de " + libelle.toLowerCase()) + "." :
             "Plus de place cette semaine-là pour cette durée. Essayez une durée plus courte, ou appelez-moi : un créneau se libère parfois.") + '</p>' +
           (lignes || '<p class="jour-ligne__info">Cette semaine est terminée.</p>') + '</section>';
       }
@@ -304,18 +329,25 @@
       e.preventDefault();
       $$("a.heure.heure--choisie", zonePlanning).forEach(function (a) { a.classList.remove("heure--choisie"); });
       lien.classList.add("heure--choisie");
-      choisirCreneau(lien.getAttribute("data-quand"), lien.getAttribute("data-duree"));
+      choisirCreneau(lien.getAttribute("data-quand"), lien.getAttribute("data-duree"), lien.getAttribute("data-etiquette"));
     });
+    function choisir(formule, minutes) {
+      formuleChoisie = formule;
+      dureeChoisie = formule ? formule.minutes : minutes;
+      if (oublierCreneau) oublierCreneau(formule ? formule.nom : libelleDuree(minutes));
+      afficher();
+      try { history.replaceState(null, "", "?duree=" + encodeURIComponent(formule ? formule.nom : minutes)); } catch (err) { /* rien */ }
+      $("#etape-creneau").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
     zoneDurees.addEventListener("click", function (e) {
       var bouton = e.target.closest(".duree");
-      if (!bouton) return;
-      dureeChoisie = +bouton.getAttribute("data-minutes");
-      if (oublierCreneau) oublierCreneau(dureeChoisie);
-      afficher(dureeChoisie);
-      try { history.replaceState(null, "", "?duree=" + dureeChoisie); } catch (err) { /* rien */ }
-      $("#etape-creneau").scrollIntoView({ behavior: "smooth", block: "start" });
+      if (bouton) choisir(null, +bouton.getAttribute("data-minutes"));
     });
-    afficher(dureeChoisie);
+    if (zoneFormules) zoneFormules.addEventListener("click", function (e) {
+      var bouton = e.target.closest(".duree");
+      if (bouton) choisir(formules[+bouton.getAttribute("data-formule")], 0);
+    });
+    afficher();
 
     var maj = $("#planning-maj");
     if (maj && window.PLANNING_MIS_A_JOUR_LE) {
@@ -394,16 +426,15 @@
       if (typeof majNoteFormule === "function") majNoteFormule();
     }
     // clic sur un horaire du planning, sur cette même page
-    choisirCreneau = function (quand, libelle) {
-      afficherCreneau(quand + " (" + libelle + ")");
+    choisirCreneau = function (quand, libelle, etiquette) {
+      afficherCreneau(quand + " (" + (etiquette || libelle) + ")");
       choisirDuree(libelle);
       var cible = $("#formulaire");
       if (cible) cible.scrollIntoView({ behavior: "smooth", block: "start" });
     };
     // le client change la durée : l'ancien créneau n'a plus de sens
-    oublierCreneau = function (minutes) {
-      var tarif = tarifs.filter(function (t) { return (t.minutes || 0) === minutes; })[0];
-      if (tarif) choisirDuree(tarif.duree);
+    oublierCreneau = function (libelle) {
+      choisirDuree(libelle);
       $("#creneau", formulaire).value = "";
       if (creneauAffiche) creneauAffiche.classList.remove("visible");
     };
