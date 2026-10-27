@@ -116,15 +116,18 @@
   /* ---------- Page « Tarifs » ---------- */
   var cartesPrix = $("#cartes-prix");
   if (cartesPrix) {
-    cartesPrix.innerHTML = tarifs.map(function (t) {
-      return '<div class="prix-carte"><div class="prix-carte__duree">' + echapper(t.duree) + '</div>' +
-        '<div class="prix-carte__prix">' + prix(t.prix) + '</div><div>Tous les massages</div></div>';
-    }).join("") + formules.map(function (f) {
+    var cartesFormules = $("#cartes-formules");   // page Tarifs : les formules ont leur propre rangée
+    function carteFormule(f) {
       return '<div class="prix-carte prix-carte--forfait">' +
         (f.avantage ? '<span class="etiquette">' + echapper(f.avantage) + '</span>' : '') +
         '<div class="prix-carte__duree">' + echapper(f.nom) + '</div>' +
         '<div class="prix-carte__prix">' + prix(f.prix) + '</div><div>' + echapper(f.detail) + '</div></div>';
-    }).join("");
+    }
+    cartesPrix.innerHTML = tarifs.map(function (t) {
+      return '<div class="prix-carte"><div class="prix-carte__duree">' + echapper(t.duree) + '</div>' +
+        '<div class="prix-carte__prix">' + prix(t.prix) + '</div><div>Tous les massages</div></div>';
+    }).join("") + (cartesFormules ? "" : formules.map(carteFormule).join(""));
+    if (cartesFormules) cartesFormules.innerHTML = formules.map(carteFormule).join("");
   }
   var tableau = $("#tableau-tarifs");
   if (tableau) {

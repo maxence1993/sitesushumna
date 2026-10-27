@@ -412,3 +412,5 @@ body { padding-bottom: 76px; }
 .heure--choisie, .heure--choisie:hover { background: var(--libre); color: #fff; box-shadow: 0 0 0 3px var(--or); }
 #rendez-vous, #formulaire { scroll-margin-top: 100px; }
 .moyens { margin-top: 1.5rem; }
+
+.prix-cartes--formules { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); max-width: 780px; margin-top: 1.5rem; }
