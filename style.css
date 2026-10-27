@@ -436,3 +436,10 @@ body { padding-bottom: 76px; }
   .horaires--contact th, .horaires--contact td { border: 0; padding: 0; text-align: left; }
   .horaires--contact td { margin-top: .1rem; color: var(--or-texte); font-size: 1.1rem; }
 }
+
+/* Accueil, ordinateur : si le dernier massage est seul sur sa ligne, il est centré */
+@media (min-width: 960px) {
+  #resume-massages { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  #resume-massages .carte { grid-column: span 2; }
+  #resume-massages .carte:last-child:nth-child(3n+1) { grid-column: 3 / span 2; }
+}

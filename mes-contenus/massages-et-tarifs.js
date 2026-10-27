@@ -130,5 +130,18 @@ var MASSAGES = [
       "Un espace pour déposer ce qui pèse"
     ],
     bonASavoir: "Pour votre confort, évitez de manger un repas copieux juste avant la séance. Elle n'est pas pratiquée pendant la grossesse."
+  },
+  {
+    nom: "Massage sportif",
+    accroche: "Pour des muscles qui travaillent, et qui ont besoin de souffler",
+    photo: "massage-sportif.jpg",
+    consiste: "Un massage plus tonique et plus appuyé, avec des gestes profonds, des pétrissages et des étirements doux. Il s'adapte à votre pratique, à vos muscles sollicités et à votre sensibilité : la pression est toujours réglée avec vous.",
+    pourQui: "Pour vous si vous faites du sport, avez un travail physique, ou si vous aimez les massages fermes qui font du bien aux muscles. Il convient aussi bien aux sportifs réguliers qu'aux débutants.",
+    apporte: [
+      "Des muscles plus souples, une sensation de relâchement",
+      "Un moment agréable pour se remettre d'un effort",
+      "Une vraie détente après une période chargée"
+    ],
+    bonASavoir: "Ce massage est un moment de bien-être, pas un acte médical ni de la kinésithérapie. En cas de blessure, de douleur persistante ou de problème de santé, demandez d'abord l'avis de votre médecin."
   }
 ];
