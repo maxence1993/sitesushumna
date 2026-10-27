@@ -132,9 +132,10 @@
           </div>
           <p style="margin-top:1.2rem">Remplissez ce petit formulaire : je vous recontacte pour confirmer le rendez-vous. Les champs marqués d'une <span class="obligatoire">*</span> sont obligatoires.</p>
 
-          <form id="formulaire-rdv" action="https://formsubmit.co/maxence.vaz@outlook.fr" method="POST">
+          <form id="formulaire-rdv" action="https://formsubmit.co/maxence.vaz@outlook.fr" method="POST" novalidate>
             <input type="hidden" name="_subject" value="Nouvelle demande de rendez-vous – site Sushumna">
             <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_next" value="">
             <input type="text" name="_honey" class="cache" tabindex="-1" autocomplete="off" aria-hidden="true">
 
@@ -150,7 +151,7 @@
             </div>
             <div class="champ">
               <label for="telephone">Votre numéro de téléphone <span class="obligatoire">*</span> <span class="aide">Pour que je puisse confirmer votre rendez-vous.</span></label>
-              <input id="telephone" name="Téléphone" type="tel" autocomplete="tel" inputmode="tel" required pattern="[0-9 +.\-]{10,}" title="Votre numéro de téléphone, par exemple 06 12 34 56 78">
+              <input id="telephone" name="Téléphone" type="tel" autocomplete="tel" inputmode="tel" required>
             </div>
             <div class="champ">
               <label for="email">Votre e-mail <span class="aide">(facultatif)</span></label>
@@ -181,6 +182,7 @@
             <div class="champ">
               <label class="case"><input type="checkbox" name="Accord" value="Oui" required> <span>J'accepte que mes informations soient utilisées uniquement pour me recontacter au sujet de ce rendez-vous. <span class="obligatoire">*</span></span></label>
             </div>
+            <p class="form-erreur" id="form-erreur" role="alert" hidden></p>
             <button class="bouton bouton--or bouton--grand" type="submit" style="width:100%">Envoyer ma demande de rendez-vous</button>
             <p class="aide" style="margin-top:1rem;font-size:.95rem"><strong>Rappel :</strong> votre massage n'est validé qu'après ma confirmation.</p>
           </form>
