@@ -62,7 +62,7 @@
       <div class="conteneur">
         <p class="surtitre">Contact et rendez-vous</p>
         <h1>Prendre rendez-vous</h1>
-        <p class="intro">Trois étapes simples : choisissez la durée, puis votre horaire, puis laissez-moi vos coordonnées. Je vous confirme ensuite votre rendez-vous. Vous préférez parler à quelqu'un ? Je suis joignable tous les jours de 9h à 21h.</p>
+        <p class="intro">Trois étapes simples : choisissez la durée, puis votre horaire, puis laissez-moi vos coordonnées. <span data-mode-reservation="demande">Je vous confirme ensuite votre rendez-vous.</span><span data-mode-reservation="en-ligne" hidden>Votre rendez-vous est alors réservé dans mon agenda.</span> Vous préférez parler à quelqu'un ? Je suis joignable tous les jours de 9h à 21h.</p>
       </div>
     </section>
     <section class="section" id="rendez-vous" style="padding-top:2rem;padding-bottom:1rem">
@@ -84,7 +84,7 @@
           <p class="etape-aide"><span id="rappel-intro">Massage de</span> <strong id="duree-rappel"></strong>. Les heures affichées sont les heures de <strong>début</strong> encore possibles. Touchez celle qui vous convient.</p>
           <p class="encadre encadre--attention" id="note-formule-etape2" role="status" hidden style="padding:.8rem 1rem"><strong>Vous choisissez ici le premier massage de votre formule.</strong> Les 3 autres rendez-vous seront pris ensemble, lors du premier rendez-vous.</p>
           
-          <p class="etape-aide"><strong>Pour un rendez-vous le jour même</strong>, appelez-moi ou écrivez-moi sur WhatsApp : c'est le plus rapide.</p>
+          <p class="etape-aide"><strong>Pour un rendez-vous dans moins de 24h</strong>, appelez-moi ou écrivez-moi sur WhatsApp : c'est le plus rapide.</p>
           <div id="planning" aria-live="polite"></div>
         </div>
       </div>
@@ -141,9 +141,10 @@
 
           <div class="encadre encadre--attention avertissement" role="note">
             <svg class="ic" aria-hidden="true"><use href="images/icones.svg#horloge"/></svg>
-            <p style="margin:0"><strong>Votre réservation n'est pas automatique.</strong> Quand vous choisissez un horaire, vous m'envoyez une <strong>demande</strong>. Votre massage est validé <strong>uniquement quand je vous l'ai confirmé</strong> (par téléphone, SMS ou WhatsApp). Pas d'inquiétude : la confirmation est rapide, je réponds tous les jours entre 9h et 21h.</p>
+            <p style="margin:0" data-mode-reservation="demande"><strong>Votre réservation n'est pas automatique.</strong> Quand vous choisissez un horaire, vous m'envoyez une <strong>demande</strong>. Votre massage est validé <strong>uniquement quand je vous l'ai confirmé</strong> (par téléphone, SMS ou WhatsApp). Pas d'inquiétude : la confirmation est rapide, je réponds tous les jours entre 9h et 21h.</p>
+            <p style="margin:0" data-mode-reservation="en-ligne" hidden><strong>Réservation immédiate.</strong> Les horaires affichés sont ceux réellement libres dans mon agenda. Quand vous réservez un horaire, il est <strong>enregistré tout de suite</strong> : vous recevez la confirmation à l'écran. En ligne, on peut réserver jusqu'à <strong>24h à l'avance</strong> ; pour plus tôt, appelez-moi. Un empêchement ? Prévenez-moi au moins 24h avant.</p>
           </div>
-          <p style="margin-top:1.2rem">Remplissez ce petit formulaire : je vous recontacte pour confirmer le rendez-vous. Les champs marqués d'une <span class="obligatoire">*</span> sont obligatoires.</p>
+          <p style="margin-top:1.2rem"><span data-sans-creneau-en-ligne>Remplissez ce petit formulaire : je vous recontacte pour confirmer le rendez-vous.</span><span data-si-creneau-en-ligne hidden>Remplissez ce petit formulaire pour réserver votre créneau.</span> Les champs marqués d'une <span class="obligatoire">*</span> sont obligatoires.</p>
 
           <form id="formulaire-rdv" action="https://formsubmit.co/maxence.vaz@outlook.fr" method="POST" novalidate>
             <input type="hidden" name="_subject" value="Nouvelle demande de rendez-vous – site Sushumna">
@@ -196,12 +197,18 @@
             <div class="champ">
               <label class="case"><input type="checkbox" name="Accord" value="Oui" required> <span>J'accepte que mes informations soient utilisées uniquement pour me recontacter au sujet de ce rendez-vous. <span class="obligatoire">*</span></span></label>
             </div>
+            <div class="champ" id="zone-anti-robot" data-si-creneau-en-ligne hidden>
+              <span class="aide" style="margin-bottom:.4rem">Vérification anti-robot (protège mon agenda des réservations automatiques) :</span>
+              <div id="anti-robot"></div>
+            </div>
             <p class="form-erreur" id="form-erreur" role="alert" hidden></p>
             <button class="bouton bouton--or bouton--grand" type="submit" style="width:100%">Envoyer ma demande de rendez-vous</button>
             <p class="ou-separateur"><span>ou</span></p>
             <button class="bouton bouton--grand" type="button" id="envoi-whatsapp" style="width:100%"><svg class="ic" aria-hidden="true"><use href="images/icones.svg#whatsapp"/></svg> Envoyer ma demande par WhatsApp</button>
-            <p class="aide" style="margin-top:1rem;font-size:.95rem"><strong>Rappel :</strong> votre massage n'est validé qu'après ma confirmation.</p>
+            <p class="aide" style="margin-top:1rem;font-size:.95rem" data-sans-creneau-en-ligne><strong>Rappel :</strong> votre massage n'est validé qu'après ma confirmation.</p>
+            <p class="aide" style="margin-top:1rem;font-size:.95rem" data-si-creneau-en-ligne hidden><strong>Rappel :</strong> avec « Réserver ce créneau », le rendez-vous est enregistré directement dans mon agenda. Annulation ou changement sans frais en me prévenant au moins 24h à l'avance.</p>
           </form>
+          <div class="encadre encadre--info" id="reservation-confirmee" role="status" hidden></div>
         </div>
       </div>
     </section>
@@ -268,6 +275,7 @@
 
   <script src="mes-contenus/massages-et-tarifs.js"></script>
   <script src="mes-contenus/planning.js"></script>
-  <script src="site.js?v=14"></script>
+  <script src="reservation-en-ligne.js?v=1"></script>
+  <script src="site.js?v=15"></script>
 </body>
 </html>

@@ -17,6 +17,13 @@
      à 21h, quelle que soit sa durée)
    - Un jour sans massage :            "fermé"
    - Les dates s'écrivent jour/mois/année : 27/10/2026
+
+   ⚠️ QUAND LA RÉSERVATION EN LIGNE EST ACTIVÉE (API_URL rempli dans
+   « reservation-en-ligne.js »), ce fichier ne sert plus : les créneaux
+   viennent directement de votre Google Agenda, et les horaires se
+   règlent dans le fichier « wrangler.toml » du dépôt « agenda-api ».
+   Ce fichier reste utilisé si vous videz API_URL (retour à l'ancien
+   fonctionnement).
    ===================================================================== */
 
 
@@ -67,5 +74,5 @@ var MASSAGES_RESERVES = [
 /* ---------- 4. RÉGLAGES (à changer rarement) ---------- */
 var PAUSE_APRES_MASSAGE = 15;     // minutes bloquées après chaque massage
 var PRECISION_DES_CRENEAUX = 15;  // les créneaux commencent toutes les 15 minutes
-var DELAI_MINIMUM = 0;            // heures : 0 = réservation possible à la dernière minute
+var DELAI_MINIMUM = 24;           // heures : réservation en ligne au plus tard 24h avant
 var NOMBRE_DE_SEMAINES = 2;       // nombre de semaines affichées

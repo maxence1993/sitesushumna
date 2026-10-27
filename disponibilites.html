@@ -62,7 +62,7 @@
       <div class="conteneur">
         <p class="surtitre">Disponibilités</p>
         <h1>Réserver mon créneau</h1>
-        <p class="intro">En deux étapes : choisissez la durée de votre massage, puis l'heure qui vous convient. Je vous confirme ensuite rapidement votre rendez-vous.</p>
+        <p class="intro">En deux étapes : choisissez la durée de votre massage, puis l'heure qui vous convient. <span data-mode-reservation="demande">Je vous confirme ensuite rapidement votre rendez-vous.</span><span data-mode-reservation="en-ligne" hidden>Vous laissez ensuite vos coordonnées et le rendez-vous est réservé.</span></p>
       </div>
     </section>
     <section class="section" style="padding-top:2rem">
@@ -80,9 +80,10 @@
           <p class="encadre encadre--attention" id="note-formule-etape2" role="status" hidden style="padding:.8rem 1rem"><strong>Vous choisissez ici le premier massage de votre formule.</strong> Les 3 autres rendez-vous seront pris ensemble, lors du premier rendez-vous.</p>
           <div class="encadre encadre--attention avertissement" role="note">
             <svg class="ic" aria-hidden="true"><use href="images/icones.svg#horloge"/></svg>
-            <p style="margin:0"><strong>Votre réservation n'est pas automatique.</strong> Quand vous choisissez un horaire, vous m'envoyez une <strong>demande</strong>. Votre massage est validé <strong>uniquement quand je vous l'ai confirmé</strong> (par téléphone, SMS ou WhatsApp). Pas d'inquiétude : la confirmation est rapide, je réponds tous les jours entre 9h et 21h.</p>
+            <p style="margin:0" data-mode-reservation="demande"><strong>Votre réservation n'est pas automatique.</strong> Quand vous choisissez un horaire, vous m'envoyez une <strong>demande</strong>. Votre massage est validé <strong>uniquement quand je vous l'ai confirmé</strong> (par téléphone, SMS ou WhatsApp). Pas d'inquiétude : la confirmation est rapide, je réponds tous les jours entre 9h et 21h.</p>
+            <p style="margin:0" data-mode-reservation="en-ligne" hidden><strong>Réservation immédiate.</strong> Les horaires affichés sont ceux réellement libres dans mon agenda. Quand vous réservez un horaire, il est <strong>enregistré tout de suite</strong> : vous recevez la confirmation à l'écran. En ligne, on peut réserver jusqu'à <strong>24h à l'avance</strong> ; pour plus tôt, appelez-moi. Un empêchement ? Prévenez-moi au moins 24h avant.</p>
           </div>
-          <p class="etape-aide"><strong>Pour un rendez-vous le jour même</strong>, appelez-moi ou écrivez-moi sur WhatsApp : c'est le plus rapide.</p>
+          <p class="etape-aide"><strong>Pour un rendez-vous dans moins de 24h</strong>, appelez-moi ou écrivez-moi sur WhatsApp : c'est le plus rapide.</p>
           <div id="planning" aria-live="polite"></div>
         </div>
 
@@ -148,6 +149,7 @@
 
   <script src="mes-contenus/massages-et-tarifs.js"></script>
   <script src="mes-contenus/planning.js"></script>
-  <script src="site.js?v=14"></script>
+  <script src="reservation-en-ligne.js?v=1"></script>
+  <script src="site.js?v=15"></script>
 </body>
 </html>
