@@ -23,10 +23,16 @@ var TARIFS = [
 /* ---------- 2. LES FORMULES ET CARTES DE SÉANCES ---------- */
 var FORMULES = [
   {
-    nom: "Formule 4 massages",
+    nom: "Formule 4 massages d'1 heure",
     detail: "4 massages d'1 heure, à utiliser sur 2 mois (soit 4 heures en tout). Vous pouvez choisir un massage différent à chaque séance.",
     prix: 200,
     avantage: "80 € d'économie"
+  },
+  {
+    nom: "Formule 4 massages de 2 heures",
+    detail: "4 massages de 2 heures, à utiliser sur 2 mois (soit 8 heures en tout). Vous pouvez choisir un massage différent à chaque séance.",
+    prix: 400,
+    avantage: "120 € d'économie"
   }
 ];
 
