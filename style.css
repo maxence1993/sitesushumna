@@ -152,12 +152,6 @@ p { margin: 0 0 1em; }
 
 /* Cartes */
 .cartes { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); margin-top: 2rem; align-items: start; }
-@media (min-width: 960px) {
-  /* sur ordinateur : ayurvédique en 1er, sur mesure en 2e (alternance photo verticale / horizontale) */
-  #resume-massages .carte { order: 3; }
-  #resume-massages .carte:nth-child(1) { order: 2; }
-  #resume-massages .carte:nth-child(2) { order: 1; }
-}
 .carte { background: var(--creme); border: 1px solid var(--bordure); border-radius: var(--rayon); overflow: hidden; box-shadow: var(--ombre); display: flex; flex-direction: column; }
 .carte__photo { flex: none; }
 .carte__photo img { height: auto; }
