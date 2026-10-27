@@ -60,6 +60,7 @@ var JOURS_PARTICULIERS = [
 var MASSAGES_RESERVES = [
   "27/10/2026 14h00 3h",
   "30/10/2026 11h00 1h30",
+  "03/11/2026 14h00 1h",
 ];
 
 
