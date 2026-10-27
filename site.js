@@ -385,7 +385,8 @@
     var boutonEnvoi = $("button[type=submit]", formulaire);
     var boutonWhatsapp = $("#envoi-whatsapp", formulaire);
     var ADRESSE_ENVOI = "https://formsubmit.co/ajax/maxence.vaz@outlook.fr";
-    var DELAI_MAXIMUM = 25000; // on attend la réponse au plus 25 secondes
+    var DELAI_MESSAGE = 5000;   // après 5 secondes, on propose une solution de secours
+    var DELAI_MAXIMUM = 30000;  // on arrête d'attendre la réponse après 30 secondes
 
     function montrerInfo(html) {
       boiteErreur.innerHTML = html;
@@ -476,6 +477,7 @@
       function echec() {
         if (termine) return;
         termine = true;
+        clearTimeout(minuteurMessage); clearTimeout(minuteur);
         boutonEnvoi.disabled = false;
         boutonEnvoi.textContent = texteBouton;
         montrerErreur("<strong>Je n'ai pas pu confirmer l'envoi de votre demande.</strong> Pour être sûr que je la reçoive, vous pouvez " + liensSecours() + ".");
@@ -483,17 +485,22 @@
       function reussite() {
         if (termine) return;
         termine = true;
+        clearTimeout(minuteurMessage); clearTimeout(minuteur);
         window.location.href = "merci.html";
       }
+      // au bout de 5 secondes : on propose une solution de secours, sans interrompre l'envoi
+      var minuteurMessage = setTimeout(function () {
+        if (termine) return;
+        montrerInfo("<strong>L'envoi prend plus de temps que prévu.</strong> Vous pouvez patienter encore un instant, ou, pour être sûr que je reçoive votre demande, " + liensSecours() + ".");
+      }, DELAI_MESSAGE);
       var controle = window.AbortController ? new AbortController() : null;
       var minuteur = setTimeout(function () { if (controle) controle.abort(); echec(); }, DELAI_MAXIMUM);
       fetch(ADRESSE_ENVOI, { method: "POST", headers: { Accept: "application/json" }, body: donnees, signal: controle ? controle.signal : undefined })
         .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, json: j }; }); })
         .then(function (res) {
-          clearTimeout(minuteur);
           if (res.ok && (res.json.success === true || res.json.success === "true")) reussite(); else echec();
         })
-        .catch(function () { clearTimeout(minuteur); echec(); });
+        .catch(echec);
     });
 
     var suite = $("input[name=_next]", formulaire);
