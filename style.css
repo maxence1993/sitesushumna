@@ -371,7 +371,14 @@ body { padding-bottom: 76px; }
 .etape-titre { display: flex; align-items: center; gap: .7rem; font-size: clamp(1.3rem, 3vw, 1.7rem); margin: 0 0 1rem; }
 .etape-numero { display: inline-grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: 50%; background: var(--or); color: var(--brun); font: 700 1.2rem var(--titres); }
 .durees { display: grid; gap: .6rem; grid-template-columns: repeat(3, 1fr); max-width: 760px; }
-@media (max-width: 499px) { .duree { padding: .8rem .3rem; min-height: 80px; } .duree__temps { font-size: 1rem; } .duree__prix { font-size: 1.25rem; } }
+.duree__court { display: none; }
+@media (max-width: 499px) {
+  .durees { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .duree { padding: .8rem .2rem; min-height: 80px; min-width: 0; }
+  .duree__long { display: none; }
+  .duree__court { display: inline; }
+  .duree__prix { font-size: 1.2rem; }
+}
 .duree { display: flex; flex-direction: column; align-items: center; gap: .1rem; padding: 1.1rem 1rem; min-height: 90px; background: var(--creme); border: 2px solid var(--bordure); border-radius: var(--rayon); color: var(--brun); cursor: pointer; font-family: var(--texte); box-shadow: var(--ombre); }
 .duree:hover { border-color: var(--or); }
 .duree__temps { font-weight: 800; font-size: 1.2rem; }
@@ -400,3 +407,8 @@ body { padding-bottom: 76px; }
 .form-erreur--info { background: #fff8e6; border-color: var(--or); color: var(--brun); }
 .ou-separateur { display: flex; align-items: center; gap: .8rem; margin: 1rem 0; color: var(--brun-doux); font-weight: 700; }
 .ou-separateur::before, .ou-separateur::after { content: ""; flex: 1; height: 1px; background: var(--bordure); }
+
+/* ---------- Prendre rendez-vous : horaire choisi, ancres sous l'en-tête fixe ---------- */
+.heure--choisie, .heure--choisie:hover { background: var(--libre); color: #fff; box-shadow: 0 0 0 3px var(--or); }
+#rendez-vous, #formulaire { scroll-margin-top: 100px; }
+.moyens { margin-top: 1.5rem; }
