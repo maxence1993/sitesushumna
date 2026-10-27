@@ -143,5 +143,18 @@ var MASSAGES = [
       "Une vraie détente après une période chargée"
     ],
     bonASavoir: "Ce massage est un moment de bien-être, pas un acte médical ni de la kinésithérapie. En cas de blessure, de douleur persistante ou de problème de santé, demandez d'abord l'avis de votre médecin."
+  },
+  {
+    nom: "Massage réconfort",
+    accroche: "Un moment de tendresse et de douceur",
+    photo: "massage-reconfort.jpg",
+    consiste: "Un massage à l'huile, lent et enveloppant, avec de nombreuses manipulations qui englobent tout le corps. Il se fait avec les mains, les bras et le buste, pour des gestes amples, continus et très doux. C'est un massage sensoriel, qui invite à ressentir et à se laisser aller.",
+    pourQui: "Pour vous si vous avez besoin de douceur, de réconfort et d'attention, après une période fatigante ou difficile, ou si vous aimez les massages très enveloppants et prenant leur temps.",
+    apporte: [
+      "Une sensation de réconfort et de sécurité",
+      "Une détente profonde du corps",
+      "Un moment de tendresse et de douceur, rien que pour vous"
+    ],
+    bonASavoir: "C'est un massage de bien-être, doux et respectueux : il reste strictement non sexuel. Vous êtes toujours recouvert(e) d'une serviette, et vous pouvez me demander à tout moment d'adapter ou d'arrêter un geste. Ce n'est pas un acte médical."
   }
 ];
