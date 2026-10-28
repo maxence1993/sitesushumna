@@ -321,7 +321,10 @@
         if (numero !== demandeEnCours) return;     // le client a changé de durée entre-temps
         var jours = {};
         for (var i = 0; i < reponses.length; i++) {
-          if (reponses[i].statut !== 200) throw new Error("planning");
+          if (reponses[i].statut !== 200) {
+            throw new Error(reponses[i].statut === 0 ? "API injoignable ou accès refusé (réseau ou adresse du site non autorisée)"
+              : "API " + reponses[i].statut + " " + (reponses[i].donnees.reason || reponses[i].donnees.error || ""));
+          }
           (reponses[i].donnees.days || []).forEach(function (j) { jours[j.date] = j; });
         }
         dessinerPlanning(lundi, maintenant, duree, libelle, etiquette, function (date) {
@@ -330,10 +333,13 @@
           if (!j) return { ouvert: false, debuts: [] };
           return { ouvert: j.open, tropTot: j.tooSoon, debuts: j.slots.map(function (c) { return { minutes: lireHeure(c.time), debut: c.start }; }) };
         });
-      }).catch(function () {
+      }).catch(function (err) {
         if (numero !== demandeEnCours) return;
+        // avec « ?debug » dans l'adresse, la cause technique s'affiche (utile pour dépanner depuis un téléphone)
+        var detail = /[?&]debug\b/.test(location.search)
+          ? '<p style="margin:.6rem 0 0;font-size:.85rem">Détail technique : ' + echapper(err && err.message ? err.message : err) + '</p>' : "";
         zonePlanning.innerHTML = '<div class="encadre encadre--attention" role="alert"><p style="margin:0"><strong>Le planning en ligne est momentanément indisponible.</strong> ' +
-          'Appelez-moi au <a href="tel:+33750460110">' + TELEPHONE + '</a> ou écrivez-moi sur <a href="' + lienWhatsapp("Bonjour Maxence, je souhaiterais prendre rendez-vous pour un massage.") + '" target="_blank" rel="noopener">WhatsApp</a> : je vous trouve un créneau.</p></div>';
+          'Appelez-moi au <a href="tel:+33750460110">' + TELEPHONE + '</a> ou écrivez-moi sur <a href="' + lienWhatsapp("Bonjour Maxence, je souhaiterais prendre rendez-vous pour un massage.") + '" target="_blank" rel="noopener">WhatsApp</a> : je vous trouve un créneau.</p>' + detail + '</div>';
       });
     }
     var demandeEnCours = 0;
