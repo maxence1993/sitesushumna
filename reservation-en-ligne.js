@@ -13,8 +13,8 @@
    ⚠️ Ne mettez JAMAIS ici un identifiant Google ni une clé secrète :
    ce fichier est visible par tout le monde.
    ===================================================================== */
-var API_URL = "";
-var TURNSTILE_SITE_KEY = "";
+var API_URL = "https://agenda-api.maxence-vaz1993.workers.dev";
+var TURNSTILE_SITE_KEY = "0x4AAAAAAFpUgrZfgnT3DfJD";
 
 
 /* ---------- Fonctionnement (pas besoin de modifier la suite) ---------- */
