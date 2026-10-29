@@ -321,6 +321,7 @@ a.creneau--libre:hover { background: var(--libre); color: #fff; }
 .pied li a:hover { text-decoration: underline; }
 .pied__logo { background: var(--creme); border-radius: 14px; padding: .6rem 1rem; display: inline-block; margin-bottom: 1rem; }
 .pied__logo img { height: 52px; width: auto; }
+.pied__slogan { font-family: var(--titres); font-style: italic; font-size: 1.1rem; color: var(--or-clair); margin: 0 0 1rem; }
 .pied__mention { border-top: 1px solid rgba(243, 232, 211, .25); margin-top: 2.5rem; padding-top: 1.3rem; font-size: .92rem; }
 
 /* ---------- Boutons fixes en bas sur téléphone ---------- */
