@@ -27,7 +27,10 @@ body{width:var(--w);height:var(--h);overflow:hidden;background:var(--creme);colo
 .contacts div{display:flex;align-items:center;gap:20px}
 .contacts .ico{width:30px;height:30px}
 .marque{position:absolute;right:70px;top:70px;width:200px;opacity:1}
-.bas{border-top:2px solid var(--bordure);padding-top:26px}</style>
+.bas{border-top:2px solid var(--bordure);padding-top:26px;padding-right:250px}
+.qr{position:absolute;right:78px;bottom:64px;width:184px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.qr img{width:184px;height:auto}
+.qr span{font-size:19px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--or-texte)}</style>
 </head>
 <body style="--w:1004px;--h:650px">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -56,6 +59,10 @@ body{width:var(--w);height:var(--h);overflow:hidden;background:var(--creme);colo
   <div><svg class="ico" aria-hidden="true"><use href="#instagram"/></svg><span>@massage_sushumna_orleans</span></div>
   <div><svg class="ico" aria-hidden="true"><use href="#lieu"/></svg><span>4 cours Victor Hugo, 45100 Orléans</span></div>
   <div><span style="width:30px"></span><span>massage-sushumna.com</span></div>
+</div>
+<div class="qr">
+  <img src="../assets/qr-instagram.png" alt="QR code Instagram">
+  <span>Suivez-nous</span>
 </div></div>
 </body>
 </html>

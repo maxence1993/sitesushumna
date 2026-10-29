@@ -142,7 +142,10 @@ PAGES.push({
 .contacts div{display:flex;align-items:center;gap:20px}
 .contacts .ico{width:30px;height:30px}
 .marque{position:absolute;right:70px;top:70px;width:200px;opacity:1}
-.bas{border-top:2px solid var(--bordure);padding-top:26px}`,
+.bas{border-top:2px solid var(--bordure);padding-top:26px;padding-right:250px}
+.qr{position:absolute;right:78px;bottom:64px;width:184px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.qr img{width:184px;height:auto}
+.qr span{font-size:19px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--or-texte)}`,
     body: `<img class="marque" src="../assets/embleme-hd.png" alt="">
 <div class="haut">
   <p class="nom">Maxence Vaz</p>
@@ -153,6 +156,10 @@ PAGES.push({
   <div>${ico('instagram')}<span>${CONTACT.insta}</span></div>
   <div>${ico('lieu')}<span>${CONTACT.adresse}</span></div>
   <div><span style="width:30px"></span><span>${CONTACT.site}</span></div>
+</div>
+<div class="qr">
+  <img src="../assets/qr-instagram.png" alt="QR code Instagram">
+  <span>Suivez-nous</span>
 </div>` }),
 });
 
@@ -163,12 +170,15 @@ PAGES.push({
     css: `.page{flex-direction:row;justify-content:flex-start;align-items:stretch;text-align:left;background:var(--creme)}
 .gauche{width:34%;background:#e8cb91 url("../../images/carte-fond.jpg") bottom / 100% auto no-repeat;display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:40px 26px}
 .gauche img{width:250px;height:auto}
+.qr{background:var(--creme);border-radius:14px;padding:10px;box-shadow:0 6px 16px rgba(61,42,27,.18)}
+.qr img{width:124px;height:124px}
 .tel{font-family:var(--script);font-size:50px;color:var(--brun);line-height:1}
 .droite{width:66%;display:flex;flex-direction:column;justify-content:space-between;padding:38px 48px;text-align:center}
 .droite h1{font-family:var(--script);font-weight:400;font-size:88px;line-height:1;margin:0;color:#111}
 .ligne{font-family:var(--script);font-size:38px;color:#111;margin:0;padding-bottom:4px;border-bottom:3px solid #222;line-height:1.3;text-align:left}`,
     body: `<div class="gauche">
   <img src="../assets/logo-hd.png" alt="Sushumna">
+  <div class="qr"><img src="../assets/qr-instagram.png" alt="QR code Instagram"></div>
   <span class="tel">${CONTACT.tel}</span>
 </div>
 <div class="droite">
