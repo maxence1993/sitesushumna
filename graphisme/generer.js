@@ -544,6 +544,63 @@ contenuAvis.forEach((avis, i) => {
   });
 });
 
+/* ---------- Carrousels « questions fréquentes » (30 thèmes, 4 slides chacun) ----------
+   Les textes sont dans carrousels-questions.js. Chaque carrousel va dans son dossier. */
+const CARROUSELS_QUESTIONS = require('./carrousels-questions.js');
+const LOGO_URL = 'file://' + path.join(DOSSIER, 'assets', 'logo-hd.png');
+const CSS_QUESTIONS = `.page{justify-content:flex-start;background:radial-gradient(circle at 50% 42%,#fff 0,var(--creme) 55%,var(--sable-2) 100%);padding:230px 90px 230px}
+.haut{position:absolute;top:70px;left:90px;right:90px;display:flex;justify-content:space-between;align-items:center}
+.haut .surtitre{font-size:26px}
+.compteur{font-size:26px;font-weight:700;color:var(--brun-doux)}
+.couverture{justify-content:center;text-align:center}
+.couverture .titre{font-size:92px;margin:0 0 40px}
+.couverture .texte{font-size:40px;line-height:1.4;color:var(--brun-doux);max-width:880px;margin:0 auto}
+.texte-slide{text-align:left;width:100%;display:flex;flex-direction:column;flex:1}
+.texte-slide .titre{font-size:74px;margin:0 0 50px}
+.points{list-style:none;padding:0;margin:0}
+.points li{position:relative;padding-left:52px;font-size:38px;line-height:1.4;color:var(--brun);margin-bottom:34px}
+.points li::before{content:'✦';position:absolute;left:0;top:2px;color:var(--or);font-size:32px}
+.pied{position:absolute;bottom:70px;left:90px;right:90px;font-size:28px;font-weight:800;color:var(--or-texte);text-align:center}
+.fin{justify-content:center;text-align:center}
+.fin .titre{font-size:76px;margin:0 0 40px}
+.fin .texte{font-size:36px;line-height:1.4;color:var(--brun-doux);margin:0 0 60px}`;
+
+CARROUSELS_QUESTIONS.forEach((carrousel, c) => {
+  const dossier = `carrousels/${String(c + 1).padStart(2, '0')}-${carrousel.slug}`;
+  const total = carrousel.slides.length + 2;
+  const compteur = (k) => `${k} / ${total}`;
+  const entete = (k) => `<div class="haut"><span class="surtitre">Questions fréquentes</span><span class="compteur">${compteur(k)}</span></div>`;
+  const pages = [];
+  pages.push(`${entete(1)}
+<div class="couverture" style="display:flex;flex-direction:column;justify-content:center;flex:1">
+  <h1 class="titre">${carrousel.titre}</h1>
+  <p class="texte">${carrousel.sous}</p>
+  <p class="pied" style="position:absolute;bottom:70px;left:90px;right:90px">Glissez pour découvrir →</p>
+</div>`);
+  carrousel.slides.forEach((slide, i) => {
+    const suite = i < carrousel.slides.length - 1 ? ' →' : '';
+    pages.push(`${entete(i + 2)}
+<div class="texte-slide" style="padding-bottom:110px">
+  <h2 class="titre">${slide.titre}</h2>
+  <ul class="points">${slide.points.map((p) => `<li>${p}</li>`).join('')}</ul>
+</div>
+<p class="pied">${i < carrousel.slides.length - 1 ? 'Glissez pour la suite →' : ''}</p>`);
+  });
+  pages.push(`${entete(total)}
+<div class="fin" style="display:flex;flex-direction:column;justify-content:center;flex:1">
+  <h2 class="titre">Une autre question&nbsp;?</h2>
+  <p class="texte">Écrivez-moi ou appelez-moi, je vous réponds avec plaisir.</p>
+  <img src="${LOGO_URL}" alt="Sushumna" style="width:520px;height:auto;margin:0 auto 50px">
+  <p class="pied" style="position:absolute;bottom:70px;left:90px;right:90px">${CONTACT.tel} · ${CONTACT.site}</p>
+</div>`);
+  pages.forEach((corps, k) => {
+    PAGES.push({
+      nom: `${dossier}/${k + 1}`, w: 1080, h: 1350, echelle: 1,
+      html: document_({ w: 1080, h: 1350, css: CSS_QUESTIONS, body: corps }),
+    });
+  });
+});
+
 /* ---------- Rendu ---------- */
 (async () => {
   fs.mkdirSync(SOURCES, { recursive: true });
@@ -552,6 +609,8 @@ contenuAvis.forEach((avis, i) => {
   try {
     for (const p of PAGES) {
       const fichierHtml = path.join(SOURCES, `${p.nom}.html`);
+      fs.mkdirSync(path.dirname(fichierHtml), { recursive: true });
+      fs.mkdirSync(path.dirname(path.join(JPEG, `${p.nom}.jpg`)), { recursive: true });
       fs.writeFileSync(fichierHtml, p.html);
       const contexte = await navigateur.newContext({
         viewport: { width: parseInt(p.w, 10), height: parseInt(p.h, 10) },
