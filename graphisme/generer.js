@@ -304,14 +304,13 @@ const voileBas = `.fond{position:absolute;inset:0;width:100%;height:100%;object-
 .legende .surtitre{color:var(--or-clair);font-size:26px}
 .legende .titre{color:var(--creme);font-size:92px;margin:14px 0 14px}
 .legende .sous{color:var(--creme);font-size:38px;margin:0}
-.marque-haut{position:absolute;left:60px;top:60px}
-.marque-haut img{width:300px;height:auto;display:block}`;
+.marque-haut{position:absolute;left:70px;top:70px;width:300px;height:auto}`;
 
 const surPhoto = (fichier, { surtitre, titre, sous, position }) => ({
   css: voileBas,
   body: `${photo(fichier, position)}
 <div class="voile"></div>
-<div class="marque-haut"><img src="../assets/logo-hd.png" alt="Sushumna"></div>
+<img class="marque-haut" src="../assets/logo-hd-or.png" alt="Sushumna">
 <div class="legende"><p class="surtitre">${surtitre}</p><h2 class="titre">${titre}</h2><p class="sous">${sous}</p></div>`,
 });
 
