@@ -19,17 +19,16 @@ body{width:var(--w);height:var(--h);overflow:hidden;background:var(--creme);colo
 .surtitre{margin:0;font-weight:800;text-transform:uppercase;letter-spacing:.22em;color:var(--or-texte)}
 .etoiles{margin:0;color:#b9801a;letter-spacing:.14em}
 .sous{margin:0;color:var(--brun-doux)}
-.page{justify-content:space-between;align-items:stretch;text-align:left;padding:70px 78px;background:var(--creme)}
-.haut p{margin:0}
-.nom{font-family:var(--titres);font-weight:600;font-size:66px;line-height:1.1;color:var(--brun)}
-.role{font-family:var(--titres);font-style:italic;font-size:32px;color:var(--or-texte);margin-top:10px}
+.page{justify-content:space-between;align-items:stretch;text-align:left;padding:60px 78px;background:var(--creme)}
+.logo{width:400px;height:auto;align-self:flex-start}
+.nom{margin:0;font-family:var(--titres);font-weight:600;font-size:62px;line-height:1.1;color:var(--brun)}
+.role{margin:8px 0 0;font-family:var(--titres);font-style:italic;font-size:30px;color:var(--or-texte)}
+.bas{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;border-top:2px solid var(--bordure);padding-top:26px}
 .contacts{display:flex;flex-direction:column;gap:14px;font-size:27px;font-weight:700;color:var(--brun)}
 .contacts div{display:flex;align-items:center;gap:20px}
 .contacts .ico{width:30px;height:30px}
-.marque{position:absolute;right:70px;top:70px;width:200px;opacity:1}
-.bas{border-top:2px solid var(--bordure);padding-top:26px;padding-right:250px}
-.qr{position:absolute;right:78px;bottom:64px;width:184px;display:flex;flex-direction:column;align-items:center;gap:8px}
-.qr img{width:184px;height:auto}
+.qr{display:flex;flex-direction:column;align-items:center;gap:8px;flex:none}
+.qr img{width:160px;height:auto}
 .qr span{font-size:19px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--or-texte)}</style>
 </head>
 <body style="--w:1004px;--h:650px">
@@ -49,20 +48,22 @@ body{width:var(--w);height:var(--h);overflow:hidden;background:var(--creme);colo
   <symbol id="feuille" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10z"/><path d="M2 21c0-3 1.9-5.4 5.1-6C9.5 14.5 12 13 13 12"/></g></symbol>
   <symbol id="discussion" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
 </svg>
-<div class="page"><img class="marque" src="../assets/embleme-hd.png" alt="">
-<div class="haut">
+<div class="page"><img class="logo" src="../assets/logo-hd.png" alt="Sushumna">
+<div>
   <p class="nom">Maxence Vaz</p>
   <p class="role">Massages bien-être</p>
 </div>
-<div class="bas contacts">
-  <div><svg class="ico" aria-hidden="true"><use href="#tel"/></svg><span>07 50 46 01 10</span></div>
-  <div><svg class="ico" aria-hidden="true"><use href="#instagram"/></svg><span>@massage_sushumna_orleans</span></div>
-  <div><svg class="ico" aria-hidden="true"><use href="#lieu"/></svg><span>4 cours Victor Hugo, 45100 Orléans</span></div>
-  <div><span style="width:30px"></span><span>massage-sushumna.com</span></div>
-</div>
-<div class="qr">
-  <img src="../assets/qr-instagram.png" alt="QR code Instagram">
-  <span>Suivez-nous</span>
+<div class="bas">
+  <div class="contacts">
+    <div><svg class="ico" aria-hidden="true"><use href="#tel"/></svg><span>07 50 46 01 10</span></div>
+    <div><svg class="ico" aria-hidden="true"><use href="#instagram"/></svg><span>@massage_sushumna_orleans</span></div>
+    <div><svg class="ico" aria-hidden="true"><use href="#lieu"/></svg><span>4 cours Victor Hugo, 45100 Orléans</span></div>
+    <div><span style="width:30px"></span><span>massage-sushumna.com</span></div>
+  </div>
+  <div class="qr">
+    <img src="../assets/qr-instagram.png" alt="QR code Instagram">
+    <span>Suivez-nous</span>
+  </div>
 </div></div>
 </body>
 </html>

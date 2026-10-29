@@ -134,32 +134,33 @@ PAGES.push({
 PAGES.push({
   nom: '05-carte-visite-verso', w: 1004, h: 650, echelle: 1,
   html: document_({ w: 1004, h: 650,
-    css: `.page{justify-content:space-between;align-items:stretch;text-align:left;padding:70px 78px;background:var(--creme)}
-.haut p{margin:0}
-.nom{font-family:var(--titres);font-weight:600;font-size:66px;line-height:1.1;color:var(--brun)}
-.role{font-family:var(--titres);font-style:italic;font-size:32px;color:var(--or-texte);margin-top:10px}
+    css: `.page{justify-content:space-between;align-items:stretch;text-align:left;padding:60px 78px;background:var(--creme)}
+.logo{width:400px;height:auto;align-self:flex-start}
+.nom{margin:0;font-family:var(--titres);font-weight:600;font-size:62px;line-height:1.1;color:var(--brun)}
+.role{margin:8px 0 0;font-family:var(--titres);font-style:italic;font-size:30px;color:var(--or-texte)}
+.bas{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;border-top:2px solid var(--bordure);padding-top:26px}
 .contacts{display:flex;flex-direction:column;gap:14px;font-size:27px;font-weight:700;color:var(--brun)}
 .contacts div{display:flex;align-items:center;gap:20px}
 .contacts .ico{width:30px;height:30px}
-.marque{position:absolute;right:70px;top:70px;width:200px;opacity:1}
-.bas{border-top:2px solid var(--bordure);padding-top:26px;padding-right:250px}
-.qr{position:absolute;right:78px;bottom:64px;width:184px;display:flex;flex-direction:column;align-items:center;gap:8px}
-.qr img{width:184px;height:auto}
+.qr{display:flex;flex-direction:column;align-items:center;gap:8px;flex:none}
+.qr img{width:160px;height:auto}
 .qr span{font-size:19px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--or-texte)}`,
-    body: `<img class="marque" src="../assets/embleme-hd.png" alt="">
-<div class="haut">
+    body: `<img class="logo" src="../assets/logo-hd.png" alt="Sushumna">
+<div>
   <p class="nom">Maxence Vaz</p>
   <p class="role">Massages bien-être</p>
 </div>
-<div class="bas contacts">
-  <div>${ico('tel')}<span>${CONTACT.tel}</span></div>
-  <div>${ico('instagram')}<span>${CONTACT.insta}</span></div>
-  <div>${ico('lieu')}<span>${CONTACT.adresse}</span></div>
-  <div><span style="width:30px"></span><span>${CONTACT.site}</span></div>
-</div>
-<div class="qr">
-  <img src="../assets/qr-instagram.png" alt="QR code Instagram">
-  <span>Suivez-nous</span>
+<div class="bas">
+  <div class="contacts">
+    <div>${ico('tel')}<span>${CONTACT.tel}</span></div>
+    <div>${ico('instagram')}<span>${CONTACT.insta}</span></div>
+    <div>${ico('lieu')}<span>${CONTACT.adresse}</span></div>
+    <div><span style="width:30px"></span><span>${CONTACT.site}</span></div>
+  </div>
+  <div class="qr">
+    <img src="../assets/qr-instagram.png" alt="QR code Instagram">
+    <span>Suivez-nous</span>
+  </div>
 </div>` }),
 });
 
