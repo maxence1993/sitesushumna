@@ -149,10 +149,6 @@ PAGES.push({
 .qr span{font-size:19px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--or-texte)}`,
     body: `<div class="haut">
   <img class="logo" src="../assets/logo-hd.png" alt="Sushumna">
-  <div>
-    <p class="nom">Maxence Vaz</p>
-    <p class="role">Massages bien-être</p>
-  </div>
 </div>
 <div class="bas">
   <div class="contacts">
