@@ -454,7 +454,7 @@ contenuMassages.forEach((m, i) => {
 /* ---------- 44 à 49. Carrousel « Comment réserver » (1080 × 1350) ---------- */
 const CARROUSEL_RESERVER = [
   { nom: 'couverture' },
-  { titre: 'Sur le site', icone: 'calendrier', texte: 'Choisissez la durée (1h, 1h30 ou 2h), puis un horaire libre. Votre demande m’arrive directement : je vous confirme ensuite rapidement.', pied: CONTACT.site },
+  { titre: 'Sur le site', icone: 'calendrier', texte: 'Choisissez la durée (1h, 1h30 ou 2h), puis un horaire libre. Votre rendez-vous est réservé tout de suite, sans attendre ma réponse.', pied: CONTACT.site },
   { titre: 'Par WhatsApp', icone: 'whatsapp', texte: `Écrivez-moi au ${CONTACT.tel}. Nous choisissons ensemble le jour et l’heure qui vous conviennent.`, pied: CONTACT.tel },
   { titre: 'Par téléphone', icone: 'tel', texte: `Appelez-moi au ${CONTACT.tel}. C’est le plus rapide pour un rendez-vous dans les 24 h.`, pied: CONTACT.tel },
   { titre: 'Sur Instagram', icone: 'instagram', texte: `Envoyez-moi un message privé sur ${CONTACT.insta}.`, pied: CONTACT.insta },
@@ -486,7 +486,7 @@ CARROUSEL_RESERVER.forEach((diapo, i) => {
     nom = `${numero}-carrousel-reserver-fin`;
     corps = `<div class="haut"><span class="surtitre">Réserver</span><span class="compteur">${compteur}</span></div>
 <h1 class="titre">Une question avant de réserver&nbsp;?</h1>
-<p class="texte" style="margin-bottom:60px">Écrivez-moi ou appelez-moi, je vous réponds avec plaisir. Je vous confirme ensuite rapidement votre rendez-vous.</p>
+<p class="texte" style="margin-bottom:60px">Écrivez-moi ou appelez-moi, je vous réponds avec plaisir.</p>
 <img src="../assets/logo-hd.png" alt="Sushumna" style="width:520px;height:auto">
 <p class="pied">${CONTACT.site}</p>`;
   } else {
