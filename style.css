@@ -450,3 +450,8 @@ h1.surtitre, .accueil h1.surtitre { font-family: var(--texte); font-size: .85rem
 .liens-seo { display: flex; flex-wrap: wrap; gap: .4rem .5rem; list-style: none; padding: 0; margin: 1rem 0 1.4rem; }
 .liens-seo a { display: inline-block; padding: .3em .8em; border-radius: 999px; background: var(--creme); border: 1.5px solid var(--bordure); color: var(--brun); font-weight: 700; font-size: .92rem; text-decoration: none; }
 .liens-seo a:hover { border-color: var(--or); background: var(--or-clair); }
+
+/* ---------- Pages dédiées aux massages : fil d'Ariane ---------- */
+.fil { font-size: .92rem; color: var(--brun-doux); margin: 0 0 .9rem; }
+.fil a { color: var(--or-texte); font-weight: 700; }
+.fil span[aria-current] { font-weight: 800; color: var(--brun); }

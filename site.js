@@ -78,7 +78,7 @@
         '<div class="carte__photo photo"><img src="photos/' + echapper(m.photo) + '" alt="' + echapper(m.nom) + ' à Orléans – Sushumna" loading="lazy"></div>' +
         '<div class="carte__corps"><h3>' + echapper(m.nom) + '</h3>' +
         '<p class="carte__accroche">' + echapper(m.accroche) + '</p>' +
-        '<a class="carte__lien" href="massages.html#' + identifiant(m.nom) + '">Découvrir ce massage<span class="cache"> : ' + echapper(m.nom) + '</span> →</a></div>' +
+        '<a class="carte__lien" href="' + (m.page || 'massages.html#' + identifiant(m.nom)) + '">Découvrir ce massage<span class="cache"> : ' + echapper(m.nom) + '</span> →</a></div>' +
         '</article>';
     }).join("");
   }
@@ -108,7 +108,8 @@
           '<h3>Pour qui ?</h3><p>' + echapper(m.pourQui) + '</p>' +
           (apporte ? '<h3>Ce qu\'il peut vous apporter</h3><ul class="liste-check">' + apporte + '</ul>' : '') +
           (m.bonASavoir ? '<p class="bon-a-savoir"><strong>Bon à savoir :</strong> ' + echapper(m.bonASavoir) + '</p>' : '') +
-          '<p><a class="bouton bouton--or" href="contact.html?massage=' + encodeURIComponent(m.nom) + '#rendez-vous">' + icone("calendrier") + 'Réserver ce massage</a></p>' +
+          '<p class="boutons"><a class="bouton bouton--or" href="contact.html?massage=' + encodeURIComponent(m.nom) + '#rendez-vous">' + icone("calendrier") + 'Réserver ce massage</a>' +
+          (m.page ? '<a class="bouton" href="' + echapper(m.page) + '">Voir la page de ce massage</a>' : '') + '</p>' +
         '</div></article>';
     }).join("");
   }
@@ -137,7 +138,7 @@
       return '<th scope="col">' + echapper(t.duree) + "</th>";
     }).join("") + "</tr>";
     var lignes = massages.map(function (m) {
-      return '<tr><th scope="row"><a href="massages.html#' + identifiant(m.nom) + '">' + echapper(m.nom) + "</a></th>" +
+      return '<tr><th scope="row"><a href="' + (m.page || 'massages.html#' + identifiant(m.nom)) + '">' + echapper(m.nom) + "</a></th>" +
         tarifs.map(function (t) { return '<td class="prix">' + prix(t.prix) + "</td>"; }).join("") + "</tr>";
     }).join("");
     tableau.querySelector("thead").innerHTML = entete;
