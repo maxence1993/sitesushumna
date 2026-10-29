@@ -324,7 +324,7 @@ const grille = [
   ['13-grille-accueil', surPhoto('accueil.jpg', { surtitre: 'Sushumna · Orléans', titre: 'Un moment pour vous', sous: 'Massages bien-être personnalisés', position: 'center 30%' })],
   ['14-grille-bienvenue', surCreme(`<img src="../assets/embleme-hd.png" alt="" style="height:300px;width:auto;margin-bottom:50px">
 <p class="surtitre" style="font-size:28px">Bienvenue</p>
-<h2 class="titre" style="font-size:100px;margin:20px 0 34px">Prenez le temps de vous détendre</h2>
+<h2 class="titre" style="font-size:100px;margin:20px 0 34px">Le bonheur est en vous</h2>
 <p class="sous" style="font-size:38px;max-width:780px">Des massages bien-être, à Orléans, adaptés à vos besoins du jour.</p>`)],
   ['15-grille-relaxant', surPhoto('massage-relaxant.jpg', { surtitre: 'Massage', titre: 'Relaxant', sous: 'Relâche et apaise', position: 'center' })],
   ['16-grille-reservation', surCreme(`<p class="surtitre" style="font-size:28px">Réserver</p>
