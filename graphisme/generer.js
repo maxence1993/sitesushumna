@@ -382,7 +382,7 @@ contenuMassages.forEach((m, i) => {
 .bloc li{position:relative;padding-left:40px;font-size:29px;line-height:1.4;margin-bottom:10px}
 .bloc li::before{content:'✦';position:absolute;left:0;top:0;color:var(--or);font-size:24px;line-height:1.7}
 .attention{background:#fff8e6;border:2px solid var(--or);border-radius:24px;padding:22px 28px;font-size:23px;line-height:1.38;margin:0 0 34px}
-.pied-story{margin-top:auto;padding-bottom:70px;font-size:30px;font-weight:700;color:var(--or-texte);text-align:center}`,
+.pied-story{margin-top:auto;margin-bottom:70px;width:260px;height:auto;align-self:center}`,
       body: `<div class="entete-photo"><img src="../../photos/${m.photo}" alt=""></div>
 <div class="corps">
   <h1 class="titre">${m.nom}</h1>
@@ -391,7 +391,7 @@ contenuMassages.forEach((m, i) => {
   <div class="bloc"><h3>Pour qui</h3><p>${m.pourQui}</p></div>
   <div class="bloc"><h3>Ce qu’il apporte</h3><ul>${apporte}</ul></div>
   ${m.bonASavoir ? `<p class="attention"><strong>Bon à savoir :</strong> ${m.bonASavoir}</p>` : ''}
-  <p class="pied-story">${CONTACT.site} · ${CONTACT.tel}</p>
+  <img class="pied-story" src="../assets/logo-hd.png" alt="Sushumna">
 </div>` }),
   });
 });
