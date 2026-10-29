@@ -396,6 +396,41 @@ contenuMassages.forEach((m, i) => {
   });
 });
 
+/* ---------- 27 à 34. Une publication par prestation (1080 × 1350) ---------- */
+contenuMassages.forEach((m, i) => {
+  const numero = String(27 + i).padStart(2, '0');
+  const apporte = m.apporte.map((a) => `<li>${a}</li>`).join('');
+  PAGES.push({
+    nom: `${numero}-post-prestation-${slug(m.nom)}`, w: 1080, h: 1350, echelle: 1,
+    html: document_({ w: 1080, h: 1350,
+      css: `.page{justify-content:flex-start;background:var(--creme)}
+.entete-photo{position:relative;width:100%;height:320px;flex:none}
+.entete-photo img{width:100%;height:100%;object-fit:cover}
+.entete-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(46,32,22,0) 50%,var(--creme) 100%)}
+.corps{position:relative;width:100%;padding:0 70px;margin-top:-50px;text-align:left;display:flex;flex-direction:column;flex:1}
+.titre{font-size:66px;line-height:1.1;margin:0}
+.accroche{font-family:var(--titres);font-style:italic;font-size:28px;line-height:1.3;color:var(--or-texte);margin:10px 0 22px}
+.bloc{margin-bottom:18px}
+.bloc h3{font-family:var(--texte);font-size:18px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--or-texte);margin:0 0 6px}
+.bloc p{font-size:24px;line-height:1.36;margin:0;color:var(--brun)}
+.bloc ul{list-style:none;padding:0;margin:0}
+.bloc li{position:relative;padding-left:32px;font-size:24px;line-height:1.36;margin-bottom:6px}
+.bloc li::before{content:'✦';position:absolute;left:0;top:0;color:var(--or);font-size:19px;line-height:1.6}
+.attention{background:#fff8e6;border:2px solid var(--or);border-radius:20px;padding:14px 20px;font-size:20px;line-height:1.36;margin:0 0 18px}
+.pied-story{margin-top:auto;margin-bottom:34px;width:200px;height:auto;align-self:center}`,
+      body: `<div class="entete-photo"><img src="../../photos/${m.photo}" alt=""></div>
+<div class="corps">
+  <h1 class="titre">${m.nom}</h1>
+  <p class="accroche">${m.accroche}</p>
+  <div class="bloc"><h3>En quoi ça consiste</h3><p>${m.consiste}</p></div>
+  <div class="bloc"><h3>Pour qui</h3><p>${m.pourQui}</p></div>
+  <div class="bloc"><h3>Ce qu’il apporte</h3><ul>${apporte}</ul></div>
+  ${m.bonASavoir ? `<p class="attention"><strong>Bon à savoir :</strong> ${m.bonASavoir}</p>` : ''}
+  <img class="pied-story" src="../assets/logo-hd.png" alt="Sushumna">
+</div>` }),
+  });
+});
+
 /* ---------- Rendu ---------- */
 (async () => {
   fs.mkdirSync(SOURCES, { recursive: true });
