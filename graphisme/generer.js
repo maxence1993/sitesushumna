@@ -612,35 +612,54 @@ CARROUSELS_QUESTIONS.forEach((carrousel, c) => {
   });
 });
 
-/* ---------- 64. Planning de la semaine jusqu'à dimanche (story 1080 × 1920) ----------
-   Créneaux calculés à partir de mes-contenus/planning.js (jeudi 29/10/2026).
-   À mettre à jour à chaque nouvelle semaine. */
-const PLANNING_SEMAINE = [
-  { jour: 'Vendredi 30 octobre', horaires: '12h45 – 21h00', detail: 'Massage à réserver entre 12h45 et 21h (fin du massage avant 21h).' },
-  { jour: 'Dimanche 1er novembre', horaires: '14h00 – 17h00', detail: 'Massage à réserver entre 14h et 17h (fin du massage avant 17h).' },
-];
-PAGES.push({
-  nom: '64-planning-semaine', w: 1080, h: 1920, echelle: 1,
-  html: document_({ w: 1080, h: 1920,
-    css: `.page{justify-content:flex-start;padding:230px 90px 230px;background:linear-gradient(180deg,var(--creme) 0%,var(--sable-2) 100%)}
-.logo{width:340px;height:auto;align-self:center}
-.titre{font-size:120px;margin:40px 0 16px;text-align:center}
-.sous{font-size:36px;color:var(--brun-doux);margin:0 0 70px;text-align:center}
-.jour{width:100%;background:var(--creme);border:2px solid var(--bordure);border-left:12px solid var(--or);border-radius:30px;padding:40px 46px;margin-bottom:34px;text-align:left;box-shadow:0 10px 30px rgba(92,67,48,.10)}
-.jour h2{font-family:var(--titres);font-weight:600;font-size:48px;margin:0 0 14px;color:var(--brun)}
-.jour .horaires{font-size:64px;font-weight:800;color:var(--or-texte);margin:0 0 14px}
-.jour p{font-size:28px;line-height:1.4;color:var(--brun-doux);margin:0}
-.pied-story{margin-top:auto;width:240px;height:auto;align-self:center}
-.ferme{font-size:30px;color:var(--brun-doux);text-align:center;margin:10px 0 40px}`,
-    body: `<img class="logo" src="../assets/logo-hd.png" alt="Sushumna">
-<p class="surtitre" style="font-size:28px;text-align:center;margin-top:50px">Disponibilités</p>
-<h1 class="titre">Cette semaine</h1>
-<p class="sous">Jusqu’à dimanche, pour réserver votre massage</p>
-${PLANNING_SEMAINE.map((j) => `<div class="jour"><h2>${j.jour}</h2><p class="horaires">${j.horaires}</p><p>${j.detail}</p></div>`).join('\n')}
-<p class="ferme">Jeudi et samedi : fermé</p>
-<p class="sous" style="margin:0 0 10px;font-weight:700;color:var(--or-texte)">Réservez sur massage-sushumna.com</p>
-<p class="sous" style="margin:0 0 30px;font-weight:700;color:var(--or-texte);white-space:nowrap">07 50 46 01 10</p>` }),
-});
+/* ---------- 64 et suivants. Planning de la semaine en story (1080 × 1920) ----------
+   Créneaux calculés à partir de mes-contenus/planning.js (horaires habituels,
+   jours particuliers, massages réservés, pause de 15 min après chaque massage).
+   À refaire à chaque nouvelle semaine. */
+function pagePlanning({ nom, titre, sous, jours, ferme }) {
+  const compact = jours.length > 2;
+  return {
+    nom, w: 1080, h: 1920, echelle: 1,
+    html: document_({ w: 1080, h: 1920,
+      css: `.page{justify-content:flex-start;padding:${compact ? 200 : 230}px 90px 200px;background:linear-gradient(180deg,var(--creme) 0%,var(--sable-2) 100%)}
+.logo{width:${compact ? 260 : 340}px;height:auto;align-self:center}
+.titre{font-size:${compact ? 96 : 120}px;margin:${compact ? 26 : 40}px 0 12px;text-align:center}
+.sous{font-size:${compact ? 32 : 36}px;color:var(--brun-doux);margin:0 0 ${compact ? 40 : 70}px;text-align:center}
+.jour{width:100%;background:var(--creme);border:2px solid var(--bordure);border-left:12px solid var(--or);border-radius:26px;padding:${compact ? 24 : 40}px 40px;margin-bottom:${compact ? 22 : 34}px;text-align:left;box-shadow:0 10px 30px rgba(92,67,48,.10)}
+.jour h2{font-family:var(--titres);font-weight:600;font-size:${compact ? 38 : 48}px;margin:0 0 ${compact ? 6 : 14}px;color:var(--brun)}
+.jour .horaires{font-size:${compact ? 52 : 64}px;font-weight:800;color:var(--or-texte);margin:0 0 ${compact ? 6 : 14}px;line-height:1.15}
+.jour p{font-size:${compact ? 24 : 28}px;line-height:1.35;color:var(--brun-doux);margin:0}
+.ferme{font-size:${compact ? 28 : 30}px;color:var(--brun-doux);text-align:center;margin:${compact ? 4 : 10}px 0 ${compact ? 26 : 40}px}`,
+      body: `<img class="logo" src="../assets/logo-hd.png" alt="Sushumna">
+<p class="surtitre" style="font-size:26px;text-align:center;margin-top:${compact ? 30 : 50}px">Disponibilités</p>
+<h1 class="titre">${titre}</h1>
+<p class="sous">${sous}</p>
+${jours.map((j) => `<div class="jour"><h2>${j.jour}</h2><p class="horaires">${j.horaires}</p><p>${j.detail}</p></div>`).join('\n')}
+<p class="ferme">${ferme}</p>
+<p class="sous" style="margin:0 0 8px;font-weight:700;color:var(--or-texte)">Réservez sur massage-sushumna.com</p>
+<p class="sous" style="margin:0;font-weight:700;color:var(--or-texte);white-space:nowrap">${CONTACT.tel}</p>` }),
+  };
+}
+
+PAGES.push(pagePlanning({
+  nom: '64-planning-semaine', titre: 'Cette semaine', sous: 'Jusqu’à dimanche, pour réserver votre massage',
+  ferme: 'Jeudi et samedi : fermé',
+  jours: [
+    { jour: 'Vendredi 30 octobre', horaires: '12h45 – 21h00', detail: 'Massage à réserver entre 12h45 et 21h (fin du massage avant 21h).' },
+    { jour: 'Dimanche 1er novembre', horaires: '14h00 – 17h00', detail: 'Massage à réserver entre 14h et 17h (fin du massage avant 17h).' },
+  ],
+}));
+
+PAGES.push(pagePlanning({
+  nom: '65-planning-semaine-prochaine', titre: 'Semaine prochaine', sous: 'Du 2 au 8 novembre, pour réserver votre massage',
+  ferme: 'Lundi, jeudi et samedi : fermé',
+  jours: [
+    { jour: 'Mardi 3 novembre', horaires: '15h15 – 17h30', detail: 'Massage à réserver entre 15h15 et 17h30 (fin du massage avant 17h30).' },
+    { jour: 'Mercredi 4 novembre', horaires: '12h30 – 18h00', detail: 'Massage à réserver entre 12h30 et 18h (fin avant 18h), ou à 21h00.' },
+    { jour: 'Vendredi 6 novembre', horaires: '11h00 – 21h00', detail: 'Massage à réserver entre 11h et 21h (fin du massage avant 21h).' },
+    { jour: 'Dimanche 8 novembre', horaires: '12h00 – 20h00', detail: 'Massage à réserver entre 12h et 20h (fin du massage avant 20h).' },
+  ],
+}));
 
 /* ---------- Rendu ---------- */
 (async () => {
@@ -648,7 +667,9 @@ ${PLANNING_SEMAINE.map((j) => `<div class="jour"><h2>${j.jour}</h2><p class="hor
   fs.mkdirSync(JPEG, { recursive: true });
   const navigateur = await chromium.launch({ args: ['--no-sandbox'], executablePath: process.env.CHROMIUM_PATH || undefined });
   try {
+    const seulement = (process.env.ONLY || '').split(',').filter(Boolean);
     for (const p of PAGES) {
+      if (seulement.length && !seulement.some((n) => p.nom.startsWith(n))) continue;
       const fichierHtml = path.join(SOURCES, `${p.nom}.html`);
       fs.mkdirSync(path.dirname(fichierHtml), { recursive: true });
       fs.mkdirSync(path.dirname(path.join(JPEG, `${p.nom}.jpg`)), { recursive: true });
