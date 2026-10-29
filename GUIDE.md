@@ -104,7 +104,7 @@ Fichier : **`mes-contenus/planning.js`**
 
 > 💡 Si la **réservation en ligne** est activée (section 11), les créneaux viennent de votre Google Agenda et ce fichier ne sert plus.
 
-Sur la page « Disponibilités », le client choisit d'abord **la durée** (1h, 1h30 ou 2h), puis le site lui montre **toutes les heures de début possibles**, de 15 minutes en 15 minutes, sur la semaine en cours et la suivante. Le site calcule tout seul :
+Sur la page « Disponibilités », le client choisit d'abord **la durée** (1h, 1h30 ou 2h), puis le site lui montre **toutes les heures de début possibles**, de 15 minutes en 15 minutes, sur **les 30 prochains jours** (1 mois). Les horaires sont rangés par semaine, avec un **volet par jour** : le client touche un jour pour voir ses horaires, ce qui évite de faire défiler une longue liste. Le site calcule tout seul :
 - que le massage se termine avant la fin de vos horaires ;
 - qu'il ne chevauche pas un massage déjà réservé ;
 - qu'il reste **15 minutes de pause après chaque massage** ;
@@ -151,7 +151,7 @@ Le site bloque ce créneau et les 15 minutes qui suivent. Vous pouvez supprimer 
 
 ⚠️ Chaque ligne est entre guillemets `" "` et se termine par une virgule.
 
-**Réglages** (en bas du fichier) : la pause après chaque massage (15 min), la précision des créneaux (15 min), le délai minimum avant un rendez-vous (0 h : dernière minute possible) et le nombre de semaines affichées (2).
+**Réglages** (en bas du fichier) : la pause après chaque massage (15 min), la précision des créneaux (15 min), le délai minimum avant un rendez-vous et le nombre de jours à l'avance (`JOURS_A_L_AVANCE`, 30 jours). **Avec la réservation reliée à Google Agenda**, ce nombre ne doit pas dépasser `BOOKING_WINDOW_DAYS` dans le fichier `wrangler.toml` du dépôt `agenda-api` (aujourd'hui aussi 30) ; pour réserver plus loin, il faut changer les deux.
 
 ---
 
