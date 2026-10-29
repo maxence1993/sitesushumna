@@ -322,9 +322,9 @@ const surCreme = (inner, extraCss = '') => ({
 
 const grille = [
   ['13-grille-accueil', surPhoto('accueil.jpg', { surtitre: 'Sushumna · Orléans', titre: 'Un moment pour vous', sous: 'Massages bien-être personnalisés', position: 'center 30%' })],
-  ['14-grille-bienvenue', surCreme(`<img src="../assets/embleme-hd.png" alt="" style="height:300px;width:auto;margin-bottom:50px">
+  ['14-grille-bienvenue', surCreme(`<img src="../assets/embleme-hd.png" alt="" style="height:200px;width:auto;margin-bottom:30px">
 <p class="surtitre" style="font-size:28px">Bienvenue</p>
-<h2 class="titre" style="font-size:100px;margin:20px 0 34px">Le bonheur est en vous</h2>
+<h2 class="titre" style="font-size:84px;margin:16px 0 26px">Le bonheur est en vous</h2>
 <p class="sous" style="font-size:38px;max-width:780px">Des massages bien-être, à Orléans, adaptés à vos besoins du jour.</p>`)],
   ['15-grille-relaxant', surPhoto('massage-relaxant.jpg', { surtitre: 'Massage', titre: 'Relaxant', sous: 'Relâche et apaise', position: 'center' })],
   ['16-grille-reservation', surCreme(`<p class="surtitre" style="font-size:28px">Réserver</p>
@@ -344,7 +344,7 @@ const grille = [
 <p class="surtitre" style="margin-top:50px;font-size:28px;color:var(--brun-doux)">${AVIS.chahir.nom}</p>`)],
 ];
 for (const [nom, contenu] of grille) {
-  const hauteur = contenu.body.includes('class="voile"') ? 1080 : 1350;
+  const hauteur = (contenu.body.includes('class="voile"') || nom === '14-grille-bienvenue') ? 1080 : 1350;
   PAGES.push({
     nom, w: 1080, h: hauteur, echelle: 1,
     html: document_({ w: 1080, h: hauteur, css: contenu.css, body: `<div class="page">${contenu.body}</div>` }),
