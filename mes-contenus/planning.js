@@ -1,8 +1,8 @@
 /* =====================================================================
    MON PLANNING
    ---------------------------------------------------------------------
-   Le site calcule tout seul les créneaux libres des 2 prochaines
-   semaines, de 15 minutes en 15 minutes, pour la durée choisie
+   Le site calcule tout seul les créneaux libres des 30 prochains
+   jours, de 15 minutes en 15 minutes, pour la durée choisie
    par le client (1h, 1h30 ou 2h).
 
    Vous n'avez que 3 choses à tenir à jour :
@@ -75,4 +75,6 @@ var MASSAGES_RESERVES = [
 var PAUSE_APRES_MASSAGE = 15;     // minutes bloquées après chaque massage
 var PRECISION_DES_CRENEAUX = 15;  // les créneaux commencent toutes les 15 minutes
 var DELAI_MINIMUM = 24;           // heures : réservation en ligne au plus tard 24h avant
-var NOMBRE_DE_SEMAINES = 2;       // nombre de semaines affichées
+var JOURS_A_L_AVANCE = 30;        // jusqu'à combien de jours à l'avance on peut réserver (1 mois)
+                                  // ⚠️ avec la réservation en ligne, ce nombre ne doit pas dépasser
+                                  //    BOOKING_WINDOW_DAYS dans le fichier wrangler.toml du dépôt agenda-api

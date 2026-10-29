@@ -206,7 +206,7 @@
     var pause = +window.PAUSE_APRES_MASSAGE || 0;
     var pas = +window.PRECISION_DES_CRENEAUX || 15;
     var delai = (window.DELAI_MINIMUM == null ? 2 : +window.DELAI_MINIMUM) * 60;
-    var nbSemaines = +window.NOMBRE_DE_SEMAINES || 2;
+    var joursAvance = +window.JOURS_A_L_AVANCE || 30;
     var habituels = window.HORAIRES_HABITUELS || {};
 
     var particuliers = {};
@@ -311,7 +311,7 @@
 
       // planning lu dans mon Google Agenda, par l'API (14 jours maximum par appel)
       var numero = ++demandeEnCours;
-      var finPlanning = new Date(lundi); finPlanning.setDate(lundi.getDate() + 7 * nbSemaines);
+      var finPlanning = new Date(aujourdhui); finPlanning.setDate(aujourdhui.getDate() + joursAvance + 1);   // dernier jour réservable inclus
       var morceaux = [];
       for (var d = new Date(aujourdhui); d < finPlanning; d.setDate(d.getDate() + 14)) {
         var reste = Math.round((finPlanning - d) / 86400000);
@@ -346,26 +346,36 @@
     var demandeEnCours = 0;
     rafraichirPlanning = function () { afficher(); };
 
-    // dessine les semaines ; infoJour(date) → null (jour passé) ou { ouvert, tropTot, debuts: [{ minutes, debut }] }
+    // dessine le planning, semaine par semaine : un volet par jour (fermé au départ, sauf le premier jour qui a des horaires)
+    // infoJour(date) → null (jour passé) ou { ouvert, tropTot, debuts: [{ minutes, debut }] }
     function dessinerPlanning(lundi, maintenant, duree, libelle, etiquette, infoJour) {
-      var html = "";
-      for (var s = 0; s < nbSemaines; s++) {
+      var aujourdhui = new Date(maintenant.getFullYear(), maintenant.getMonth(), maintenant.getDate());
+      var limite = new Date(aujourdhui); limite.setDate(aujourdhui.getDate() + joursAvance);   // dernier jour réservable
+      var html = "", premierJourOuvert = false;
+      for (var s = 0; ; s++) {
         var debutSem = new Date(lundi); debutSem.setDate(lundi.getDate() + 7 * s);
+        if (debutSem > limite) break;
         var finSem = new Date(debutSem); finSem.setDate(debutSem.getDate() + 6);
-        var total = 0, lignes = "";
+        if (finSem > limite) finSem = new Date(limite);
+        var total = 0, volets = "", fermes = [];
         for (var j = 0; j < 7; j++) {
           var date = new Date(debutSem); date.setDate(debutSem.getDate() + j);
+          if (date > limite) break;
           var c = infoJour(date);
-          if (c === null) continue; // jour passé
-          var titre = '<h3 class="jour-ligne__nom">' + nomJour(date).charAt(0).toUpperCase() + nomJour(date).slice(1) +
-            ' <span>' + jourMois(date) + (memeJour(date, maintenant) ? " · aujourd'hui" : "") + '</span></h3>';
-          var contenu;
-          if (!c.ouvert) contenu = '<p class="jour-ligne__info">Fermé</p>';
-          else if (!c.debuts.length && c.tropTot) contenu = '<p class="jour-ligne__info">Moins de 24h à l\'avance : réservation <a href="tel:+33750460110">par téléphone</a></p>';
-          else if (!c.debuts.length) contenu = '<p class="jour-ligne__info">Complet pour cette durée</p>';
-          else {
-            total += c.debuts.length;
-            contenu = '<ul class="heures">' + c.debuts.map(function (h) {
+          if (c === null) continue;                                   // jour passé
+          var nomLong = nomJour(date).charAt(0).toUpperCase() + nomJour(date).slice(1);
+          var etiquetteJour = '<span class="jour-acc__nom">' + nomLong + ' <span>' + jourMois(date) + (memeJour(date, maintenant) ? " · aujourd'hui" : "") + '</span></span>';
+          if (!c.ouvert) { fermes.push(nomJour(date)); continue; }    // les jours fermés sont regroupés sur une ligne
+          if (!c.debuts.length) {
+            var raison = c.tropTot ? 'Moins de 24h : <a href="tel:+33750460110">par téléphone</a>' : "Complet pour cette durée";
+            volets += '<div class="jour-acc jour-acc--vide">' + etiquetteJour + '<span class="jour-acc__nb">' + raison + '</span></div>';
+            continue;
+          }
+          total += c.debuts.length;
+          var ouvrir = !premierJourOuvert; premierJourOuvert = true;
+          volets += '<details class="jour-acc"' + (ouvrir ? ' open' : '') + '><summary>' + etiquetteJour +
+            '<span class="jour-acc__nb">' + c.debuts.length + ' horaire' + (c.debuts.length > 1 ? 's' : '') + '</span></summary>' +
+            '<ul class="heures">' + c.debuts.map(function (h) {
               var t = h.minutes;
               var quand = nomJour(date) + " " + jourMois(date) + " à " + ecrireHeure(t);
               var enLigneParams = h.debut ? '&debut=' + encodeURIComponent(h.debut) + '&minutes=' + duree : '';
@@ -374,16 +384,15 @@
                 ' href="contact.html?creneau=' + encodeURIComponent(quand + " (" + etiquette + ")") +
                 '&duree=' + encodeURIComponent(libelle) + enLigneParams + '#formulaire" aria-label="Réserver le ' + quand + ', fin à ' + ecrireHeure(t + duree) + '">' +
                 ecrireHeure(t) + '</a></li>';
-            }).join("") + '</ul>';
-          }
-          lignes += '<div class="jour-ligne' + (!c.ouvert || !c.debuts.length ? " jour-ligne--vide" : "") + '">' + titre + contenu + '</div>';
+            }).join("") + '</ul></details>';
         }
         var badge = s === 0 ? "Cette semaine" : s === 1 ? "Semaine prochaine" : "";
+        var corpsSemaine = volets + (fermes.length ? '<p class="jours-fermes">Fermé : ' + fermes.join(", ") + '.</p>' : "");
         html += '<section class="semaine"><div class="semaine__titre"><h2>Semaine du ' + jourMois(debutSem) + ' au ' + jourMois(finSem) + '</h2>' +
           (badge ? '<span class="semaine__badge">' + badge + '</span>' : '') + '</div>' +
-          '<p class="semaine__resume">' + (total ? "<strong>" + total + " horaire" + (total > 1 ? "s" : "") + " possible" + (total > 1 ? "s" : "") + "</strong> pour " + (formuleChoisie ? "le premier massage de la formule" : "un massage de " + libelle.toLowerCase()) + "." :
+          '<p class="semaine__resume">' + (total ? "<strong>" + total + " horaire" + (total > 1 ? "s" : "") + " possible" + (total > 1 ? "s" : "") + "</strong> pour " + (formuleChoisie ? "le premier massage de la formule" : "un massage de " + libelle.toLowerCase()) + ". Touchez un jour pour voir ses horaires." :
             "Plus de place cette semaine-là pour cette durée. Essayez une durée plus courte, ou appelez-moi : un créneau se libère parfois.") + '</p>' +
-          (lignes || '<p class="jour-ligne__info">Cette semaine est terminée.</p>') + '</section>';
+          (corpsSemaine || '<p class="jour-ligne__info">Aucun horaire cette semaine.</p>') + '</section>';
       }
       zonePlanning.innerHTML = html;
     }
