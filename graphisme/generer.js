@@ -123,10 +123,12 @@ PAGES.push({
   nom: '04-carte-visite-recto', w: 1004, h: 650, echelle: 1,
   html: document_({ w: 1004, h: 650,
     css: `.page{background:radial-gradient(circle at 50% 45%,#4a3422 0,var(--brun) 65%,#2e2014 100%)}
-.surtitre{color:var(--or-clair);font-size:20px}`,
+.surtitre{color:var(--or-clair);font-size:20px}
+.slogan{margin:26px 0 0;font-family:var(--titres);font-style:italic;font-size:26px;color:var(--or-clair)}`,
     body: `<div class="page">
   <img src="../assets/logo-hd-or.png" alt="Sushumna" style="width:600px;height:auto">
-  <p class="surtitre" style="margin-top:44px">Massages bien-être · Orléans</p>
+  <p class="slogan">Le bonheur est en vous</p>
+  <p class="surtitre" style="margin-top:18px">Massages bien-être · Orléans</p>
 </div>` }),
 });
 
@@ -134,22 +136,22 @@ PAGES.push({
 PAGES.push({
   nom: '05-carte-visite-verso', w: 1004, h: 650, echelle: 1,
   html: document_({ w: 1004, h: 650,
-    css: `.page{justify-content:space-between;align-items:stretch;text-align:left;padding:60px 78px;background:var(--creme)}
-.haut{display:flex;flex-direction:column;align-items:flex-start;gap:22px}
-.slogan{margin:0;font-family:var(--titres);font-style:italic;font-size:34px;color:var(--or-texte)}
-.logo{width:420px;height:auto;align-self:flex-start}
-.nom{margin:0;font-family:var(--titres);font-weight:600;font-size:46px;line-height:1.1;color:var(--brun)}
-.role{margin:6px 0 0;font-family:var(--titres);font-style:italic;font-size:26px;color:var(--or-texte)}
-.bas{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;border-top:2px solid var(--bordure);padding-top:26px}
+    css: `.page{justify-content:space-between;align-items:stretch;text-align:left;padding:70px 78px;background:var(--creme)}
+.haut p{margin:0}
+.nom{font-family:var(--titres);font-weight:600;font-size:66px;line-height:1.1;color:var(--brun)}
+.role{font-family:var(--titres);font-style:italic;font-size:32px;color:var(--or-texte);margin-top:10px}
 .contacts{display:flex;flex-direction:column;gap:14px;font-size:27px;font-weight:700;color:var(--brun)}
 .contacts div{display:flex;align-items:center;gap:20px}
 .contacts .ico{width:30px;height:30px}
+.marque{position:absolute;right:70px;top:70px;width:200px;opacity:1}
+.bas{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;border-top:2px solid var(--bordure);padding-top:26px}
 .qr{display:flex;flex-direction:column;align-items:center;gap:8px;flex:none}
 .qr img{width:160px;height:auto}
 .qr span{font-size:19px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--or-texte)}`,
-    body: `<div class="haut">
-  <img class="logo" src="../assets/logo-hd.png" alt="Sushumna">
-  <p class="slogan">Le bonheur est en vous</p>
+    body: `<img class="marque" src="../assets/embleme-hd.png" alt="">
+<div class="haut">
+  <p class="nom">Maxence Vaz</p>
+  <p class="role">Massages bien-être</p>
 </div>
 <div class="bas">
   <div class="contacts">
