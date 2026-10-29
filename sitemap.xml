@@ -88,4 +88,84 @@
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
+  <url>
+    <loc>https://massage-sushumna.com/massage-sur-mesure-orleans.html</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://massage-sushumna.com/photos/massage-sur-mesure.jpg</image:loc>
+      <image:title>Massage sur mesure à Orléans</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://massage-sushumna.com/massage-sportif-orleans.html</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://massage-sushumna.com/photos/massage-sportif.jpg</image:loc>
+      <image:title>Massage sportif à Orléans</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://massage-sushumna.com/massage-relaxant-orleans.html</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://massage-sushumna.com/photos/massage-relaxant.jpg</image:loc>
+      <image:title>Massage relaxant à Orléans</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://massage-sushumna.com/massage-reconfort-orleans.html</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://massage-sushumna.com/photos/massage-reconfort.jpg</image:loc>
+      <image:title>Massage réconfort à Orléans</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://massage-sushumna.com/massage-ayurvedique-orleans.html</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://massage-sushumna.com/photos/massage-ayurvedique.jpg</image:loc>
+      <image:title>Massage ayurvédique (indien) à Orléans</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://massage-sushumna.com/massage-chong-mai-orleans.html</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://massage-sushumna.com/photos/massage-chong-mai.jpg</image:loc>
+      <image:title>Massage Chong Mai (chinois) à Orléans</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://massage-sushumna.com/massage-bol-tibetain-orleans.html</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://massage-sushumna.com/photos/massage-bol-tibetain.jpg</image:loc>
+      <image:title>Massage au bol tibétain à Orléans</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://massage-sushumna.com/reflexologie-abdominale-orleans.html</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://massage-sushumna.com/photos/reflexologie-abdominale.jpg</image:loc>
+      <image:title>Réflexologie abdominale à Orléans</image:title>
+    </image:image>
+  </url>
 </urlset>

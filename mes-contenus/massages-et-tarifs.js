@@ -45,6 +45,7 @@ var FORMULES = [
    Pour chaque massage :
    - nom        : le nom affiché
    - accroche   : une petite phrase sous le nom
+   - page       : la page dédiée du massage (créée avec Claude ; ne pas modifier)
    - photo      : le nom du fichier photo, à déposer dans le dossier « photos »
    - consiste   : en quoi consiste le massage
    - pourQui    : à qui il s'adresse
@@ -54,6 +55,7 @@ var FORMULES = [
 var MASSAGES = [
   {
     nom: "Massage sur mesure",
+    page: "massage-sur-mesure-orleans.html",   // sa page dédiée (créée avec Claude)
     accroche: "Construit avec vous, selon vos besoins du jour",
     photo: "massage-sur-mesure.jpg",
     consiste: "Nous prenons d'abord le temps d'échanger : vos envies, vos zones de tension, votre état du moment. Je compose ensuite un massage qui peut mêler toutes les techniques que je pratique (relaxant, ayurvédique, Chong Mai, bol tibétain, réflexologie abdominale).",
@@ -67,6 +69,7 @@ var MASSAGES = [
   },
   {
     nom: "Massage sportif",
+    page: "massage-sportif-orleans.html",   // sa page dédiée (créée avec Claude)
     accroche: "Pour des muscles qui travaillent, et qui ont besoin de souffler",
     photo: "massage-sportif.jpg",
     consiste: "Un massage plus tonique et plus appuyé, avec des gestes profonds, des pétrissages et des étirements doux. Il s'adapte à votre pratique, à vos muscles sollicités et à votre sensibilité : la pression est toujours réglée avec vous.",
@@ -80,6 +83,7 @@ var MASSAGES = [
   },
   {
     nom: "Massage relaxant",
+    page: "massage-relaxant-orleans.html",   // sa page dédiée (créée avec Claude)
     accroche: "Relâche et apaise",
     photo: "massage-relaxant.jpg",
     consiste: "Un massage doux et enveloppant, avec des gestes lents et fluides. Il invite le corps à relâcher ses tensions et l'esprit à ralentir.",
@@ -93,6 +97,7 @@ var MASSAGES = [
   },
   {
     nom: "Massage réconfort",
+    page: "massage-reconfort-orleans.html",   // sa page dédiée (créée avec Claude)
     accroche: "Un moment de tendresse, comme un câlin",
     photo: "massage-reconfort.jpg",
     consiste: "Un massage à l'huile, lent et très enveloppant, qui laisse une grande place au contact. Les mains, les avant-bras et le buste accompagnent votre corps dans des gestes amples, continus et rassurants, un peu comme une longue étreinte. Rien n'est brusque : le rythme et la pression s'adaptent à vous, et nous prenons le temps d'en parler avant la séance.",
@@ -107,6 +112,7 @@ var MASSAGES = [
   },
   {
     nom: "Massage ayurvédique (indien)",
+    page: "massage-ayurvedique-orleans.html",   // sa page dédiée (créée avec Claude)
     accroche: "Tonique et énergisant",
     photo: "massage-ayurvedique.jpg",
     consiste: "Inspiré de la tradition indienne, ce massage à l'huile chaude alterne des gestes enveloppants et des mouvements plus dynamiques sur l'ensemble du corps. Les huiles sont choisies selon votre peau et vos envies.",
@@ -121,6 +127,7 @@ var MASSAGES = [
   },
   {
     nom: "Massage Chong Mai (chinois)",
+    page: "massage-chong-mai-orleans.html",   // sa page dédiée (créée avec Claude)
     accroche: "Pour retrouver son axe et son élan",
     photo: "massage-chong-mai.jpg",
     consiste: "Issu de la tradition chinoise, ce massage énergétique suit l'axe central du corps. Il associe des pressions, des étirements doux et des gestes lents pour aider à rééquilibrer les énergies.",
@@ -134,6 +141,7 @@ var MASSAGES = [
   },
   {
     nom: "Massage au bol tibétain",
+    page: "massage-bol-tibetain-orleans.html",   // sa page dédiée (créée avec Claude)
     accroche: "Se laisser porter par les vibrations du son",
     photo: "massage-bol-tibetain.jpg",
     consiste: "Des bols chantants sont posés sur le corps ou autour de vous, puis frappés doucement. Leurs sons et leurs vibrations se diffusent dans tout le corps, associés à des gestes de massage doux.",
@@ -147,6 +155,7 @@ var MASSAGES = [
   },
   {
     nom: "Réflexologie abdominale",
+    page: "reflexologie-abdominale-orleans.html",   // sa page dédiée (créée avec Claude)
     accroche: "Libérer les maux… et les mots",
     photo: "reflexologie-abdominale.jpg",
     consiste: "Le ventre est une zone où l'on garde souvent le stress, les tensions et les émotions. Par des gestes doux et précis sur l'abdomen, cette technique relie le corps, le mental et les émotions.",
