@@ -451,6 +451,58 @@ contenuMassages.forEach((m, i) => {
   });
 });
 
+/* ---------- 44 à 49. Carrousel « Comment réserver » (1080 × 1350) ---------- */
+const CARROUSEL_RESERVER = [
+  { nom: 'couverture' },
+  { titre: 'Sur le site', icone: 'calendrier', texte: 'Choisissez la durée (1h, 1h30 ou 2h), puis un horaire libre. Votre demande m’arrive directement : je vous confirme ensuite rapidement.', pied: CONTACT.site },
+  { titre: 'Par WhatsApp', icone: 'whatsapp', texte: `Écrivez-moi au ${CONTACT.tel}. Nous choisissons ensemble le jour et l’heure qui vous conviennent.`, pied: CONTACT.tel },
+  { titre: 'Par téléphone', icone: 'tel', texte: `Appelez-moi au ${CONTACT.tel}. C’est le plus rapide pour un rendez-vous dans les 24 h.`, pied: CONTACT.tel },
+  { titre: 'Sur Instagram', icone: 'instagram', texte: `Envoyez-moi un message privé sur ${CONTACT.insta}.`, pied: CONTACT.insta },
+  { nom: 'fin' },
+];
+const CSS_CARROUSEL = `.page{justify-content:center;background:radial-gradient(circle at 50% 42%,#fff 0,var(--creme) 55%,var(--sable-2) 100%);padding:0 90px}
+.haut{position:absolute;top:70px;left:90px;right:90px;display:flex;justify-content:space-between;align-items:center}
+.haut .surtitre{font-size:26px}
+.compteur{font-size:26px;font-weight:700;color:var(--brun-doux)}
+.rond{width:300px;height:300px;border-radius:50%;border:6px solid var(--or);background:var(--creme);display:flex;align-items:center;justify-content:center;margin-bottom:60px}
+.rond .ico{width:130px;height:130px;color:var(--brun-logo)}
+.titre{font-size:92px;margin:0 0 34px}
+.texte{font-size:40px;line-height:1.4;color:var(--brun-doux);max-width:860px;margin:0}
+.pied{position:absolute;bottom:70px;left:90px;right:90px;font-size:28px;font-weight:800;color:var(--or-texte);text-align:center}`;
+
+CARROUSEL_RESERVER.forEach((diapo, i) => {
+  const numero = String(44 + i).padStart(2, '0');
+  const compteur = `${i + 1} / ${CARROUSEL_RESERVER.length}`;
+  let corps;
+  let nom;
+  if (diapo.nom === 'couverture') {
+    nom = `${numero}-carrousel-reserver-couverture`;
+    corps = `<div class="haut"><span class="surtitre">Réserver</span><span class="compteur">${compteur}</span></div>
+<img src="../assets/logo-hd.png" alt="Sushumna" style="width:640px;height:auto;margin-bottom:70px">
+<h1 class="titre">Comment réserver votre massage&nbsp;?</h1>
+<p class="texte">4 façons simples de me joindre. Choisissez celle qui vous convient.</p>
+<p class="pied">Glissez pour découvrir →</p>`;
+  } else if (diapo.nom === 'fin') {
+    nom = `${numero}-carrousel-reserver-fin`;
+    corps = `<div class="haut"><span class="surtitre">Réserver</span><span class="compteur">${compteur}</span></div>
+<h1 class="titre">Une question avant de réserver&nbsp;?</h1>
+<p class="texte" style="margin-bottom:60px">Écrivez-moi ou appelez-moi, je vous réponds avec plaisir. Je vous confirme ensuite rapidement votre rendez-vous.</p>
+<img src="../assets/logo-hd.png" alt="Sushumna" style="width:520px;height:auto">
+<p class="pied">${CONTACT.site}</p>`;
+  } else {
+    nom = `${numero}-carrousel-reserver-${slug(diapo.titre)}`;
+    corps = `<div class="haut"><span class="surtitre">Réserver</span><span class="compteur">${compteur}</span></div>
+<div class="rond">${ico(diapo.icone)}</div>
+<h1 class="titre">${diapo.titre}</h1>
+<p class="texte">${diapo.texte}</p>
+<p class="pied">${diapo.pied} ${i < CARROUSEL_RESERVER.length - 1 ? '→' : ''}</p>`;
+  }
+  PAGES.push({
+    nom, w: 1080, h: 1350, echelle: 1,
+    html: document_({ w: 1080, h: 1350, css: CSS_CARROUSEL, body: corps }),
+  });
+});
+
 /* ---------- Rendu ---------- */
 (async () => {
   fs.mkdirSync(SOURCES, { recursive: true });
