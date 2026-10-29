@@ -374,7 +374,7 @@
           total += c.debuts.length;
           var ouvrir = !premierJourOuvert; premierJourOuvert = true;
           volets += '<details class="jour-acc"' + (ouvrir ? ' open' : '') + '><summary>' + etiquetteJour +
-            '<span class="jour-acc__nb">' + c.debuts.length + ' horaire' + (c.debuts.length > 1 ? 's' : '') + '</span></summary>' +
+            '</summary>' +
             '<ul class="heures">' + c.debuts.map(function (h) {
               var t = h.minutes;
               var quand = nomJour(date) + " " + jourMois(date) + " à " + ecrireHeure(t);
@@ -390,7 +390,7 @@
         var corpsSemaine = volets + (fermes.length ? '<p class="jours-fermes">Fermé : ' + fermes.join(", ") + '.</p>' : "");
         html += '<section class="semaine"><div class="semaine__titre"><h2>Semaine du ' + jourMois(debutSem) + ' au ' + jourMois(finSem) + '</h2>' +
           (badge ? '<span class="semaine__badge">' + badge + '</span>' : '') + '</div>' +
-          '<p class="semaine__resume">' + (total ? "<strong>" + total + " horaire" + (total > 1 ? "s" : "") + " possible" + (total > 1 ? "s" : "") + "</strong> pour " + (formuleChoisie ? "le premier massage de la formule" : "un massage de " + libelle.toLowerCase()) + ". Touchez un jour pour voir ses horaires." :
+          '<p class="semaine__resume">' + (total ? "Horaires disponibles pour " + (formuleChoisie ? "le premier massage de la formule" : "un massage de " + libelle.toLowerCase()) + ". Touchez un jour pour les voir." :
             "Plus de place cette semaine-là pour cette durée. Essayez une durée plus courte, ou appelez-moi : un créneau se libère parfois.") + '</p>' +
           (corpsSemaine || '<p class="jour-ligne__info">Aucun horaire cette semaine.</p>') + '</section>';
       }
