@@ -201,6 +201,7 @@ const COUVERTURES = [
   ['07-une-tarifs', 'euro', 'Tarifs'],
   ['08-une-prestations', 'feuille', 'Prestations'],
   ['09-une-avis', 'coeur', 'Avis'],
+  ['43-une-creneaux', 'calendrier', 'Créneaux'],
 ];
 for (const [nom, icone, titre] of COUVERTURES) {
   PAGES.push({
