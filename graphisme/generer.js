@@ -304,13 +304,14 @@ const voileBas = `.fond{position:absolute;inset:0;width:100%;height:100%;object-
 .legende .surtitre{color:var(--or-clair);font-size:26px}
 .legende .titre{color:var(--creme);font-size:92px;margin:14px 0 14px}
 .legende .sous{color:var(--creme);font-size:38px;margin:0}
-.marque-haut{position:absolute;left:70px;top:70px;width:300px;height:auto}`;
+.marque-haut{position:absolute;left:60px;top:60px;background:var(--creme);border-radius:22px;padding:14px 22px;box-shadow:0 8px 22px rgba(0,0,0,.25)}
+.marque-haut img{width:280px;height:auto;display:block}`;
 
 const surPhoto = (fichier, { surtitre, titre, sous, position }) => ({
   css: voileBas,
   body: `${photo(fichier, position)}
 <div class="voile"></div>
-<img class="marque-haut" src="../assets/logo-hd-or.png" alt="Sushumna">
+<div class="marque-haut"><img src="../assets/logo-hd.png" alt="Sushumna"></div>
 <div class="legende"><p class="surtitre">${surtitre}</p><h2 class="titre">${titre}</h2><p class="sous">${sous}</p></div>`,
 });
 
@@ -428,6 +429,25 @@ contenuMassages.forEach((m, i) => {
   ${m.bonASavoir ? `<p class="attention"><strong>Bon à savoir :</strong> ${m.bonASavoir}</p>` : ''}
   <img class="pied-story" src="../assets/logo-hd.png" alt="Sushumna">
 </div>` }),
+  });
+});
+
+/* ---------- 35 à 42. Une publication photo par prestation (1080 × 1350) ---------- */
+contenuMassages.forEach((m, i) => {
+  const numero = String(35 + i).padStart(2, '0');
+  const reflexologie = m.nom.startsWith('Réflexologie');
+  const titre = reflexologie
+    ? m.nom
+    : (() => { const t = m.nom.replace(/^Massage /, '').replace(/\s*\(.*?\)/, ''); return t.charAt(0).toUpperCase() + t.slice(1); })();
+  const contenu = surPhoto(m.photo, {
+    surtitre: reflexologie ? 'Bien-être' : 'Massage',
+    titre,
+    sous: m.accroche,
+    position: 'center',
+  });
+  PAGES.push({
+    nom: `${numero}-photo-${slug(m.nom)}`, w: 1080, h: 1350, echelle: 1,
+    html: document_({ w: 1080, h: 1350, css: contenu.css, body: `<div class="page">${contenu.body}</div>` }),
   });
 });
 
