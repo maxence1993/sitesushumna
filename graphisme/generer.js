@@ -135,9 +135,11 @@ PAGES.push({
   nom: '05-carte-visite-verso', w: 1004, h: 650, echelle: 1,
   html: document_({ w: 1004, h: 650,
     css: `.page{justify-content:space-between;align-items:stretch;text-align:left;padding:60px 78px;background:var(--creme)}
-.logo{width:400px;height:auto;align-self:flex-start}
-.nom{margin:0;font-family:var(--titres);font-weight:600;font-size:62px;line-height:1.1;color:var(--brun)}
-.role{margin:8px 0 0;font-family:var(--titres);font-style:italic;font-size:30px;color:var(--or-texte)}
+.haut{display:flex;justify-content:space-between;align-items:flex-start;gap:30px}
+.haut > div{text-align:right;padding-top:14px}
+.logo{width:420px;height:auto;align-self:flex-start}
+.nom{margin:0;font-family:var(--titres);font-weight:600;font-size:46px;line-height:1.1;color:var(--brun)}
+.role{margin:6px 0 0;font-family:var(--titres);font-style:italic;font-size:26px;color:var(--or-texte)}
 .bas{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;border-top:2px solid var(--bordure);padding-top:26px}
 .contacts{display:flex;flex-direction:column;gap:14px;font-size:27px;font-weight:700;color:var(--brun)}
 .contacts div{display:flex;align-items:center;gap:20px}
@@ -145,10 +147,12 @@ PAGES.push({
 .qr{display:flex;flex-direction:column;align-items:center;gap:8px;flex:none}
 .qr img{width:160px;height:auto}
 .qr span{font-size:19px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--or-texte)}`,
-    body: `<img class="logo" src="../assets/logo-hd.png" alt="Sushumna">
-<div>
-  <p class="nom">Maxence Vaz</p>
-  <p class="role">Massages bien-être</p>
+    body: `<div class="haut">
+  <img class="logo" src="../assets/logo-hd.png" alt="Sushumna">
+  <div>
+    <p class="nom">Maxence Vaz</p>
+    <p class="role">Massages bien-être</p>
+  </div>
 </div>
 <div class="bas">
   <div class="contacts">
