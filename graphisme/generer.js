@@ -612,6 +612,36 @@ CARROUSELS_QUESTIONS.forEach((carrousel, c) => {
   });
 });
 
+/* ---------- 64. Planning de la semaine jusqu'à dimanche (story 1080 × 1920) ----------
+   Créneaux calculés à partir de mes-contenus/planning.js (jeudi 29/10/2026).
+   À mettre à jour à chaque nouvelle semaine. */
+const PLANNING_SEMAINE = [
+  { jour: 'Vendredi 30 octobre', horaires: '12h45 – 21h00', detail: 'Massage à réserver entre 12h45 et 21h (fin du massage avant 21h).' },
+  { jour: 'Dimanche 1er novembre', horaires: '14h00 – 17h00', detail: 'Massage à réserver entre 14h et 17h (fin du massage avant 17h).' },
+];
+PAGES.push({
+  nom: '64-planning-semaine', w: 1080, h: 1920, echelle: 1,
+  html: document_({ w: 1080, h: 1920,
+    css: `.page{justify-content:flex-start;padding:230px 90px 230px;background:linear-gradient(180deg,var(--creme) 0%,var(--sable-2) 100%)}
+.logo{width:340px;height:auto;align-self:center}
+.titre{font-size:120px;margin:40px 0 16px;text-align:center}
+.sous{font-size:36px;color:var(--brun-doux);margin:0 0 70px;text-align:center}
+.jour{width:100%;background:var(--creme);border:2px solid var(--bordure);border-left:12px solid var(--or);border-radius:30px;padding:40px 46px;margin-bottom:34px;text-align:left;box-shadow:0 10px 30px rgba(92,67,48,.10)}
+.jour h2{font-family:var(--titres);font-weight:600;font-size:48px;margin:0 0 14px;color:var(--brun)}
+.jour .horaires{font-size:64px;font-weight:800;color:var(--or-texte);margin:0 0 14px}
+.jour p{font-size:28px;line-height:1.4;color:var(--brun-doux);margin:0}
+.pied-story{margin-top:auto;width:240px;height:auto;align-self:center}
+.ferme{font-size:30px;color:var(--brun-doux);text-align:center;margin:10px 0 40px}`,
+    body: `<img class="logo" src="../assets/logo-hd.png" alt="Sushumna">
+<p class="surtitre" style="font-size:28px;text-align:center;margin-top:50px">Disponibilités</p>
+<h1 class="titre">Cette semaine</h1>
+<p class="sous">Jusqu’à dimanche, pour réserver votre massage</p>
+${PLANNING_SEMAINE.map((j) => `<div class="jour"><h2>${j.jour}</h2><p class="horaires">${j.horaires}</p><p>${j.detail}</p></div>`).join('\n')}
+<p class="ferme">Jeudi et samedi : fermé</p>
+<p class="sous" style="margin:0 0 10px;font-weight:700;color:var(--or-texte)">Réservez sur massage-sushumna.com</p>
+<p class="sous" style="margin:0 0 30px;font-weight:700;color:var(--or-texte);white-space:nowrap">07 50 46 01 10</p>` }),
+});
+
 /* ---------- Rendu ---------- */
 (async () => {
   fs.mkdirSync(SOURCES, { recursive: true });
