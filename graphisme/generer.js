@@ -503,6 +503,28 @@ CARROUSEL_RESERVER.forEach((diapo, i) => {
   });
 });
 
+/* ---------- 50 et suivants. Un visuel d'avis par avis (1080 × 1350) ----------
+   Les avis sont lus directement dans mes-contenus/avis.js, mot pour mot. */
+const contenuAvis = vm.runInNewContext(
+  fs.readFileSync(path.join(DOSSIER, '..', 'mes-contenus', 'avis.js'), 'utf8') + ';AVIS',
+  {}
+);
+contenuAvis.forEach((avis, i) => {
+  const numero = String(50 + i).padStart(2, '0');
+  const longueur = avis.texte.length;
+  const taille = longueur > 420 ? 30 : longueur > 220 ? 38 : 50;
+  PAGES.push({
+    nom: `${numero}-avis-${slug(avis.nom)}`, w: 1080, h: 1350, echelle: 1,
+    html: document_({ w: 1080, h: 1350,
+      css: `.page{background:var(--creme);padding:110px 90px}
+.texte-avis{font-family:var(--titres);font-style:italic;font-weight:500;font-size:${taille}px;line-height:1.4;white-space:pre-line;margin:0}`,
+      body: `<p class="surtitre" style="font-size:28px">Avis clients</p>
+<p class="etoiles" style="font-size:80px;margin:30px 0 40px">${'★'.repeat(avis.etoiles)}</p>
+<p class="texte-avis">« ${avis.texte} »</p>
+<p class="surtitre" style="margin-top:50px;font-size:28px;color:var(--brun-doux)">${avis.nom}</p>` }),
+  });
+});
+
 /* ---------- Rendu ---------- */
 (async () => {
   fs.mkdirSync(SOURCES, { recursive: true });
