@@ -75,7 +75,7 @@
   if (resume) {
     resume.innerHTML = massages.map(function (m) {
       return '<article class="carte">' +
-        '<div class="carte__photo photo"><img src="photos/' + echapper(m.photo) + '" alt="" loading="lazy"></div>' +
+        '<div class="carte__photo photo"><img src="photos/' + echapper(m.photo) + '" alt="' + echapper(m.nom) + ' à Orléans – Sushumna" loading="lazy"></div>' +
         '<div class="carte__corps"><h3>' + echapper(m.nom) + '</h3>' +
         '<p class="carte__accroche">' + echapper(m.accroche) + '</p>' +
         '<a class="carte__lien" href="massages.html#' + identifiant(m.nom) + '">Découvrir ce massage<span class="cache"> : ' + echapper(m.nom) + '</span> →</a></div>' +
@@ -95,7 +95,7 @@
     liste.innerHTML = massages.map(function (m) {
       var apporte = (m.apporte || []).map(function (a) { return "<li>" + echapper(a) + "</li>"; }).join("");
       return '<article class="massage" id="' + identifiant(m.nom) + '">' +
-        '<div class="massage__photo photo"><img src="photos/' + echapper(m.photo) + '" alt="Photo : ' + echapper(m.nom) + '" loading="lazy"></div>' +
+        '<div class="massage__photo photo"><img src="photos/' + echapper(m.photo) + '" alt="' + echapper(m.nom) + ', massage bien-être à Orléans" loading="lazy"></div>' +
         '<div class="massage__texte">' +
           '<h2>' + echapper(m.nom) + '</h2>' +
           '<p class="massage__accroche">' + echapper(m.accroche) + '</p>' +

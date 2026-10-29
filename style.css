@@ -443,3 +443,10 @@ body { padding-bottom: 76px; }
   #resume-massages .carte:nth-last-child(2):nth-child(3n+1) { grid-column: 2 / span 2; }
   #resume-massages .carte:last-child:nth-child(3n+2) { grid-column: 4 / span 2; }
 }
+
+/* ---------- Référencement : titre principal (H1) en petit, accroche en grand ---------- */
+h1.surtitre, .accueil h1.surtitre { font-family: var(--texte); font-size: .85rem; font-weight: 800; line-height: 1.4; letter-spacing: .08em; color: var(--or-texte); margin: 0 0 .6rem; }
+.accueil .accroche-titre { font-family: var(--titres); color: var(--brun); font-weight: 600; line-height: 1.15; font-size: clamp(2.3rem, 6vw, 3.6rem); margin: 0 0 .6em; }
+.liens-seo { display: flex; flex-wrap: wrap; gap: .4rem .5rem; list-style: none; padding: 0; margin: 1rem 0 1.4rem; }
+.liens-seo a { display: inline-block; padding: .3em .8em; border-radius: 999px; background: var(--creme); border: 1.5px solid var(--bordure); color: var(--brun); font-weight: 700; font-size: .92rem; text-decoration: none; }
+.liens-seo a:hover { border-color: var(--or); background: var(--or-clair); }

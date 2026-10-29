@@ -1,43 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://massage-sushumna.com/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://massage-sushumna.com/photos/accueil.jpg</image:loc>
+      <image:title>Massage bien-être à Orléans – Studio Sushumna</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://massage-sushumna.com/photos/portrait.jpg</image:loc>
+      <image:title>Maxence Vaz, praticien en massages bien-être à Orléans</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://massage-sushumna.com/massages.html</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://massage-sushumna.com/photos/massage-sur-mesure.jpg</image:loc>
+      <image:title>Massage sur mesure à Orléans</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://massage-sushumna.com/photos/massage-sportif.jpg</image:loc>
+      <image:title>Massage sportif à Orléans</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://massage-sushumna.com/photos/massage-relaxant.jpg</image:loc>
+      <image:title>Massage relaxant à Orléans</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://massage-sushumna.com/photos/massage-reconfort.jpg</image:loc>
+      <image:title>Massage réconfort à Orléans</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://massage-sushumna.com/photos/massage-ayurvedique.jpg</image:loc>
+      <image:title>Massage ayurvédique (indien) à Orléans</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://massage-sushumna.com/photos/massage-chong-mai.jpg</image:loc>
+      <image:title>Massage Chong Mai (chinois) à Orléans</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://massage-sushumna.com/photos/massage-bol-tibetain.jpg</image:loc>
+      <image:title>Massage au bol tibétain à Orléans</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://massage-sushumna.com/photos/reflexologie-abdominale.jpg</image:loc>
+      <image:title>Réflexologie abdominale à Orléans</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://massage-sushumna.com/contact.html</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://massage-sushumna.com/tarifs.html</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://massage-sushumna.com/disponibilites.html</loc>
-    <lastmod>2026-10-26</lastmod>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://massage-sushumna.com/carte-cadeau.html</loc>
-    <lastmod>2026-10-26</lastmod>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://massage-sushumna.com/contact.html</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://massage-sushumna.com/carte-cadeau.html</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://massage-sushumna.com/questions.html</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://massage-sushumna.com/mentions-legales.html</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
 </urlset>

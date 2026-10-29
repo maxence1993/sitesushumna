@@ -312,6 +312,10 @@ Le site est déjà préparé : titres et descriptions des pages, texte sur Orlé
 
 Il faut parfois **plusieurs semaines** avant de voir les premiers effets.
 
+**Ce qui est déjà fait sur le site** : titres et descriptions de chaque page avec « massage », « bien-être » et « Orléans » ; titres principaux (H1) avec ces mots ; textes des photos ; fiche d'entreprise détaillée pour Google (adresse, massages, prix, communes voisines, Instagram, fiche Google Maps) ; questions fréquentes lisibles par Google ; plan du site avec les photos.
+
+**Bon à savoir** : les fiches des massages, les tarifs et les avis sont aussi écrits « en dur » dans les pages, pour que Google les lise sans attendre. Quand vous modifiez un massage, un prix ou un avis dans `mes-contenus`, le site affiché aux visiteurs se met à jour tout seul, mais cette copie pour Google garde l'ancienne version : demandez-moi de la mettre à jour de temps en temps.
+
 ---
 
 ## 11. La réservation en ligne reliée à Google Agenda
