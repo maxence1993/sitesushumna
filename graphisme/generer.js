@@ -471,6 +471,16 @@ const CSS_CARROUSEL = `.page{justify-content:center;background:radial-gradient(c
 .texte{font-size:40px;line-height:1.4;color:var(--brun-doux);max-width:860px;margin:0}
 .pied{position:absolute;bottom:70px;left:90px;right:90px;font-size:28px;font-weight:800;color:var(--or-texte);text-align:center}`;
 
+/* Version carrée : éléments resserrés pour tenir dans 1080 × 1080 */
+const CSS_CARROUSEL_CARRE = `.page{padding:0 90px}
+.haut{top:60px}
+.rond{width:230px;height:230px;margin-bottom:40px}
+.rond .ico{width:100px;height:100px}
+.titre{font-size:78px;margin:0 0 22px}
+.texte{font-size:34px;line-height:1.35}
+.pied{bottom:55px;font-size:26px}
+.compteur{font-size:24px}`;
+
 CARROUSEL_RESERVER.forEach((diapo, i) => {
   const numero = String(44 + i).padStart(2, '0');
   const compteur = `${i + 1} / ${CARROUSEL_RESERVER.length}`;
@@ -479,7 +489,7 @@ CARROUSEL_RESERVER.forEach((diapo, i) => {
   if (diapo.nom === 'couverture') {
     nom = `${numero}-carrousel-reserver-couverture`;
     corps = `<div class="haut"><span class="surtitre">Réserver</span><span class="compteur">${compteur}</span></div>
-<img src="../assets/logo-hd.png" alt="Sushumna" style="width:640px;height:auto;margin-bottom:70px">
+<img src="../assets/logo-hd.png" alt="Sushumna" style="width:520px;height:auto;margin-bottom:50px">
 <h1 class="titre">Comment réserver votre massage&nbsp;?</h1>
 <p class="texte">4 façons simples de me joindre. Choisissez celle qui vous convient.</p>
 <p class="pied">Glissez pour découvrir →</p>`;
@@ -499,8 +509,8 @@ CARROUSEL_RESERVER.forEach((diapo, i) => {
 <p class="pied">${diapo.pied} ${i < CARROUSEL_RESERVER.length - 1 ? '→' : ''}</p>`;
   }
   PAGES.push({
-    nom, w: 1080, h: 1350, echelle: 1,
-    html: document_({ w: 1080, h: 1350, css: CSS_CARROUSEL, body: corps }),
+    nom, w: 1080, h: 1080, echelle: 1,
+    html: document_({ w: 1080, h: 1080, css: CSS_CARROUSEL + CSS_CARROUSEL_CARRE, body: corps }),
   });
 });
 
