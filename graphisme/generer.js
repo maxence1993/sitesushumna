@@ -525,6 +525,25 @@ contenuAvis.forEach((avis, i) => {
   });
 });
 
+/* ---------- 57 et suivants. Une story par avis (1080 × 1920) ---------- */
+contenuAvis.forEach((avis, i) => {
+  const numero = String(57 + i).padStart(2, '0');
+  const longueur = avis.texte.length;
+  const taille = longueur > 420 ? 34 : longueur > 220 ? 42 : 52;
+  PAGES.push({
+    nom: `${numero}-story-avis-${slug(avis.nom)}`, w: 1080, h: 1920, echelle: 1,
+    html: document_({ w: 1080, h: 1920,
+      css: `.page{justify-content:flex-start;padding:230px 90px 230px;background:linear-gradient(180deg,var(--creme) 0%,var(--sable-2) 100%)}
+.texte-avis{font-family:var(--titres);font-style:italic;font-weight:500;font-size:${taille}px;line-height:1.4;white-space:pre-line;margin:0}
+.pied-story{margin-top:auto;width:260px;height:auto;align-self:center}`,
+      body: `<p class="surtitre" style="font-size:28px">Avis clients</p>
+<p class="etoiles" style="font-size:80px;margin:30px 0 40px">${'★'.repeat(avis.etoiles)}</p>
+<p class="texte-avis">« ${avis.texte} »</p>
+<p class="surtitre" style="margin-top:50px;font-size:28px;color:var(--brun-doux)">${avis.nom}</p>
+<img class="pied-story" src="../assets/logo-hd.png" alt="Sushumna">` }),
+  });
+});
+
 /* ---------- Rendu ---------- */
 (async () => {
   fs.mkdirSync(SOURCES, { recursive: true });
