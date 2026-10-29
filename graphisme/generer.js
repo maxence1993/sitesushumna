@@ -344,9 +344,10 @@ const grille = [
 <p class="surtitre" style="margin-top:50px;font-size:28px;color:var(--brun-doux)">${AVIS.chahir.nom}</p>`)],
 ];
 for (const [nom, contenu] of grille) {
+  const hauteur = contenu.body.includes('class="voile"') ? 1080 : 1350;
   PAGES.push({
-    nom, w: 1080, h: 1350, echelle: 1,
-    html: document_({ w: 1080, h: 1350, css: contenu.css, body: `<div class="page">${contenu.body}</div>` }),
+    nom, w: 1080, h: hauteur, echelle: 1,
+    html: document_({ w: 1080, h: hauteur, css: contenu.css, body: `<div class="page">${contenu.body}</div>` }),
   });
 }
 
@@ -446,8 +447,8 @@ contenuMassages.forEach((m, i) => {
     position: 'center',
   });
   PAGES.push({
-    nom: `${numero}-photo-${slug(m.nom)}`, w: 1080, h: 1350, echelle: 1,
-    html: document_({ w: 1080, h: 1350, css: contenu.css, body: `<div class="page">${contenu.body}</div>` }),
+    nom: `${numero}-photo-${slug(m.nom)}`, w: 1080, h: 1080, echelle: 1,
+    html: document_({ w: 1080, h: 1080, css: contenu.css, body: `<div class="page">${contenu.body}</div>` }),
   });
 });
 
