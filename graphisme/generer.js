@@ -127,8 +127,6 @@ PAGES.push({
 .slogan{margin:26px 0 0;font-family:var(--titres);font-style:italic;font-size:26px;color:var(--brun-doux)}`,
     body: `<div class="page">
   <img src="../assets/logo-hd.png" alt="Sushumna" style="width:600px;height:auto">
-  <p class="slogan">Le bonheur est en vous</p>
-  <p class="surtitre" style="margin-top:18px">Massages bien-être · Orléans</p>
 </div>` }),
 });
 
