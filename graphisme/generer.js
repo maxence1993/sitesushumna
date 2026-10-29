@@ -304,8 +304,8 @@ const voileBas = `.fond{position:absolute;inset:0;width:100%;height:100%;object-
 .legende .surtitre{color:var(--or-clair);font-size:26px}
 .legende .titre{color:var(--creme);font-size:92px;margin:14px 0 14px}
 .legende .sous{color:var(--creme);font-size:38px;margin:0}
-.marque-haut{position:absolute;left:60px;top:60px;background:var(--creme);border-radius:22px;padding:14px 22px;box-shadow:0 8px 22px rgba(0,0,0,.25)}
-.marque-haut img{width:280px;height:auto;display:block}`;
+.marque-haut{position:absolute;left:60px;top:60px}
+.marque-haut img{width:300px;height:auto;display:block}`;
 
 const surPhoto = (fichier, { surtitre, titre, sous, position }) => ({
   css: voileBas,
