@@ -19,19 +19,21 @@ body{width:var(--w);height:var(--h);overflow:hidden;background:var(--creme);colo
 .surtitre{margin:0;font-weight:800;text-transform:uppercase;letter-spacing:.22em;color:var(--or-texte)}
 .etoiles{margin:0;color:#b9801a;letter-spacing:.14em}
 .sous{margin:0;color:var(--brun-doux)}
-.page{justify-content:flex-start;padding:250px 90px 260px;background:linear-gradient(180deg,var(--creme) 0%,var(--sable-2) 100%)}
-.logo{width:380px;height:auto}
-.titre{font-size:124px;margin:44px 0 18px}
-.sous{font-size:36px;max-width:820px;margin-bottom:56px}
-.bloc{width:100%;margin-bottom:46px}
-.bloc h2{font-family:var(--titres);font-weight:600;font-size:46px;margin:0 0 22px;color:var(--or-texte);text-transform:uppercase;letter-spacing:.12em}
-.ligne{display:flex;justify-content:space-between;align-items:center;background:var(--creme);border:2px solid var(--bordure);border-radius:28px;padding:26px 42px;margin-bottom:20px;font-size:44px;font-weight:700}
-.ligne .prix{font-family:var(--titres);font-weight:600;font-size:56px;color:var(--or-texte)}
-.formule{display:flex;flex-direction:column;align-items:flex-start;background:#fff8e6;border:2px solid var(--or);border-radius:28px;padding:26px 42px;margin-bottom:20px;text-align:left}
+.page{justify-content:flex-start;padding:200px 90px 180px;background:linear-gradient(180deg,var(--creme) 0%,var(--sable-2) 100%)}
+.logo{width:320px;height:auto}
+.titre{font-size:104px;margin:32px 0 14px}
+.sous{font-size:32px;max-width:860px;margin:0 0 40px}
+.bloc{width:100%;margin-bottom:34px}
+.bloc h2{font-family:var(--titres);font-weight:600;font-size:40px;margin:0 0 18px;color:var(--or-texte);text-transform:uppercase;letter-spacing:.12em}
+.ligne{display:flex;justify-content:space-between;align-items:center;background:var(--creme);border:2px solid var(--bordure);border-radius:26px;padding:20px 40px;margin-bottom:16px;font-size:42px;font-weight:700;text-align:left}
+.ligne small{display:block;font-size:26px;font-weight:700;color:var(--or-texte);margin-top:2px}
+.ligne .prix{font-family:var(--titres);font-weight:600;font-size:52px;color:var(--or-texte)}
+.ligne--special{background:#fff8e6;border-color:var(--or)}
+.formule{display:flex;flex-direction:column;align-items:flex-start;background:#fff8e6;border:2px solid var(--or);border-radius:26px;padding:20px 40px;margin-bottom:16px;text-align:left}
 .formule .haut{display:flex;justify-content:space-between;align-items:center;width:100%}
-.formule strong{font-size:42px}
-.formule .prix{font-family:var(--titres);font-weight:600;font-size:56px;color:var(--or-texte)}
-.formule em{font-style:normal;font-weight:800;font-size:28px;color:var(--or-texte);margin-top:6px}</style>
+.formule strong{font-size:40px}
+.formule .prix{font-family:var(--titres);font-weight:600;font-size:52px;color:var(--or-texte)}
+.formule em{font-style:normal;font-weight:800;font-size:26px;color:var(--or-texte);margin-top:4px}</style>
 </head>
 <body style="--w:1080px;--h:1920px">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -51,19 +53,20 @@ body{width:var(--w);height:var(--h);overflow:hidden;background:var(--creme);colo
   <symbol id="discussion" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
 </svg>
 <div class="page"><img class="logo" src="../assets/logo-hd.png" alt="Sushumna">
-<p class="surtitre" style="font-size:28px">Tarifs</p>
+<p class="surtitre" style="font-size:26px">Tarifs</p>
 <h1 class="titre">Mes tarifs</h1>
 <p class="sous">Tous les massages sont au même prix : seule la durée change.</p>
 <div class="bloc">
   <h2>Séances</h2>
-  <div class="ligne"><span>1h</span><span class="prix">70 €</span></div>
-  <div class="ligne"><span>1h30</span><span class="prix">100 €</span></div>
-  <div class="ligne"><span>2h</span><span class="prix">130 €</span></div>
+  <div class="ligne"><span>1h</span><span class="prix">70 €</span></div>
+  <div class="ligne"><span>1h30</span><span class="prix">100 €</span></div>
+  <div class="ligne"><span>2h</span><span class="prix">130 €</span></div>
+  <div class="ligne ligne--special"><span>1h10<small>Massage réconfort uniquement</small></span><span class="prix">90 €</span></div>
 </div>
 <div class="bloc">
   <h2>Formules 4 massages</h2>
-  <div class="formule"><div class="haut"><strong>4 massages d’1h</strong><span class="prix">200 €</span></div><em>80 € d’économie</em></div>
-  <div class="formule"><div class="haut"><strong>4 massages de 2h</strong><span class="prix">400 €</span></div><em>120 € d’économie</em></div>
+  <div class="formule"><div class="haut"><strong>4 massages d’1h</strong><span class="prix">200 €</span></div><em>80 € d’économie</em></div>
+  <div class="formule"><div class="haut"><strong>4 massages de 2h</strong><span class="prix">400 €</span></div><em>120 € d’économie</em></div>
 </div>
 <p class="sous" style="font-size:32px;font-weight:700;color:var(--or-texte)">massage-sushumna.com · 07 50 46 01 10</p></div>
 </body>

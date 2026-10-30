@@ -218,37 +218,42 @@ for (const [nom, icone, titre] of COUVERTURES) {
 /* ---------- Pied commun des stories ---------- */
 const PIED_STORY = `<p class="sous" style="font-size:32px;font-weight:700;color:var(--or-texte)">${CONTACT.site} · ${CONTACT.tel}</p>`;
 
-/* ---------- 10. Story « Tarifs » (1080 × 1920) ---------- */
+/* ---------- 10. Story « Tarifs » (1080 × 1920) ----------
+   Les prix sont lus directement dans mes-contenus/massages-et-tarifs.js. */
+const { TARIFS: PRIX_SEANCES, FORMULES: PRIX_FORMULES } = require('vm').runInNewContext(
+  fs.readFileSync(path.join(DOSSIER, '..', 'mes-contenus', 'massages-et-tarifs.js'), 'utf8') + ';({ TARIFS, FORMULES })',
+  {}
+);
+const euros = (n) => `${n}\u00a0€`;
 PAGES.push({
   nom: '10-story-tarifs', w: 1080, h: 1920, echelle: 1,
   html: document_({ w: 1080, h: 1920,
-    css: `.page{justify-content:flex-start;padding:250px 90px 260px;background:linear-gradient(180deg,var(--creme) 0%,var(--sable-2) 100%)}
-.logo{width:380px;height:auto}
-.titre{font-size:124px;margin:44px 0 18px}
-.sous{font-size:36px;max-width:820px;margin-bottom:56px}
-.bloc{width:100%;margin-bottom:46px}
-.bloc h2{font-family:var(--titres);font-weight:600;font-size:46px;margin:0 0 22px;color:var(--or-texte);text-transform:uppercase;letter-spacing:.12em}
-.ligne{display:flex;justify-content:space-between;align-items:center;background:var(--creme);border:2px solid var(--bordure);border-radius:28px;padding:26px 42px;margin-bottom:20px;font-size:44px;font-weight:700}
-.ligne .prix{font-family:var(--titres);font-weight:600;font-size:56px;color:var(--or-texte)}
-.formule{display:flex;flex-direction:column;align-items:flex-start;background:#fff8e6;border:2px solid var(--or);border-radius:28px;padding:26px 42px;margin-bottom:20px;text-align:left}
+    css: `.page{justify-content:flex-start;padding:200px 90px 180px;background:linear-gradient(180deg,var(--creme) 0%,var(--sable-2) 100%)}
+.logo{width:320px;height:auto}
+.titre{font-size:104px;margin:32px 0 14px}
+.sous{font-size:32px;max-width:860px;margin:0 0 40px}
+.bloc{width:100%;margin-bottom:34px}
+.bloc h2{font-family:var(--titres);font-weight:600;font-size:40px;margin:0 0 18px;color:var(--or-texte);text-transform:uppercase;letter-spacing:.12em}
+.ligne{display:flex;justify-content:space-between;align-items:center;background:var(--creme);border:2px solid var(--bordure);border-radius:26px;padding:20px 40px;margin-bottom:16px;font-size:42px;font-weight:700;text-align:left}
+.ligne small{display:block;font-size:26px;font-weight:700;color:var(--or-texte);margin-top:2px}
+.ligne .prix{font-family:var(--titres);font-weight:600;font-size:52px;color:var(--or-texte)}
+.ligne--special{background:#fff8e6;border-color:var(--or)}
+.formule{display:flex;flex-direction:column;align-items:flex-start;background:#fff8e6;border:2px solid var(--or);border-radius:26px;padding:20px 40px;margin-bottom:16px;text-align:left}
 .formule .haut{display:flex;justify-content:space-between;align-items:center;width:100%}
-.formule strong{font-size:42px}
-.formule .prix{font-family:var(--titres);font-weight:600;font-size:56px;color:var(--or-texte)}
-.formule em{font-style:normal;font-weight:800;font-size:28px;color:var(--or-texte);margin-top:6px}`,
+.formule strong{font-size:40px}
+.formule .prix{font-family:var(--titres);font-weight:600;font-size:52px;color:var(--or-texte)}
+.formule em{font-style:normal;font-weight:800;font-size:26px;color:var(--or-texte);margin-top:4px}`,
     body: `<img class="logo" src="../assets/logo-hd.png" alt="Sushumna">
-<p class="surtitre" style="font-size:28px">Tarifs</p>
+<p class="surtitre" style="font-size:26px">Tarifs</p>
 <h1 class="titre">Mes tarifs</h1>
 <p class="sous">Tous les massages sont au même prix : seule la durée change.</p>
 <div class="bloc">
   <h2>Séances</h2>
-  <div class="ligne"><span>1h</span><span class="prix">70 €</span></div>
-  <div class="ligne"><span>1h30</span><span class="prix">100 €</span></div>
-  <div class="ligne"><span>2h</span><span class="prix">130 €</span></div>
+${PRIX_SEANCES.map((t) => `  <div class="ligne${t.massage ? ' ligne--special' : ''}"><span>${t.duree}${t.massage ? `<small>${t.massage} uniquement</small>` : ''}</span><span class="prix">${euros(t.prix)}</span></div>`).join('\n')}
 </div>
 <div class="bloc">
   <h2>Formules 4 massages</h2>
-  <div class="formule"><div class="haut"><strong>4 massages d’1h</strong><span class="prix">200 €</span></div><em>80 € d’économie</em></div>
-  <div class="formule"><div class="haut"><strong>4 massages de 2h</strong><span class="prix">400 €</span></div><em>120 € d’économie</em></div>
+${PRIX_FORMULES.map((f) => `  <div class="formule"><div class="haut"><strong>${f.nom.replace(/^Formule /, '').replace("'", '’')}</strong><span class="prix">${euros(f.prix)}</span></div><em>${f.avantage.replace("'", '’')}</em></div>`).join('\n')}
 </div>
 ${PIED_STORY}` }),
 });
