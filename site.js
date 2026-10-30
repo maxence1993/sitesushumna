@@ -59,15 +59,24 @@
   }
 
   /* ---------- Textes calculés à partir des tarifs ---------- */
-  function texteDuree() {
-    if (!tarifs.length) return "";
-    if (tarifs.length === 1) return tarifs[0].duree;
-    return "De " + tarifs[0].duree + " à " + tarifs[tarifs.length - 1].duree;
+  // tarifs communs à tous les massages, et tarifs réservés à un seul massage (ex. réconfort)
+  var tarifsCommuns = tarifs.filter(function (t) { return !t.massage; });
+  var tarifsReserves = tarifs.filter(function (t) { return t.massage; });
+  function tarifsDe(m) {
+    var siens = tarifsReserves.filter(function (t) { return t.massage === m.nom; });
+    return siens.length ? siens : tarifsCommuns;
   }
-  function prixMin() {
-    return tarifs.reduce(function (min, t) { return Math.min(min, t.prix); }, Infinity);
+  function massageReserve(nom) { return tarifsReserves.some(function (t) { return t.massage === nom; }); }
+  function texteDuree(liste) {
+    liste = liste || tarifsCommuns;
+    if (!liste.length) return "";
+    if (liste.length === 1) return liste[0].duree;
+    return "De " + liste[0].duree + " à " + liste[liste.length - 1].duree;
   }
-  $$("[data-prix-min]").forEach(function (el) { if (tarifs.length) el.textContent = prix(prixMin()); });
+  function prixMin(liste) {
+    return (liste || tarifsCommuns).reduce(function (min, t) { return Math.min(min, t.prix); }, Infinity);
+  }
+  $$("[data-prix-min]").forEach(function (el) { if (tarifsCommuns.length) el.textContent = prix(prixMin()); });
   $$("[data-durees]").forEach(function (el) { el.textContent = texteDuree().toLowerCase(); });
 
   /* ---------- Cartes des massages (page d'accueil) ---------- */
@@ -100,8 +109,8 @@
           '<h2>' + echapper(m.nom) + '</h2>' +
           '<p class="massage__accroche">' + echapper(m.accroche) + '</p>' +
           '<ul class="infos">' +
-            '<li>' + icone("horloge") + texteDuree() + '</li>' +
-            '<li>' + icone("euro") + 'À partir de ' + prix(prixMin()) + '</li>' +
+            '<li>' + icone("horloge") + texteDuree(tarifsDe(m)) + '</li>' +
+            '<li>' + icone("euro") + (tarifsDe(m).length > 1 ? 'À partir de ' : '') + prix(prixMin(tarifsDe(m))) + '</li>' +
             '<li>' + icone("lieu") + '4 cours Victor Hugo, Orléans</li>' +
           '</ul>' +
           '<h3>En quoi ça consiste ?</h3><p>' + echapper(m.consiste) + '</p>' +
@@ -126,20 +135,23 @@
         (f.reglement ? '<p class="prix-carte__reglement"><strong>' + echapper(f.reglement) + '</strong></p>' : '') +
         (cartesFormules && f.minutes ? '<p><a class="bouton" href="contact.html?duree=' + encodeURIComponent(f.nom) + '#rendez-vous">Réserver cette formule</a></p>' : '') + '</div>';
     }
+    var sauf = tarifsReserves.length ? ", sauf " + tarifsReserves.map(function (t) { return t.massage.toLowerCase(); }).join(" et ") : "";
     cartesPrix.innerHTML = tarifs.map(function (t) {
       return '<div class="prix-carte"><div class="prix-carte__duree">' + echapper(t.duree) + '</div>' +
-        '<div class="prix-carte__prix">' + prix(t.prix) + '</div><div>Tous les massages</div></div>';
+        '<div class="prix-carte__prix">' + prix(t.prix) + '</div><div>' + (t.massage ? echapper(t.massage) + ' uniquement' : 'Tous les massages' + echapper(sauf)) + '</div></div>';
     }).join("") + (cartesFormules ? "" : formules.map(carteFormule).join(""));
     if (cartesFormules) cartesFormules.innerHTML = formules.map(carteFormule).join("");
   }
   var tableau = $("#tableau-tarifs");
   if (tableau) {
-    var entete = "<tr><th scope=\"col\">Massage</th>" + tarifs.map(function (t) {
+    var entete = "<tr><th scope=\"col\">Massage</th>" + tarifsCommuns.map(function (t) {
       return '<th scope="col">' + echapper(t.duree) + "</th>";
     }).join("") + "</tr>";
     var lignes = massages.map(function (m) {
       return '<tr><th scope="row"><a href="' + (m.page || 'massages.html#' + identifiant(m.nom)) + '">' + echapper(m.nom) + "</a></th>" +
-        tarifs.map(function (t) { return '<td class="prix">' + prix(t.prix) + "</td>"; }).join("") + "</tr>";
+        (tarifsDe(m) === tarifsCommuns
+          ? tarifsCommuns.map(function (t) { return '<td class="prix">' + prix(t.prix) + "</td>"; }).join("")
+          : '<td class="prix" colspan="' + tarifsCommuns.length + '">' + tarifsDe(m).map(function (t) { return echapper(t.duree) + " : " + prix(t.prix); }).join(" · ") + "</td>") + "</tr>";
     }).join("");
     tableau.querySelector("thead").innerHTML = entete;
     tableau.querySelector("tbody").innerHTML = lignes;
@@ -254,6 +266,7 @@
     var dureeChoisie = 0;        // durée du massage à placer (celle du premier massage pour une formule)
     (function () {               // point de départ : minutes (« 60 »), durée (« 1h ») ou formule, venant de l'adresse
       var demande = params.get("duree") || "";
+      if (!demande) tarifsReserves.forEach(function (t) { if (t.massage === params.get("massage")) dureeChoisie = t.minutes; });   // massage à tarif unique
       formules.forEach(function (f) { if (f.nom === demande && f.minutes) { formuleChoisie = f; dureeChoisie = f.minutes; } });
       if (formuleChoisie) return;
       if (+demande) dureeChoisie = +demande;
@@ -263,7 +276,8 @@
     zoneDurees.innerHTML = tarifs.map(function (t) {
       var min = t.minutes || lireDuree(t.duree.replace(/heures?/, "h"));
       return '<button type="button" class="duree" data-minutes="' + min + '" aria-pressed="false">' +
-        '<span class="duree__temps">' + echapper(t.duree) + '</span><span class="duree__prix">' + prix(t.prix) + '</span></button>';
+        '<span class="duree__temps">' + echapper(t.duree) + '</span><span class="duree__prix">' + prix(t.prix) + '</span>' +
+        (t.massage ? '<span class="duree__sous">' + echapper(t.massage) + ' uniquement</span>' : '') + '</button>';
     }).join("");
 
     if (zoneFormules) {
@@ -471,10 +485,7 @@
   var formulaire = $("#formulaire-rdv");
   if (formulaire) {
     var choixMassage = $("#massage", formulaire);
-    massages.forEach(function (m) {
-      var opt = document.createElement("option"); opt.value = m.nom; opt.textContent = m.nom;
-      choixMassage.appendChild(opt);
-    });
+    var premiereOptionMassage = choixMassage.innerHTML;   // « Je ne sais pas encore »
     var choixDuree = $("#duree", formulaire);
     tarifs.forEach(function (t) {
       var opt = document.createElement("option"); opt.value = t.duree + " – " + prix(t.prix); opt.textContent = t.duree + " (" + prix(t.prix) + ")";
@@ -513,12 +524,36 @@
         antiRobotEnCours = enLigne.antiRobot($("#anti-robot", zoneAntiRobot)).then(function (w) { antiRobot = w; }, function () { antiRobotEnCours = null; });
       }
     }
+    // massages proposés selon la durée : un tarif réservé (ex. 1h10 / 90 €) = ce massage seul ;
+    // une autre durée ou une formule = tous les massages sauf ceux à tarif réservé
+    function majMassages() {
+      var libelle = choixDuree.value.split(" –")[0];
+      var reserve = tarifsReserves.filter(function (t) { return t.duree === libelle; })[0];
+      var inconnue = !libelle || libelle === "Je ne sais pas encore";
+      var avant = choixMassage.value;
+      choixMassage.innerHTML = reserve ? "" : premiereOptionMassage;
+      massages.forEach(function (m) {
+        if (reserve ? m.nom !== reserve.massage : (!inconnue && massageReserve(m.nom))) return;
+        var opt = document.createElement("option"); opt.value = m.nom; opt.textContent = m.nom;
+        choixMassage.appendChild(opt);
+      });
+      var existe = Array.prototype.some.call(choixMassage.options, function (o) { return o.value === avant; });
+      choixMassage.value = existe ? avant : choixMassage.options[0].value;
+    }
     function choisirDuree(libelle) {
       Array.prototype.forEach.call(choixDuree.options, function (o) {
         if (o.value.indexOf(libelle + " –") === 0) choixDuree.value = o.value;
       });
+      majMassages();
       if (typeof majNoteFormule === "function") majNoteFormule();
     }
+    // le client choisit lui-même un massage à tarif réservé : sa durée et son prix suivent
+    choixMassage.addEventListener("change", function () {
+      var t = tarifsReserves.filter(function (x) { return x.massage === choixMassage.value; })[0];
+      if (t && choixDuree.value.indexOf(t.duree + " –") !== 0) {
+        if (creneauEnLigne) oublierCreneau(t.duree); else choisirDuree(t.duree);
+      }
+    });
     // clic sur un horaire du planning, sur cette même page
     choisirCreneau = function (quand, libelle, etiquette, debut, minutes) {
       choisirDuree(libelle);
@@ -537,6 +572,7 @@
     $("#creneau", formulaire).addEventListener("input", function () { if (creneauEnLigne) majCreneauEnLigne(null); });
     choixDuree.addEventListener("change", function () {
       if (creneauEnLigne) oublierCreneau(choixDuree.value.split(" –")[0]);
+      else majMassages();
     });
 
     // une formule est choisie : on précise comment se prennent les rendez-vous
@@ -551,8 +587,10 @@
       var zoneMessage = $("#message", formulaire);
       if (zoneMessage && !zoneMessage.value) zoneMessage.value = "Bonjour, je souhaiterais offrir une carte cadeau.\n\nMassage ou durée souhaités : ";
     }
+    majMassages();
     if (params.get("massage")) choixMassage.value = params.get("massage");
     if (params.get("duree")) choisirDuree(params.get("duree"));
+    else tarifsReserves.forEach(function (t) { if (t.massage === params.get("massage")) choisirDuree(t.duree); });
     if (params.get("creneau")) afficherCreneau(params.get("creneau"), params.get("debut"), +params.get("minutes"));
     majNoteFormule();
     // ---- vérification et envoi du formulaire (le client reste sur le site) ----

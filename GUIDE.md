@@ -168,6 +168,10 @@ var TARIFS = [
 ```
 
 Changez seulement les prix (sans le signe €). Le nombre `minutes` est la durée du massage utilisée par le planning : ne le changez que si la durée change. Juste en dessous, la partie `FORMULES` contient les formules 4 massages (4 × 1h, et 4 × 2h), avec pour chacune sa description, sa règle de règlement (`reglement`) et la durée de chaque massage (`minutes`, utilisée pour proposer les horaires du premier rendez-vous). Les formules apparaissent aussi dans le choix de l'étape 1 de la réservation.
+**Le massage réconfort** a son propre tarif : la ligne `{ duree: "1h10", minutes: 75, prix: 90, massage: "Massage réconfort" }`. Le mot `massage:` réserve ce tarif à ce massage seul : quand le client choisit « 1h10 – 90 € », il n'a que le massage réconfort comme choix, et ce massage n'est plus proposé avec les autres durées. `minutes: 75` est le temps bloqué dans le planning (1h10 + 5 minutes de marge), auquel s'ajoutent les 15 minutes de pause habituelles.
+
+⚠️ Avec la réservation en ligne, la durée 75 doit aussi être autorisée dans le dépôt `agenda-api` : dans `wrangler.toml`, mettez `DURATIONS = "60,75,90,120"`, puis redéployez.
+
 Les nouveaux prix apparaissent partout : accueil, massages, tarifs et formulaire.
 
 ---
