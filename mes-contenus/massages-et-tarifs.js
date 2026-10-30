@@ -11,12 +11,17 @@
    ===================================================================== */
 
 
-/* ---------- 1. LES PRIX (identiques pour tous les massages) ----------
-   « minutes » sert au planning en ligne : c'est la durée du massage. */
+/* ---------- 1. LES PRIX ----------
+   « minutes » sert au planning en ligne : c'est le temps BLOQUÉ dans
+   l'agenda (la pause de 15 minutes est ajoutée automatiquement après).
+   Une ligne avec « massage » est réservée à CE massage uniquement : quand le
+   client la choisit, il n'a que ce massage possible (et ce massage n'est
+   plus proposé avec les autres durées). */
 var TARIFS = [
   { duree: "1h",    minutes: 60,  prix: 70  },
   { duree: "1h30",  minutes: 90,  prix: 100 },
-  { duree: "2h",    minutes: 120, prix: 130 }
+  { duree: "2h",    minutes: 120, prix: 130 },
+  { duree: "1h10",  minutes: 75,  prix: 90,  massage: "Massage réconfort" }   // 1h10 de massage, 1h15 bloquées
 ];
 
 
