@@ -104,7 +104,7 @@ Fichier : **`mes-contenus/planning.js`**
 
 > 💡 Si la **réservation en ligne** est activée (section 11), les créneaux viennent de votre Google Agenda et ce fichier ne sert plus.
 
-Sur la page « Disponibilités », le client choisit d'abord **la durée** (1h, 1h30 ou 2h), puis le site lui montre **toutes les heures de début possibles**, de 15 minutes en 15 minutes, sur la semaine en cours et la suivante. Le site calcule tout seul :
+Sur la page « Disponibilités », le client choisit d'abord **la durée** (1h, 1h30 ou 2h), puis le site lui montre **toutes les heures de début possibles**, de 15 minutes en 15 minutes, sur **les 30 prochains jours** (1 mois). Les horaires sont rangés par semaine, avec un **volet par jour** : le client touche un jour pour voir ses horaires, ce qui évite de faire défiler une longue liste. Le site calcule tout seul :
 - que le massage se termine avant la fin de vos horaires ;
 - qu'il ne chevauche pas un massage déjà réservé ;
 - qu'il reste **15 minutes de pause après chaque massage** ;
@@ -151,7 +151,7 @@ Le site bloque ce créneau et les 15 minutes qui suivent. Vous pouvez supprimer 
 
 ⚠️ Chaque ligne est entre guillemets `" "` et se termine par une virgule.
 
-**Réglages** (en bas du fichier) : la pause après chaque massage (15 min), la précision des créneaux (15 min), le délai minimum avant un rendez-vous (0 h : dernière minute possible) et le nombre de semaines affichées (2).
+**Réglages** (en bas du fichier) : la pause après chaque massage (15 min), la précision des créneaux (15 min), le délai minimum avant un rendez-vous et le nombre de jours à l'avance (`JOURS_A_L_AVANCE`, 30 jours). **Avec la réservation reliée à Google Agenda**, ce nombre ne doit pas dépasser `BOOKING_WINDOW_DAYS` dans le fichier `wrangler.toml` du dépôt `agenda-api` (aujourd'hui aussi 30) ; pour réserver plus loin, il faut changer les deux.
 
 ---
 
@@ -168,6 +168,10 @@ var TARIFS = [
 ```
 
 Changez seulement les prix (sans le signe €). Le nombre `minutes` est la durée du massage utilisée par le planning : ne le changez que si la durée change. Juste en dessous, la partie `FORMULES` contient les formules 4 massages (4 × 1h, et 4 × 2h), avec pour chacune sa description, sa règle de règlement (`reglement`) et la durée de chaque massage (`minutes`, utilisée pour proposer les horaires du premier rendez-vous). Les formules apparaissent aussi dans le choix de l'étape 1 de la réservation.
+**Le massage réconfort** a son propre tarif : la ligne `{ duree: "1h10", minutes: 75, prix: 90, massage: "Massage réconfort" }`. Le mot `massage:` réserve ce tarif à ce massage seul : quand le client choisit « 1h10 – 90 € », il n'a que le massage réconfort comme choix, et ce massage n'est plus proposé avec les autres durées. `minutes: 75` est le temps bloqué dans le planning (1h10 + 5 minutes de marge), auquel s'ajoutent les 15 minutes de pause habituelles.
+
+⚠️ Avec la réservation en ligne, la durée 75 doit aussi être autorisée dans le dépôt `agenda-api` : dans `wrangler.toml`, mettez `DURATIONS = "60,75,90,120"`, puis redéployez.
+
 Les nouveaux prix apparaissent partout : accueil, massages, tarifs et formulaire.
 
 ---

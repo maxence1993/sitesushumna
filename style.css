@@ -456,3 +456,20 @@ h1.surtitre, .accueil h1.surtitre { font-family: var(--texte); font-size: .85rem
 .fil { font-size: .92rem; color: var(--brun-doux); margin: 0 0 .9rem; }
 .fil a { color: var(--or-texte); font-weight: 700; }
 .fil span[aria-current] { font-weight: 800; color: var(--brun); }
+
+/* ---------- Planning : un volet par jour ---------- */
+.jour-acc { background: var(--creme); border: 1px solid var(--bordure); border-radius: var(--rayon); margin-bottom: .6rem; overflow: hidden; }
+.jour-acc summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 60px; padding: .6rem 3.4rem .6rem 1.1rem; cursor: pointer; list-style: none; position: relative; }
+.jour-acc summary::-webkit-details-marker { display: none; }
+.jour-acc summary::after { content: ""; position: absolute; right: 1.2rem; top: 50%; width: .6rem; height: .6rem; border-right: 3px solid var(--or-texte); border-bottom: 3px solid var(--or-texte); transform: translateY(-70%) rotate(45deg); transition: transform .2s; }
+.jour-acc[open] summary::after { transform: translateY(-30%) rotate(225deg); }
+.jour-acc[open] summary { border-bottom: 1px solid var(--bordure); background: var(--or-clair); }
+.jour-acc summary:hover { background: var(--or-clair); }
+.jour-acc__nom { font-family: var(--titres); font-weight: 600; font-size: 1.15rem; }
+.jour-acc__nom span { font-family: var(--texte); font-size: .95rem; font-weight: 700; color: var(--brun-doux); margin-left: .35em; }
+.jour-acc__nb { font-weight: 800; font-size: .92rem; color: var(--libre); background: var(--libre-fond); border-radius: 999px; padding: .15em .8em; white-space: nowrap; }
+.jour-acc .heures { padding: 1rem 1.1rem 1.1rem; }
+.jour-acc--vide { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 54px; padding: .5rem 1.1rem; background: transparent; }
+.jour-acc--vide .jour-acc__nb { color: var(--pris); background: var(--pris-fond); font-weight: 700; }
+.jours-fermes { margin: .4rem 0 0; color: var(--brun-doux); font-style: italic; }
+@media (max-width: 499px) { .jour-acc__nom span { display: block; margin-left: 0; } .jour-acc--vide { flex-wrap: wrap; } }
