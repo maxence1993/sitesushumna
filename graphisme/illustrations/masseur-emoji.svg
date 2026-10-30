@@ -75,12 +75,12 @@
     <path d="M586 380 Q602 392 618 380" stroke="#f6e3b4" stroke-width="6" fill="none" stroke-linecap="round"/>
 
     <!-- BOUCLES D'OREILLES — oreille gauche : gros anneau champagne -->
-    <g transform="translate(-4 2)">
+    <g transform="translate(-4 2) translate(484 348) scale(.62) translate(-484 -348)">
       <path d="M484 346 Q462 356 462 384 Q464 410 488 412 Q500 400 490 384 Q482 372 492 358Z" fill="url(#champagne)" stroke="#a98f5f" stroke-width="2.5"/>
       <path d="M472 372 Q472 392 484 402" stroke="#fbf5e3" stroke-width="4" fill="none" stroke-linecap="round" opacity=".85"/>
     </g>
     <!-- oreille droite : griffe à pointes en bronze -->
-    <g transform="translate(14 4)">
+    <g transform="translate(14 4) translate(722 352) scale(.62) translate(-722 -352)">
       <!-- griffe -->
       <path d="M722 350 Q744 354 744 396 Q742 424 732 444 Q716 420 714 384 Q712 362 722 350Z" fill="url(#bronze)" stroke="#6b4a1f" stroke-width="2.5"/>
       <circle cx="728" cy="370" r="3.6" fill="#f3dca0" stroke="#6b4a1f" stroke-width="1.2"/>
