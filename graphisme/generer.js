@@ -666,6 +666,25 @@ PAGES.push(pagePlanning({
   ],
 }));
 
+/* ---------- 66 et 67. Illustration « style émoji » : Maxence en plein massage ----------
+   Dessin vectoriel dans illustrations/masseur-emoji.svg. */
+const ILLUSTRATION_MASSEUR = fs.readFileSync(path.join(DOSSIER, 'illustrations', 'masseur-emoji.svg'), 'utf8')
+  .replace(/<svg[^>]*>/, (m) => m.replace(/ width="\d+" height="\d+"/, ''));
+PAGES.push({
+  nom: '66-emoji-masseur', w: 1080, h: 1080, echelle: 1,
+  html: document_({ w: 1080, h: 1080, css: `.page svg{width:1080px;height:1080px;display:block}`, body: `<div class="page">${ILLUSTRATION_MASSEUR}</div>` }),
+});
+const ILLUSTRATION_SANS_FOND = ILLUSTRATION_MASSEUR.replace('<rect width="1080" height="1080" fill="url(#fond)"/>', '');
+PAGES.push({
+  nom: '67-emoji-masseur-logo', w: 1080, h: 1350, echelle: 1,
+  html: document_({ w: 1080, h: 1350,
+    css: `.page{justify-content:flex-start;background:radial-gradient(circle at 50% 38%,#fff 0,var(--creme) 55%,var(--sable-2) 100%)}
+.page svg{width:1000px;height:1000px;display:block;margin-top:10px}
+.signature{font-family:var(--titres);font-style:italic;font-size:46px;color:var(--or-texte);margin:-20px 0 0}
+.logo{width:330px;height:auto;margin-top:26px}`,
+    body: `<div class="page">${ILLUSTRATION_SANS_FOND}<p class="signature">Le bonheur est en vous</p><img class="logo" src="../assets/logo-hd.png" alt="Sushumna"></div>` }),
+});
+
 /* ---------- Rendu ---------- */
 (async () => {
   fs.mkdirSync(SOURCES, { recursive: true });
