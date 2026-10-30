@@ -114,25 +114,13 @@ body{width:var(--w);height:var(--h);overflow:hidden;background:var(--creme);colo
     <path d="M572 356 Q602 342 634 356 Q602 368 572 356Z" fill="#7a5a3a"/>
     <path d="M586 380 Q602 392 618 380" stroke="#f6e3b4" stroke-width="6" fill="none" stroke-linecap="round"/>
 
-    <!-- BOUCLES D'OREILLES — oreille gauche : gros anneau champagne + petit anneau carré -->
+    <!-- BOUCLES D'OREILLES — oreille gauche : gros anneau champagne -->
     <g transform="translate(-4 2)">
-      <rect x="500" y="344" width="22" height="34" rx="6" fill="none" stroke="#cfc6b2" stroke-width="6"/>
-      <path d="M522 346 L522 376" stroke="#d9a73b" stroke-width="6" stroke-linecap="round"/>
-      <path d="M500 350 L522 350" stroke="#e8e0cf" stroke-width="3" opacity=".9"/>
       <path d="M484 346 Q462 356 462 384 Q464 410 488 412 Q500 400 490 384 Q482 372 492 358Z" fill="url(#champagne)" stroke="#a98f5f" stroke-width="2.5"/>
       <path d="M472 372 Q472 392 484 402" stroke="#fbf5e3" stroke-width="4" fill="none" stroke-linecap="round" opacity=".85"/>
     </g>
-    <!-- oreille droite : perroquet en bronze + griffe à pointes -->
+    <!-- oreille droite : griffe à pointes en bronze -->
     <g transform="translate(14 4)">
-      <!-- perroquet -->
-      <g transform="translate(694 340) rotate(-14)">
-        <ellipse cx="0" cy="14" rx="9" ry="19" fill="url(#bronze)" stroke="#6b4a1f" stroke-width="2"/>
-        <circle cx="0" cy="-8" r="8" fill="url(#bronze)" stroke="#6b4a1f" stroke-width="2"/>
-        <circle cx="2" cy="-9" r="1.8" fill="#3d2a1b"/>
-        <path d="M6 -8 L13 -4 L6 -2Z" fill="#d2a85a" stroke="#6b4a1f" stroke-width="1.5"/>
-        <path d="M-5 6 Q0 10 5 6 M-5 14 Q0 18 5 14 M-4 22 Q0 26 4 22" stroke="#6b4a1f" stroke-width="1.6" fill="none"/>
-        <path d="M-2 32 Q-6 46 -2 58 Q2 48 2 32Z" fill="#efe3c2" stroke="#cdbb8e" stroke-width="1.5"/>
-      </g>
       <!-- griffe -->
       <path d="M722 350 Q744 354 744 396 Q742 424 732 444 Q716 420 714 384 Q712 362 722 350Z" fill="url(#bronze)" stroke="#6b4a1f" stroke-width="2.5"/>
       <circle cx="728" cy="370" r="3.6" fill="#f3dca0" stroke="#6b4a1f" stroke-width="1.2"/>
@@ -150,13 +138,8 @@ body{width:var(--w);height:var(--h);overflow:hidden;background:var(--creme);colo
   <!-- matelas -->
   <rect x="124" y="648" width="832" height="80" rx="40" fill="#fffdf8" stroke="#e6d5b5" stroke-width="6"/>
 
-  <!-- CLIENT allongé sur le ventre, plus réaliste -->
+  <!-- CLIENT allongé sur le ventre, entièrement recouvert par la serviette -->
   <g>
-    <!-- pieds -->
-    <ellipse cx="896" cy="638" rx="30" ry="14" fill="#f1d3ae"/>
-    <path d="M918 632 q8 0 10 6 M908 628 q8 -2 12 4" stroke="#e4b88c" stroke-width="3" fill="none" stroke-linecap="round"/>
-    <!-- dos et épaules -->
-    <path d="M262 650 Q268 598 330 586 Q412 572 522 578 Q622 576 678 594 Q724 608 728 650 Z" fill="#f1d3ae"/>
     <!-- nuque -->
     <path d="M244 640 Q262 612 296 600 L304 650 L240 650Z" fill="#f1d3ae"/>
     <!-- tête, cheveux bruns, oreille -->
@@ -164,19 +147,14 @@ body{width:var(--w);height:var(--h);overflow:hidden;background:var(--creme);colo
     <path d="M166 602 Q168 556 214 556 Q266 560 260 610 Q252 582 214 582 Q184 584 166 602Z" fill="#5c4330"/>
     <ellipse cx="228" cy="618" rx="10" ry="14" fill="#e4b88c"/>
     <ellipse cx="170" cy="618" rx="8" ry="7" fill="#f1d3ae"/>
-    <!-- relief du dos : colonne et omoplate -->
-    <path d="M318 604 Q520 596 690 612" stroke="#e4b88c" stroke-width="5" fill="none" stroke-linecap="round" opacity=".7"/>
-    <path d="M356 612 Q380 592 410 606" stroke="#e4b88c" stroke-width="4" fill="none" stroke-linecap="round" opacity=".6"/>
-    <!-- tatouage floral -->
-    <g stroke="#9a712f" stroke-width="5" fill="none" stroke-linecap="round" opacity=".7">
-      <path d="M548 634 Q540 604 566 596 Q590 592 596 616 Q616 602 632 620 Q640 638 618 642"/>
-      <path d="M566 632 Q570 612 586 614"/>
-      <path d="M520 642 Q534 618 550 624"/>
+    <!-- serviette moutarde sur tout le corps -->
+    <path d="M262 650 Q270 592 346 578 Q450 566 556 574 Q690 558 782 584 Q862 606 874 650 Z" fill="url(#serviette)"/>
+    <!-- plis doux, plus clairs que la serviette -->
+    <g fill="none" stroke="#f3d27e" stroke-linecap="round" stroke-width="6" opacity=".75">
+      <path d="M330 600 Q352 618 346 646"/>
+      <path d="M520 590 Q540 612 534 646"/>
+      <path d="M746 596 Q768 618 764 646"/>
     </g>
-    <!-- serviette moutarde sur les hanches et les jambes -->
-    <path d="M640 650 Q640 566 716 560 Q806 556 856 616 Q872 634 868 650 Z" fill="url(#serviette)"/>
-    <path d="M716 568 Q740 610 728 650" stroke="#b9801a" stroke-width="5" fill="none" stroke-linecap="round" opacity=".6"/>
-    <path d="M780 572 Q800 612 790 650" stroke="#b9801a" stroke-width="5" fill="none" stroke-linecap="round" opacity=".6"/>
   </g>
 
   <!-- BRAS du masseur : les mains posent sur le dos -->
