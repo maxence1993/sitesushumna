@@ -723,7 +723,7 @@ const CARROUSELS_MASSAGES = contenuMassages.map((m, i) => {
   ];
   diapos.push({ titre: 'Durées et tarifs', emoji: '💶', points: tarifs.map((t) => `${t.duree} : ${t.prix}\u00a0€`) });
   return {
-    dossier: 'carrousels-massages', slug: `${String(i + 1).padStart(2, '0')}-${slug(m.nom)}`,
+    dossier: 'carrousels-massages', sansIcones: true, slug: `${String(i + 1).padStart(2, '0')}-${slug(m.nom)}`,
     surtitre: m.nom.startsWith('Réflexologie') ? 'Bien-être' : 'Massage',
     question: m.nom.replace(/^Massage /, '').replace(/\s*\(.*?\)/, '').replace(/^./, (c) => c.toUpperCase()),
     sous: m.accroche, emoji: EMOJI_MASSAGE[i],
@@ -749,7 +749,7 @@ const CARROUSELS_MASSAGES = contenuMassages.map((m, i) => {
   // 0. couverture
   diapos.push(`<section class="slide" style="left:0">
   <div class="zone" style="left:90px;width:810px">
-    <div class="puce-emoji">${c.emoji}</div>
+    ${c.sansIcones ? '' : `<div class="puce-emoji">${c.emoji}</div>`}
     <p class="surtitre">${c.surtitre || 'Questions fréquentes'}</p>
     <h1 class="q">${c.question}</h1>
     <p class="sous">${c.sous}</p>
@@ -763,7 +763,7 @@ const CARROUSELS_MASSAGES = contenuMassages.map((m, i) => {
     const taille = signes > 430 ? 29 : signes > 270 || s.points.length >= 5 ? 32 : signes > 200 ? 38 : 42;
     diapos.push(`<section class="slide" style="left:${(i + 1) * L}px">
   <div class="zone ${signes > 270 || s.points.length >= 5 ? 'dense' : ''}" style="left:170px;width:740px">
-    <div class="puce-emoji">${s.emoji}</div>
+    ${c.sansIcones ? '' : `<div class="puce-emoji">${s.emoji}</div>`}
     <h2 class="titre-s">${s.titre}</h2>
     ${s.intro ? `<p class="intro-s">${s.intro}</p>` : ''}
     <ul class="points" style="font-size:${taille}px">${s.points.map((p) => `<li>${p}</li>`).join('')}</ul>
