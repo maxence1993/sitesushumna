@@ -30,7 +30,7 @@ var FORMULES = [
   {
     nom: "Formule 4 massages d'1h",
     minutes: 60,    // durée de chaque massage (sert au planning pour le premier rendez-vous)
-    detail: "4 massages d'1h, à utiliser sur 2 mois (soit 4h en tout). Vous pouvez choisir un massage différent à chaque séance (sauf le massage réconfort, d'1h10). Les 4 rendez-vous sont pris ensemble.",
+    detail: "4 massages d'1h, à utiliser sur 2 mois (soit 4h en tout). Vous pouvez choisir un massage différent à chaque séance. Les 4 rendez-vous sont pris ensemble.",
     reglement: "Règlement en une fois, au premier massage.",
     prix: 200,
     avantage: "80 € d'économie"
@@ -38,7 +38,7 @@ var FORMULES = [
   {
     nom: "Formule 4 massages de 2h",
     minutes: 120,
-    detail: "4 massages de 2h, à utiliser sur 2 mois (soit 8h en tout). Vous pouvez choisir un massage différent à chaque séance (sauf le massage réconfort, d'1h10). Les 4 rendez-vous sont pris ensemble.",
+    detail: "4 massages de 2h, à utiliser sur 2 mois (soit 8h en tout). Vous pouvez choisir un massage différent à chaque séance. Les 4 rendez-vous sont pris ensemble.",
     reglement: "Règlement en une fois, ou en deux fois : 200 € au premier massage et 200 € au deuxième. Tout doit être réglé au deuxième massage.",
     prix: 400,
     avantage: "120 € d'économie"

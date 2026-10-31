@@ -147,7 +147,7 @@ module.exports = [
         'À utiliser sur 2 mois.',
       ] },
       { titre: 'Comment ça se passe', points: [
-        'Vous pouvez choisir un massage différent à chaque séance (sauf le massage réconfort, d’1h10).',
+        'Vous pouvez choisir un massage différent à chaque séance.',
         'Les 4 rendez-vous sont pris ensemble.',
       ] },
     ],
