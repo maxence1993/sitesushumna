@@ -880,10 +880,8 @@ const feuille1 = `<section class="feuille">
       <div class="sil">${silhouette(false, 188)}<br>Face</div>
       <div class="sil">${silhouette(true, 188)}<br>Dos</div>
       <div>
-        <div class="champ"><label>Depuis quand ?</label></div>
-        <div class="champ"><label>Intensité de la gêne (0 à 10)</label></div>
-        <div class="ligne"></div><div class="ligne"></div>
-        <div class="champ"><label>Zones où vous ne souhaitez pas de massage</label></div><div class="ligne"></div>
+        <div class="champ"><label>Notes</label></div>
+        <div class="ligne"></div><div class="ligne"></div><div class="ligne"></div><div class="ligne"></div><div class="ligne"></div><div class="ligne"></div>
       </div>
     </div>
   </div>
