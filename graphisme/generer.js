@@ -871,7 +871,7 @@ const feuille1 = `<section class="feuille">
 
   <div class="section">${sectionTitre('🎯', 'Préférences')}
     <div class="rang"><span class="lib">Pression</span>${opt('Légère')}${opt('Moyenne')}${opt('Ferme')}<span class="lib" style="margin-left:18px">Sommeil</span>${opt('Bon')}${opt('Moyen')}${opt('Difficile')}</div>
-    <div class="g2" style="margin-top:6px">${champ('Zones à éviter', 'plein')}${champ('Type d’huile')}${champ('Niveau de stress (0 à 10)')}${champ('Activité physique (type, fréquence)')}${champ('Niveau de la table')}</div>
+    <div class="g2" style="margin-top:6px">${champ('Zones à éviter')}${champ('Niveau de la table')}${champ('Type d’huile')}${champ('Niveau de stress (0 à 10)')}${champ('Activité physique (type, fréquence)', 'plein')}</div>
     <div class="champ" style="margin-top:10px"><label>Autres choses à me signaler ?</label></div><div class="ligne"></div><div class="ligne"></div>
   </div>
 
