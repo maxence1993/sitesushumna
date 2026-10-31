@@ -666,6 +666,102 @@ PAGES.push(pagePlanning({
   ],
 }));
 
+/* ---------- Carrousels avec photos (4 thèmes) : une seule toile continue, découpée en carrés ----------
+   Textes dans carrousels-photos.js, photos dans assets/photos-carrousels/. */
+const CARROUSELS_PHOTOS = require('./carrousels-photos.js');
+const PHOTO_POS = { 1: 'center', 2: 'center 62%', 3: 'center', 4: 'center 35%', 5: 'center 55%', 6: 'center 28%', 7: 'center 40%', 8: 'center 38%' };
+const photoUrl = (n) => 'file://' + path.join(DOSSIER, 'assets', 'photos-carrousels', `photo-${n}.jpg`);
+const CSS_PHOTOS = `.toile{position:relative;height:1080px;overflow:hidden;background:linear-gradient(180deg,var(--creme) 0%,var(--sable-2) 100%)}
+.slide{position:absolute;top:0;width:1080px;height:1080px}
+.rond-deco{position:absolute;border-radius:50%;background:#f6e3b4;opacity:.38}
+.bulle{position:absolute;width:300px;height:300px;border-radius:50%;overflow:hidden;border:8px solid var(--or);box-shadow:0 14px 34px rgba(92,67,48,.22);background:var(--creme)}
+.bulle img{width:100%;height:100%;object-fit:cover;display:block}
+.vague{position:absolute;left:0;top:0}
+.zone{position:absolute;top:130px;bottom:150px;display:flex;flex-direction:column;justify-content:center;text-align:left}
+.puce-emoji{width:104px;height:104px;border-radius:50%;border:6px solid var(--or);background:var(--creme);display:flex;align-items:center;justify-content:center;font-size:54px;margin-bottom:26px;box-shadow:0 8px 20px rgba(92,67,48,.12)}
+.surtitre{font-size:24px}
+.q{font-family:var(--titres);font-weight:600;font-size:86px;line-height:1.12;margin:22px 0 26px;color:var(--brun)}
+.sous{font-size:38px;line-height:1.35;color:var(--brun-doux);margin:0}
+.titre-s{font-family:var(--titres);font-weight:600;font-size:68px;line-height:1.12;margin:0 0 16px;color:var(--brun)}
+.intro-s{font-family:var(--titres);font-style:italic;font-size:38px;color:var(--or-texte);margin:0 0 22px}
+.points{list-style:none;padding:0;margin:14px 0 0}
+.points li{position:relative;padding-left:50px;line-height:1.36;color:var(--brun);margin-bottom:22px}
+.points li::before{content:'✦';position:absolute;left:0;top:0;color:var(--or);font-size:.9em}
+.dense .titre-s{font-size:56px;margin-bottom:10px}
+.dense .puce-emoji{width:84px;height:84px;font-size:44px;margin-bottom:14px}
+.dense .points{margin-top:8px}
+.dense .points li{margin-bottom:15px}
+.indice{position:absolute;bottom:92px;font-weight:800;font-size:26px;color:var(--or-texte)}
+.pastilles{position:absolute;bottom:56px;display:flex;gap:12px}
+.pastilles span{width:14px;height:14px;border-radius:50%;border:2px solid var(--or);background:transparent}
+.pastilles span.on{background:var(--or)}
+.fin-titre{font-family:var(--titres);font-weight:600;font-size:80px;line-height:1.12;margin:0 0 24px;color:var(--brun)}
+.fin-texte{font-size:36px;line-height:1.4;color:var(--brun-doux);margin:0 0 44px}
+.fin-contact{font-size:32px;font-weight:800;color:var(--or-texte);margin:26px 0 0}`;
+
+CARROUSELS_PHOTOS.forEach((c) => {
+  const L = 1080;
+  const total = c.slides.length + 2;
+  const largeur = total * L;
+  const POSITIONS_BULLES = [300, 770];
+  const cx = (k) => k * L;
+  let vague = 'M0 1030';
+  for (let x = 0; x < largeur; x += 270) vague += ' q67.5 -18 135 0 t135 0';
+  const decor = Array.from({ length: total }, (_, i) => `<div class="rond-deco" style="width:${i % 2 ? 420 : 520}px;height:${i % 2 ? 420 : 520}px;left:${i * L + (i % 2 ? 560 : -120)}px;top:${i % 2 ? -150 : 640}px"></div>`).join('');
+  const bulles = c.photos.map((n, k) => `<div class="bulle" style="left:${cx(k + 1) - 150}px;top:${POSITIONS_BULLES[k % 2] - 150}px"><img src="${photoUrl(n)}" alt="" style="object-position:${PHOTO_POS[n] || 'center'}"></div>`).join('');
+  const etincelles = Array.from({ length: total - 1 }, (_, k) => `<svg style="position:absolute;left:${cx(k + 1) - 18}px;top:1012px" width="36" height="36" viewBox="0 0 36 36"><path d="M18 0 q2 14 18 18 q-16 4 -18 18 q-2 -14 -18 -18 q16 -4 18 -18z" fill="#d9a73b"/></svg>`).join('');
+  const pastilles = (i) => `<div class="pastilles" style="left:${540 - (total * 26) / 2}px">${Array.from({ length: total }, (_, j) => `<span class="${j === i ? 'on' : ''}"></span>`).join('')}</div>`;
+
+  const diapos = [];
+  // 0. couverture
+  diapos.push(`<section class="slide" style="left:0">
+  <div class="zone" style="left:90px;width:810px">
+    <div class="puce-emoji">${c.emoji}</div>
+    <p class="surtitre">Questions fréquentes</p>
+    <h1 class="q">${c.question}</h1>
+    <p class="sous">${c.sous}</p>
+  </div>
+  <p class="indice" style="left:90px">Glissez pour découvrir →</p>
+  ${pastilles(0)}
+</section>`);
+  // contenu
+  c.slides.forEach((s, i) => {
+    const signes = s.points.join('').length;
+    const taille = signes > 270 || s.points.length >= 5 ? 32 : signes > 200 ? 38 : 42;
+    diapos.push(`<section class="slide" style="left:${(i + 1) * L}px">
+  <div class="zone ${signes > 270 || s.points.length >= 5 ? 'dense' : ''}" style="left:170px;width:740px">
+    <div class="puce-emoji">${s.emoji}</div>
+    <h2 class="titre-s">${s.titre}</h2>
+    ${s.intro ? `<p class="intro-s">${s.intro}</p>` : ''}
+    <ul class="points" style="font-size:${taille}px">${s.points.map((p) => `<li>${p}</li>`).join('')}</ul>
+  </div>
+  ${pastilles(i + 1)}
+</section>`);
+  });
+  // fin
+  diapos.push(`<section class="slide" style="left:${(total - 1) * L}px">
+  <div class="zone" style="left:170px;width:760px;align-items:flex-start">
+    <h2 class="fin-titre">Une question&nbsp;?</h2>
+    <p class="fin-texte">Écrivez-moi ou appelez-moi : je vous réponds avec plaisir.</p>
+    <img src="${LOGO_URL}" alt="Sushumna" style="width:480px;height:auto">
+    <p class="fin-contact">${CONTACT.site} · ${CONTACT.tel}</p>
+  </div>
+  ${pastilles(total - 1)}
+</section>`);
+
+  const corps = `<div class="page" style="display:block;justify-content:flex-start;align-items:stretch;text-align:left"><div class="toile" style="width:${largeur}px">
+${decor}
+<svg class="vague" width="${largeur}" height="1080" viewBox="0 0 ${largeur} 1080"><path d="${vague}" fill="none" stroke="#d9a73b" stroke-width="5" stroke-linecap="round" opacity=".9"/></svg>
+${etincelles}
+${diapos.join('\n')}
+${bulles}
+</div></div>`;
+  PAGES.push({
+    nom: `carrousels-photos/${c.slug}`, w: largeur, h: 1080, echelle: 1, coupes: total,
+    html: document_({ w: largeur, h: 1080, css: CSS_PHOTOS, body: corps }),
+  });
+});
+
 /* ---------- Rendu ---------- */
 (async () => {
   fs.mkdirSync(SOURCES, { recursive: true });
@@ -687,7 +783,15 @@ PAGES.push(pagePlanning({
       await page.goto('file://' + fichierHtml, { waitUntil: 'load' });
       await page.evaluate(() => document.fonts.ready);
       await page.waitForTimeout(300);
-      await page.screenshot({ path: path.join(JPEG, `${p.nom}.jpg`), type: 'jpeg', quality: 92 });
+      if (p.coupes) {
+        for (let k = 0; k < p.coupes; k++) {
+          const sortie = path.join(JPEG, p.nom, `${k + 1}.jpg`);
+          fs.mkdirSync(path.dirname(sortie), { recursive: true });
+          await page.screenshot({ path: sortie, type: 'jpeg', quality: 92, clip: { x: k * 1080, y: 0, width: 1080, height: 1080 } });
+        }
+      } else {
+        await page.screenshot({ path: path.join(JPEG, `${p.nom}.jpg`), type: 'jpeg', quality: 92 });
+      }
       await contexte.close();
       console.log('ok', p.nom);
     }
