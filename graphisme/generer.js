@@ -670,7 +670,7 @@ PAGES.push(pagePlanning({
    Textes dans carrousels-photos.js, photos dans assets/photos-carrousels/. */
 const CARROUSELS_PHOTOS = require('./carrousels-photos.js');
 const PHOTO_POS = { 1: 'center', 2: 'center 62%', 3: 'center', 4: 'center 35%', 5: 'center 55%', 6: 'center 28%', 7: 'center 40%', 8: 'center 38%' };
-const photoUrl = (n) => 'file://' + path.join(DOSSIER, 'assets', 'photos-carrousels', `photo-${n}.jpg`);
+const photoUrl = (n) => 'file://' + (typeof n === 'string' ? path.join(DOSSIER, '..', 'photos', n) : path.join(DOSSIER, 'assets', 'photos-carrousels', `photo-${n}.jpg`));
 const CSS_PHOTOS = `.toile{position:relative;height:1080px;overflow:hidden;background:linear-gradient(180deg,var(--creme) 0%,var(--sable-2) 100%)}
 .slide{position:absolute;top:0;width:1080px;height:1080px}
 .rond-deco{position:absolute;border-radius:50%;background:#f6e3b4;opacity:.38}
@@ -699,7 +699,40 @@ const CSS_PHOTOS = `.toile{position:relative;height:1080px;overflow:hidden;backg
 .fin-texte{font-size:36px;line-height:1.4;color:var(--brun-doux);margin:0 0 44px}
 .fin-contact{font-size:32px;font-weight:800;color:var(--or-texte);margin:26px 0 0}`;
 
-CARROUSELS_PHOTOS.forEach((c) => {
+/* ---------- Un carrousel par massage (8), textes et prix lus dans mes-contenus/massages-et-tarifs.js ---------- */
+const EMOJI_MASSAGE = ['✨', '💪', '🤍', '🫶', '🌿', '☯️', '🔔', '🌙'];
+const AMBIANCES = ['ambiance-1.jpg', 'ambiance-2.jpg', 'ambiance-3.jpg', 'portrait.jpg', 'accueil.jpg'];
+const CARROUSELS_MASSAGES = contenuMassages.map((m, i) => {
+  const seances = PRIX_SEANCES.filter((t) => !t.massage || t.massage === m.nom.replace(/ \(.*\)/, ''));
+  const tarifs = m.nom === 'Massage réconfort' ? PRIX_SEANCES.filter((t) => t.massage === 'Massage réconfort') : PRIX_SEANCES.filter((t) => !t.massage);
+  /* Un texte long est coupé par phrases en plusieurs slides, pour garder une police lisible. */
+  const decouper = (titre, emoji, texte, max = 300) => {
+    const phrases = texte.match(/[^.!?]+[.!?]+(\s|$)/g)?.map((x) => x.trim()) || [texte];
+    const groupes = [[]];
+    phrases.forEach((ph) => {
+      const courant = groupes[groupes.length - 1];
+      if (courant.length && courant.join(' ').length + ph.length > max) groupes.push([ph]); else courant.push(ph);
+    });
+    return groupes.map((g, k) => ({ titre: k ? `${titre} (suite)` : titre, emoji, points: g }));
+  };
+  const diapos = [
+    ...decouper('En quoi ça consiste', '🤲', m.consiste),
+    ...decouper('Pour qui', '🎯', m.pourQui),
+    { titre: 'Ce que ça apporte', emoji: '✨', points: m.apporte },
+    ...(m.bonASavoir ? decouper('Bon à savoir', '⚠️', m.bonASavoir) : []),
+  ];
+  diapos.push({ titre: 'Durées et tarifs', emoji: '💶', points: tarifs.map((t) => `${t.duree} : ${t.prix}\u00a0€`) });
+  return {
+    dossier: 'carrousels-massages', slug: `${String(i + 1).padStart(2, '0')}-${slug(m.nom)}`,
+    surtitre: m.nom.startsWith('Réflexologie') ? 'Bien-être' : 'Massage',
+    question: m.nom.replace(/^Massage /, '').replace(/\s*\(.*?\)/, '').replace(/^./, (c) => c.toUpperCase()),
+    sous: m.accroche, emoji: EMOJI_MASSAGE[i],
+    photos: [m.photo, ...AMBIANCES].slice(0, diapos.length + 1),
+    slides: diapos,
+  };
+});
+
+[...CARROUSELS_PHOTOS, ...CARROUSELS_MASSAGES].forEach((c) => {
   const L = 1080;
   const total = c.slides.length + 2;
   const largeur = total * L;
@@ -708,7 +741,7 @@ CARROUSELS_PHOTOS.forEach((c) => {
   let vague = 'M0 1030';
   for (let x = 0; x < largeur; x += 270) vague += ' q67.5 -18 135 0 t135 0';
   const decor = Array.from({ length: total }, (_, i) => `<div class="rond-deco" style="width:${i % 2 ? 420 : 520}px;height:${i % 2 ? 420 : 520}px;left:${i * L + (i % 2 ? 560 : -120)}px;top:${i % 2 ? -150 : 640}px"></div>`).join('');
-  const bulles = c.photos.map((n, k) => `<div class="bulle" style="left:${cx(k + 1) - 150}px;top:${POSITIONS_BULLES[k % 2] - 150}px"><img src="${photoUrl(n)}" alt="" style="object-position:${PHOTO_POS[n] || 'center'}"></div>`).join('');
+  const bulles = c.photos.map((n, k) => `<div class="bulle" style="left:${cx(k + 1) - 150}px;top:${POSITIONS_BULLES[k % 2] - 150}px"><img src="${photoUrl(n)}" alt="" style="object-position:${PHOTO_POS[n] || 'center 40%'}"></div>`).join('');
   const etincelles = Array.from({ length: total - 1 }, (_, k) => `<svg style="position:absolute;left:${cx(k + 1) - 18}px;top:1012px" width="36" height="36" viewBox="0 0 36 36"><path d="M18 0 q2 14 18 18 q-16 4 -18 18 q-2 -14 -18 -18 q16 -4 18 -18z" fill="#d9a73b"/></svg>`).join('');
   const pastilles = (i) => `<div class="pastilles" style="left:${540 - (total * 26) / 2}px">${Array.from({ length: total }, (_, j) => `<span class="${j === i ? 'on' : ''}"></span>`).join('')}</div>`;
 
@@ -717,7 +750,7 @@ CARROUSELS_PHOTOS.forEach((c) => {
   diapos.push(`<section class="slide" style="left:0">
   <div class="zone" style="left:90px;width:810px">
     <div class="puce-emoji">${c.emoji}</div>
-    <p class="surtitre">Questions fréquentes</p>
+    <p class="surtitre">${c.surtitre || 'Questions fréquentes'}</p>
     <h1 class="q">${c.question}</h1>
     <p class="sous">${c.sous}</p>
   </div>
@@ -727,7 +760,7 @@ CARROUSELS_PHOTOS.forEach((c) => {
   // contenu
   c.slides.forEach((s, i) => {
     const signes = s.points.join('').length;
-    const taille = signes > 270 || s.points.length >= 5 ? 32 : signes > 200 ? 38 : 42;
+    const taille = signes > 430 ? 29 : signes > 270 || s.points.length >= 5 ? 32 : signes > 200 ? 38 : 42;
     diapos.push(`<section class="slide" style="left:${(i + 1) * L}px">
   <div class="zone ${signes > 270 || s.points.length >= 5 ? 'dense' : ''}" style="left:170px;width:740px">
     <div class="puce-emoji">${s.emoji}</div>
@@ -757,7 +790,7 @@ ${diapos.join('\n')}
 ${bulles}
 </div></div>`;
   PAGES.push({
-    nom: `carrousels-photos/${c.slug}`, w: largeur, h: 1080, echelle: 1, coupes: total,
+    nom: `${c.dossier || 'carrousels-photos'}/${c.slug}`, w: largeur, h: 1080, echelle: 1, coupes: total,
     html: document_({ w: largeur, h: 1080, css: CSS_PHOTOS, body: corps }),
   });
 });

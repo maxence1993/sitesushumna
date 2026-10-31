@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Nunito:wght@400;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+:root{--sable:#fbf6ec;--sable-2:#f3e8d3;--creme:#fffdf8;--bordure:#e6d5b5;--or:#d9a73b;--or-clair:#f6e3b4;
+--or-texte:#87601a;--brun:#3d2a1b;--brun-doux:#5c4330;--brun-logo:#9a712f;
+--titres:"Lora",Georgia,serif;--texte:"Nunito","Segoe UI",Arial,sans-serif;--script:"Great Vibes",cursive}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{width:var(--w);height:var(--h);overflow:hidden;background:var(--creme);color:var(--brun);font-family:var(--texte)}
+.page{position:relative;width:var(--w);height:var(--h);overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.ico{width:1em;height:1em;flex:none;color:var(--or-texte)}
+.titre{font-family:var(--titres);font-weight:600;line-height:1.15;margin:0;color:var(--brun)}
+.surtitre{margin:0;font-weight:800;text-transform:uppercase;letter-spacing:.22em;color:var(--or-texte)}
+.etoiles{margin:0;color:#b9801a;letter-spacing:.14em}
+.sous{margin:0;color:var(--brun-doux)}
+.toile{position:relative;height:1080px;overflow:hidden;background:linear-gradient(180deg,var(--creme) 0%,var(--sable-2) 100%)}
+.slide{position:absolute;top:0;width:1080px;height:1080px}
+.rond-deco{position:absolute;border-radius:50%;background:#f6e3b4;opacity:.38}
+.bulle{position:absolute;width:300px;height:300px;border-radius:50%;overflow:hidden;border:8px solid var(--or);box-shadow:0 14px 34px rgba(92,67,48,.22);background:var(--creme)}
+.bulle img{width:100%;height:100%;object-fit:cover;display:block}
+.vague{position:absolute;left:0;top:0}
+.zone{position:absolute;top:130px;bottom:150px;display:flex;flex-direction:column;justify-content:center;text-align:left}
+.puce-emoji{width:104px;height:104px;border-radius:50%;border:6px solid var(--or);background:var(--creme);display:flex;align-items:center;justify-content:center;font-size:54px;margin-bottom:26px;box-shadow:0 8px 20px rgba(92,67,48,.12)}
+.surtitre{font-size:24px}
+.q{font-family:var(--titres);font-weight:600;font-size:86px;line-height:1.12;margin:22px 0 26px;color:var(--brun)}
+.sous{font-size:38px;line-height:1.35;color:var(--brun-doux);margin:0}
+.titre-s{font-family:var(--titres);font-weight:600;font-size:68px;line-height:1.12;margin:0 0 16px;color:var(--brun)}
+.intro-s{font-family:var(--titres);font-style:italic;font-size:38px;color:var(--or-texte);margin:0 0 22px}
+.points{list-style:none;padding:0;margin:14px 0 0}
+.points li{position:relative;padding-left:50px;line-height:1.36;color:var(--brun);margin-bottom:22px}
+.points li::before{content:'✦';position:absolute;left:0;top:0;color:var(--or);font-size:.9em}
+.dense .titre-s{font-size:56px;margin-bottom:10px}
+.dense .puce-emoji{width:84px;height:84px;font-size:44px;margin-bottom:14px}
+.dense .points{margin-top:8px}
+.dense .points li{margin-bottom:15px}
+.indice{position:absolute;bottom:92px;font-weight:800;font-size:26px;color:var(--or-texte)}
+.pastilles{position:absolute;bottom:56px;display:flex;gap:12px}
+.pastilles span{width:14px;height:14px;border-radius:50%;border:2px solid var(--or);background:transparent}
+.pastilles span.on{background:var(--or)}
+.fin-titre{font-family:var(--titres);font-weight:600;font-size:80px;line-height:1.12;margin:0 0 24px;color:var(--brun)}
+.fin-texte{font-size:36px;line-height:1.4;color:var(--brun-doux);margin:0 0 44px}
+.fin-contact{font-size:32px;font-weight:800;color:var(--or-texte);margin:26px 0 0}</style>
+</head>
+<body style="--w:7560px;--h:1080px">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="tel" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></g></symbol>
+  <symbol id="whatsapp" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.6-4.6A9 9 0 1 1 8 20.1z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a5 5 0 0 1-2.8-2.8l.8-1-1-2z"/></g></symbol>
+  <symbol id="instagram" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></g></symbol>
+  <symbol id="lieu" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></g></symbol>
+  <symbol id="horloge" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></g></symbol>
+  <symbol id="calendrier" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></g></symbol>
+  <symbol id="euro" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M18 6.5A7 7 0 1 0 18 17.5M4 10h10M4 14h10"/></symbol>
+  <symbol id="check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="croix" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" d="M3 6h18M3 12h18M3 18h18"/></symbol>
+  <symbol id="coeur" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></symbol>
+  <symbol id="feuille" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10z"/><path d="M2 21c0-3 1.9-5.4 5.1-6C9.5 14.5 12 13 13 12"/></g></symbol>
+  <symbol id="discussion" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+</svg>
+<div class="page" style="display:block;justify-content:flex-start;align-items:stretch;text-align:left"><div class="toile" style="width:7560px">
+<div class="rond-deco" style="width:520px;height:520px;left:-120px;top:640px"></div><div class="rond-deco" style="width:420px;height:420px;left:1640px;top:-150px"></div><div class="rond-deco" style="width:520px;height:520px;left:2040px;top:640px"></div><div class="rond-deco" style="width:420px;height:420px;left:3800px;top:-150px"></div><div class="rond-deco" style="width:520px;height:520px;left:4200px;top:640px"></div><div class="rond-deco" style="width:420px;height:420px;left:5960px;top:-150px"></div><div class="rond-deco" style="width:520px;height:520px;left:6360px;top:640px"></div>
+<svg class="vague" width="7560" height="1080" viewBox="0 0 7560 1080"><path d="M0 1030 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0 q67.5 -18 135 0 t135 0" fill="none" stroke="#d9a73b" stroke-width="5" stroke-linecap="round" opacity=".9"/></svg>
+<svg style="position:absolute;left:1062px;top:1012px" width="36" height="36" viewBox="0 0 36 36"><path d="M18 0 q2 14 18 18 q-16 4 -18 18 q-2 -14 -18 -18 q16 -4 18 -18z" fill="#d9a73b"/></svg><svg style="position:absolute;left:2142px;top:1012px" width="36" height="36" viewBox="0 0 36 36"><path d="M18 0 q2 14 18 18 q-16 4 -18 18 q-2 -14 -18 -18 q16 -4 18 -18z" fill="#d9a73b"/></svg><svg style="position:absolute;left:3222px;top:1012px" width="36" height="36" viewBox="0 0 36 36"><path d="M18 0 q2 14 18 18 q-16 4 -18 18 q-2 -14 -18 -18 q16 -4 18 -18z" fill="#d9a73b"/></svg><svg style="position:absolute;left:4302px;top:1012px" width="36" height="36" viewBox="0 0 36 36"><path d="M18 0 q2 14 18 18 q-16 4 -18 18 q-2 -14 -18 -18 q16 -4 18 -18z" fill="#d9a73b"/></svg><svg style="position:absolute;left:5382px;top:1012px" width="36" height="36" viewBox="0 0 36 36"><path d="M18 0 q2 14 18 18 q-16 4 -18 18 q-2 -14 -18 -18 q16 -4 18 -18z" fill="#d9a73b"/></svg><svg style="position:absolute;left:6462px;top:1012px" width="36" height="36" viewBox="0 0 36 36"><path d="M18 0 q2 14 18 18 q-16 4 -18 18 q-2 -14 -18 -18 q16 -4 18 -18z" fill="#d9a73b"/></svg>
+<section class="slide" style="left:0">
+  <div class="zone" style="left:90px;width:810px">
+    <div class="puce-emoji">☯️</div>
+    <p class="surtitre">Massage</p>
+    <h1 class="q">Chong Mai</h1>
+    <p class="sous">Pour retrouver son axe et son élan</p>
+  </div>
+  <p class="indice" style="left:90px">Glissez pour découvrir →</p>
+  <div class="pastilles" style="left:449px"><span class="on"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span></div>
+</section>
+<section class="slide" style="left:1080px">
+  <div class="zone " style="left:170px;width:740px">
+    <div class="puce-emoji">🤲</div>
+    <h2 class="titre-s">En quoi ça consiste</h2>
+    
+    <ul class="points" style="font-size:42px"><li>Issu de la tradition chinoise, ce massage énergétique suit l'axe central du corps.</li><li>Il associe des pressions, des étirements doux et des gestes lents pour aider à rééquilibrer les énergies.</li></ul>
+  </div>
+  <div class="pastilles" style="left:449px"><span class=""></span><span class="on"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span></div>
+</section>
+<section class="slide" style="left:2160px">
+  <div class="zone " style="left:170px;width:740px">
+    <div class="puce-emoji">🎯</div>
+    <h2 class="titre-s">Pour qui</h2>
+    
+    <ul class="points" style="font-size:38px"><li>Pour vous si vous traversez une période de changement ou de doute : une décision personnelle ou professionnelle à prendre, un moment difficile (séparation, deuil, déception), un manque de confiance en vous.</li></ul>
+  </div>
+  <div class="pastilles" style="left:449px"><span class=""></span><span class=""></span><span class="on"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span></div>
+</section>
+<section class="slide" style="left:3240px">
+  <div class="zone " style="left:170px;width:740px">
+    <div class="puce-emoji">✨</div>
+    <h2 class="titre-s">Ce que ça apporte</h2>
+    
+    <ul class="points" style="font-size:42px"><li>Se sentir plus centré et plus posé</li><li>Retrouver de l'élan et de la dynamique</li><li>Un accompagnement bienveillant dans une période chargée en émotions</li></ul>
+  </div>
+  <div class="pastilles" style="left:449px"><span class=""></span><span class=""></span><span class=""></span><span class="on"></span><span class=""></span><span class=""></span><span class=""></span></div>
+</section>
+<section class="slide" style="left:4320px">
+  <div class="zone " style="left:170px;width:740px">
+    <div class="puce-emoji">⚠️</div>
+    <h2 class="titre-s">Bon à savoir</h2>
+    
+    <ul class="points" style="font-size:42px"><li>Ce massage est un moment de bien-être.</li><li>Il ne remplace pas un accompagnement psychologique ou médical.</li></ul>
+  </div>
+  <div class="pastilles" style="left:449px"><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="on"></span><span class=""></span><span class=""></span></div>
+</section>
+<section class="slide" style="left:5400px">
+  <div class="zone " style="left:170px;width:740px">
+    <div class="puce-emoji">💶</div>
+    <h2 class="titre-s">Durées et tarifs</h2>
+    
+    <ul class="points" style="font-size:42px"><li>1h : 70 €</li><li>1h30 : 100 €</li><li>2h : 130 €</li></ul>
+  </div>
+  <div class="pastilles" style="left:449px"><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="on"></span><span class=""></span></div>
+</section>
+<section class="slide" style="left:6480px">
+  <div class="zone" style="left:170px;width:760px;align-items:flex-start">
+    <h2 class="fin-titre">Une question&nbsp;?</h2>
+    <p class="fin-texte">Écrivez-moi ou appelez-moi : je vous réponds avec plaisir.</p>
+    <img src="file:///home/user/sitesushumna/graphisme/assets/logo-hd.png" alt="Sushumna" style="width:480px;height:auto">
+    <p class="fin-contact">massage-sushumna.com · 07 50 46 01 10</p>
+  </div>
+  <div class="pastilles" style="left:449px"><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="on"></span></div>
+</section>
+<div class="bulle" style="left:930px;top:150px"><img src="file:///home/user/sitesushumna/photos/massage-chong-mai.jpg" alt="" style="object-position:center 40%"></div><div class="bulle" style="left:2010px;top:620px"><img src="file:///home/user/sitesushumna/photos/ambiance-1.jpg" alt="" style="object-position:center 40%"></div><div class="bulle" style="left:3090px;top:150px"><img src="file:///home/user/sitesushumna/photos/ambiance-2.jpg" alt="" style="object-position:center 40%"></div><div class="bulle" style="left:4170px;top:620px"><img src="file:///home/user/sitesushumna/photos/ambiance-3.jpg" alt="" style="object-position:center 40%"></div><div class="bulle" style="left:5250px;top:150px"><img src="file:///home/user/sitesushumna/photos/portrait.jpg" alt="" style="object-position:center 40%"></div><div class="bulle" style="left:6330px;top:620px"><img src="file:///home/user/sitesushumna/photos/accueil.jpg" alt="" style="object-position:center 40%"></div>
+</div></div>
+</body>
+</html>
