@@ -17,14 +17,14 @@ module.exports = [
     emoji: '👕',
     photos: [3, 5, 2, 1],
     slides: [
-      { titre: 'Massage à l’huile, sur table', emoji: '🧴', intro: 'Sur mesure, sportif, ayurvédique…', points: [
+      { titre: 'Massage à l’huile, sur table', emoji: '🧴', intro: 'Ce que je pratique : sur mesure, sportif, ayurvédique…', points: [
         'Nu(e) ou en sous-vêtements, selon votre confort.',
         'Vous êtes recouvert(e) d’une serviette.',
         'Je ne découvre que la zone massée (dos, jambe, bras) : le reste reste couvert.',
       ] },
       { titre: 'Massage habillé', emoji: '👕', intro: 'Shiatsu, thaï, massage sur chaise…', points: [
-        'On garde des vêtements souples et confortables (jogging, t-shirt).',
-        'Pas besoin de se dévêtir.',
+        'On garde des vêtements souples et confortables (jogging, t-shirt). Pas besoin de se dévêtir.',
+        'Je ne pratique pas ces massages : je ne fais que des massages à l’huile.',
       ] },
       { titre: 'Vous gardez la main', emoji: '🤝', points: [
         'Vous pouvez toujours demander à garder plus de vêtements.',
@@ -49,7 +49,7 @@ module.exports = [
         'Problèmes cardiaques sévères ou hypertension non contrôlée.',
       ] },
       { titre: 'Précautions particulières', emoji: '⚠️', points: [
-        'Grossesse : massage possible mais adapté, de préférence avec un praticien formé au massage prénatal. Certains évitent le 1er trimestre.',
+        'Grossesse : massage possible avec l’avis du médecin, mais pas avec moi : je n’ai pas de formation pour le massage prénatal.',
         'Problèmes de peau (eczéma, mycose, coups de soleil, plaies) : on évite la zone concernée.',
         'Varices : pas de pression directe sur les jambes.',
         'Ostéoporose, hernie discale : pression adaptée, à signaler.',
