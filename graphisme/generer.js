@@ -794,7 +794,6 @@ const SANTE = [
   'Problème de peau (eczéma, mycose, plaie…)',
   'Varices',
   'Ostéoporose, hernie discale',
-  'Grossesse en cours',
   'Allergies (huiles, parfums, fruits à coque…)',
   'Traitement médical ou médicaments en cours',
 ];
