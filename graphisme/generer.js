@@ -967,7 +967,7 @@ body{background:#fffdf8}
 
 const afficheEtapes = [
   'Vous choisissez votre formule.',
-  'Les 4 rendez-vous sont pris ensemble, lors du premier massage.',
+  'Les 4 rendez-vous sont pris ensemble.',
   'Vous en profitez pendant 2 mois.',
 ];
 const affiche = `<section class="feuille">
@@ -977,7 +977,7 @@ const affiche = `<section class="feuille">
   <img class="logo" src="${LOGO_URL}" alt="Sushumna">
   <div class="haut"><p class="surtitre">Nos formules</p><h1 class="titre">Formules 4 massages</h1><p class="sous">4 séances à utiliser sur 2 mois</p></div>
   <div class="cartes">${CARTES_FORMULES.map((c) => `<div class="carte"><span class="badge">${c.avantage}</span><h2>4 massages<br>de ${c.duree}</h2><p class="prix">${c.prix}&nbsp;€</p><p class="par-seance">soit ${c.parSeance}&nbsp;€ la séance</p><p class="normal">au lieu de <s>${c.normal}&nbsp;€</s></p><span class="total">${c.total}</span></div>`).join('')}</div>
-  <div class="bandeau"><b>✦ Un massage différent à chaque séance ✦</b><span>Sur mesure, sportif, relaxant, réconfort, ayurvédique, Chong Mai, bol tibétain, réflexologie abdominale : vous choisissez à chaque fois.</span></div>
+  <div class="bandeau"><b>✦ Un massage différent à chaque séance ✦</b><span>Sur mesure, sportif, relaxant, ayurvédique, Chong Mai, bol tibétain, réflexologie abdominale : vous choisissez à chaque fois.</span></div>
   <div class="etapes">${afficheEtapes.map((t, i) => `<div class="etape"><div class="n">${i + 1}</div><p>${t}</p></div>`).join('')}</div>
   <div class="reglement"><b>Règlement en espèces</b>, en une fois, au premier massage. Formule 4 massages de 2h : possible en deux fois, 200&nbsp;€ au premier massage et 200&nbsp;€ au deuxième (tout doit être réglé au deuxième massage).</div>
   <div class="pied">${vague(794)}<p>Pour réserver : ${CONTACT.tel} · ${CONTACT.site} · ${CONTACT.insta}</p></div>
