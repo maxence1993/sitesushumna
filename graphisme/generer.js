@@ -906,10 +906,23 @@ const feuille2 = `<section class="feuille">
   ${pied}
 </section>`;
 
+const feuille3 = `<section class="feuille">
+  <div class="deco" style="width:320px;height:320px;right:-120px;top:-110px"></div>
+  <div class="deco" style="width:300px;height:300px;left:-120px;bottom:160px"></div>
+  <div class="entete"><img src="${LOGO_URL}" alt="Sushumna" style="width:160px">
+    <div class="titres"><h1>Fiche client · suivi</h1><p class="meta">Nom : ______________________ &nbsp; Prénom : ______________________</p></div></div>
+
+  <div class="section">${sectionTitre('📝', 'Suivi des séances')}
+    <table class="tableau"><tr><th style="width:92px">Date</th><th style="width:190px">Massage</th><th style="width:62px">Durée</th><th>Observations · ressenti après la séance</th></tr>
+    ${Array.from({ length: 17 }, () => '<tr><td></td><td></td><td></td><td></td></tr><tr><td class="libre" colspan="4"></td></tr>').join('')}</table>
+  </div>
+  ${pied}
+</section>`;
+
 PAGES.push({
-  nom: 'fiche-client', w: 794, h: 1123 * 2, echelle: 3.125, feuilles: 2,
-  sorties: ['fiche-client-recto', 'fiche-client-verso'], pdf: 'fiche-client.pdf',
-  html: document_({ w: 794, h: 1123 * 2, css: CSS_FICHE, body: `<div class="page" style="display:block;justify-content:flex-start;align-items:stretch;text-align:left">${feuille1}${feuille2}</div>` }),
+  nom: 'fiche-client', w: 794, h: 1123 * 3, echelle: 3.125, feuilles: 3,
+  sorties: ['fiche-client-page-1', 'fiche-client-page-2', 'fiche-client-page-3'], pdf: 'fiche-client.pdf',
+  html: document_({ w: 794, h: 1123 * 3, css: CSS_FICHE, body: `<div class="page" style="display:block;justify-content:flex-start;align-items:stretch;text-align:left">${feuille1}${feuille2}${feuille3}</div>` }),
 });
 
 /* ---------- Rendu ---------- */
