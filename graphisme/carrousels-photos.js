@@ -70,7 +70,6 @@ module.exports = [
       { titre: 'La formation', emoji: '🎓', points: [
         'Demandez où il s’est formé, et depuis quand.',
         'Des certifications reconnues, ou une formation de plusieurs mois, sont bon signe.',
-        'Pour moi : une formation de 140 h.',
       ] },
       { titre: 'Le cadre', emoji: '🏡', points: [
         'Un cabinet ou un institut propre, du linge frais, une lumière douce, un accueil clair.',
