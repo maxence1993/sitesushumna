@@ -925,6 +925,70 @@ PAGES.push({
   html: document_({ w: 794, h: 1123 * 3, css: CSS_FICHE, body: `<div class="page" style="display:block;justify-content:flex-start;align-items:stretch;text-align:left">${feuille1}${feuille2}${feuille3}</div>` }),
 });
 
+/* ---------- Affiche « Formules 4 massages » (A4, JPEG 300 dpi + PDF) ----------
+   Prix lus dans mes-contenus/massages-et-tarifs.js ; agrandissable en A3 via le PDF. */
+const prixSeance = (duree) => PRIX_SEANCES.find((t) => t.duree === duree && !t.massage).prix;
+const CARTES_FORMULES = PRIX_FORMULES.map((f) => {
+  const duree = f.minutes === 60 ? '1h' : '2h';
+  const normal = 4 * prixSeance(duree);
+  return { duree, prix: f.prix, parSeance: f.prix / 4, normal, avantage: f.avantage.replace("'", '’'), total: `${(4 * f.minutes) / 60} h de massage en tout` };
+});
+const CSS_AFFICHE = `@page{size:210mm 297mm;margin:0}
+body{background:#fffdf8}
+.feuille{position:relative;width:794px;height:1123px;overflow:hidden;background:linear-gradient(180deg,var(--creme) 0%,#fbf3e2 100%);text-align:center}
+.deco{position:absolute;border-radius:50%;background:#f6e3b4;opacity:.45}
+.filigrane{position:absolute;left:50%;top:560px;width:640px;transform:translate(-50%,-50%);opacity:.06}
+.logo{position:absolute;left:50%;top:34px;transform:translateX(-50%);width:230px;height:auto}
+.haut{position:absolute;left:0;right:0;top:132px}
+.surtitre{font-size:15px;letter-spacing:.3em}
+.titre{font-family:var(--titres);font-weight:600;font-size:60px;line-height:1.08;margin:8px 0 10px;color:var(--brun)}
+.sous{font-family:var(--titres);font-style:italic;font-size:25px;color:var(--or-texte);margin:0}
+.cartes{position:absolute;left:44px;right:44px;top:344px;display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.carte{position:relative;background:var(--creme);border:2.5px solid var(--or);border-radius:30px;padding:42px 18px 26px;box-shadow:0 14px 34px rgba(92,67,48,.16)}
+.badge{position:absolute;left:50%;top:-19px;transform:translateX(-50%);background:var(--or);color:var(--brun);font-weight:800;font-size:16px;letter-spacing:.03em;padding:7px 18px;border-radius:999px;white-space:nowrap;box-shadow:0 6px 14px rgba(217,167,59,.4)}
+.carte h2{font-family:var(--titres);font-weight:600;font-size:29px;line-height:1.15;margin:0 0 6px;color:var(--brun)}
+.prix{font-family:var(--titres);font-weight:600;font-size:92px;line-height:1.05;color:var(--or-texte);margin:6px 0 0}
+.par-seance{font-size:22px;font-weight:800;color:var(--brun);margin:2px 0 10px}
+.normal{font-size:16px;color:var(--brun-doux);margin:0 0 6px}
+.normal s{text-decoration-thickness:2px}
+.total{display:inline-block;background:#f6e3b4;border-radius:999px;padding:5px 16px;font-size:15px;font-weight:800;color:var(--or-texte);margin-top:6px}
+.bandeau{position:absolute;left:44px;right:44px;top:700px;background:linear-gradient(135deg,var(--brun) 0%,#5b3f26 100%);border-radius:24px;padding:20px 26px;color:#fff}
+.bandeau b{display:block;font-family:var(--titres);font-weight:600;font-size:28px;color:var(--or-clair);margin-bottom:6px}
+.bandeau span{font-size:15px;line-height:1.4;color:#f3e8d3}
+.etapes{position:absolute;left:44px;right:44px;top:836px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.etape{text-align:center}
+.etape .n{width:46px;height:46px;border-radius:50%;border:3px solid var(--or);background:var(--creme);display:flex;align-items:center;justify-content:center;font-family:var(--titres);font-weight:600;font-size:24px;color:var(--or-texte);margin:0 auto 8px}
+.etape p{margin:0;font-size:15.5px;line-height:1.35;color:var(--brun);font-weight:600}
+.reglement{position:absolute;left:44px;right:44px;top:964px;border:2px solid var(--or);border-radius:20px;padding:12px 20px;background:rgba(255,255,255,.7);font-size:14.5px;line-height:1.4;color:var(--brun)}
+.reglement b{color:var(--or-texte)}
+.pied{position:absolute;left:0;right:0;bottom:0;height:62px}
+.pied svg{position:absolute;left:0;bottom:30px}
+.pied p{position:absolute;left:0;right:0;bottom:9px;margin:0;font-size:15px;font-weight:800;color:var(--or-texte);letter-spacing:.02em}`;
+
+const afficheEtapes = [
+  'Vous choisissez votre formule.',
+  'Les 4 rendez-vous sont pris ensemble, lors du premier massage.',
+  'Vous en profitez pendant 2 mois.',
+];
+const affiche = `<section class="feuille">
+  <div class="deco" style="width:420px;height:420px;right:-150px;top:-140px"></div>
+  <div class="deco" style="width:360px;height:360px;left:-140px;bottom:200px"></div>
+  <img class="filigrane" src="${path.join('file://', DOSSIER, 'assets', 'embleme-hd.png')}" alt="">
+  <img class="logo" src="${LOGO_URL}" alt="Sushumna">
+  <div class="haut"><p class="surtitre">Nos formules</p><h1 class="titre">Formules 4 massages</h1><p class="sous">4 séances à utiliser sur 2 mois</p></div>
+  <div class="cartes">${CARTES_FORMULES.map((c) => `<div class="carte"><span class="badge">${c.avantage}</span><h2>4 massages<br>de ${c.duree}</h2><p class="prix">${c.prix}&nbsp;€</p><p class="par-seance">soit ${c.parSeance}&nbsp;€ la séance</p><p class="normal">au lieu de <s>${c.normal}&nbsp;€</s></p><span class="total">${c.total}</span></div>`).join('')}</div>
+  <div class="bandeau"><b>✦ Un massage différent à chaque séance ✦</b><span>Sur mesure, sportif, relaxant, réconfort, ayurvédique, Chong Mai, bol tibétain, réflexologie abdominale : vous choisissez à chaque fois.</span></div>
+  <div class="etapes">${afficheEtapes.map((t, i) => `<div class="etape"><div class="n">${i + 1}</div><p>${t}</p></div>`).join('')}</div>
+  <div class="reglement"><b>Règlement en espèces</b>, en une fois, au premier massage. Formule 4 massages de 2h : possible en deux fois, 200&nbsp;€ au premier massage et 200&nbsp;€ au deuxième (tout doit être réglé au deuxième massage).</div>
+  <div class="pied">${vague(794)}<p>Pour réserver : ${CONTACT.tel} · ${CONTACT.site} · ${CONTACT.insta}</p></div>
+</section>`;
+
+PAGES.push({
+  nom: 'affiche-formules', w: 794, h: 1123, echelle: 3.125, feuilles: 1,
+  sorties: ['affiche-formules-4-massages'], pdf: 'affiche-formules-4-massages.pdf',
+  html: document_({ w: 794, h: 1123, css: CSS_AFFICHE, body: `<div class="page" style="display:block;justify-content:flex-start;align-items:stretch;text-align:center">${affiche}</div>` }),
+});
+
 /* ---------- Rendu ---------- */
 (async () => {
   fs.mkdirSync(SOURCES, { recursive: true });
