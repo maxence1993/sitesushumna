@@ -851,7 +851,7 @@ const vague = (largeur) => {
   for (let x = 0; x < largeur; x += 140) d += ' q35 -9 70 0 t70 0';
   return `<svg width="${largeur}" height="28" viewBox="0 0 ${largeur} 28"><path d="${d}" fill="none" stroke="#d9a73b" stroke-width="2.4" stroke-linecap="round"/></svg>`;
 };
-const pied = `<div class="pied">${vague(794)}<p>Sushumna · 4 cours Victor Hugo, 45100 Orléans · ${CONTACT.tel} · ${CONTACT.site} · Document confidentiel</p></div>`;
+const pied = `<div class="pied">${vague(794)}<p>Document confidentiel</p></div>`;
 
 const feuille1 = `<section class="feuille">
   <div class="deco" style="width:330px;height:330px;right:-110px;top:-120px"></div>
