@@ -762,6 +762,181 @@ ${bulles}
   });
 });
 
+/* ---------- Fiche de renseignements client (A4, 2 pages) : JPEG + PDF ----------
+   Imprimable : cases à cocher, lignes à remplir, silhouettes pour marquer les zones. */
+const cb = '<i class="cb"></i>';
+const opt = (t) => `<span class="opt">${cb}${t}</span>`;
+const champ = (label, extra = '') => `<div class="champ ${extra}"><label>${label}</label></div>`;
+const sectionTitre = (emoji, titre) => `<div class="s-titre"><span class="ico">${emoji}</span><h2>${titre}</h2><span class="trait"></span></div>`;
+const silhouette = (dos) => `<svg viewBox="0 0 100 224" width="118" height="264">
+  <g fill="#d9a73b" stroke="#d9a73b" stroke-width="4" stroke-linejoin="round">
+    <circle cx="50" cy="17" r="14"/><rect x="43" y="28" width="14" height="12" rx="4"/>
+    <rect x="30" y="38" width="40" height="74" rx="16"/>
+    <rect x="12" y="40" width="14" height="74" rx="7" transform="rotate(5 19 40)"/><rect x="74" y="40" width="14" height="74" rx="7" transform="rotate(-5 81 40)"/>
+    <rect x="31" y="104" width="18" height="112" rx="9"/><rect x="51" y="104" width="18" height="112" rx="9"/>
+  </g>
+  <g fill="#fffdf8">
+    <circle cx="50" cy="17" r="14"/><rect x="43" y="28" width="14" height="12" rx="4"/>
+    <rect x="30" y="38" width="40" height="74" rx="16"/>
+    <rect x="12" y="40" width="14" height="74" rx="7" transform="rotate(5 19 40)"/><rect x="74" y="40" width="14" height="74" rx="7" transform="rotate(-5 81 40)"/>
+    <rect x="31" y="104" width="18" height="112" rx="9"/><rect x="51" y="104" width="18" height="112" rx="9"/>
+  </g>
+  ${dos ? '<path d="M50 32 L50 108" stroke="#e6d5b5" stroke-width="2" stroke-dasharray="3 4" fill="none"/><path d="M38 58 Q44 70 50 66 M62 58 Q56 70 50 66" stroke="#e6d5b5" stroke-width="2" fill="none"/>' : '<circle cx="50" cy="62" r="1.8" fill="#e6d5b5"/><circle cx="50" cy="84" r="1.8" fill="#e6d5b5"/>'}
+</svg>`;
+
+const SANTE = [
+  'Fièvre, infection, maladie contagieuse',
+  'Phlébite, thrombose',
+  'Traitement anticoagulant',
+  'Fracture, entorse, blessure ou opération récente',
+  'Cancer en cours de traitement',
+  'Problème cardiaque, hypertension',
+  'Problème de peau (eczéma, mycose, plaie…)',
+  'Varices',
+  'Ostéoporose, hernie discale',
+  'Grossesse en cours',
+  'Allergies (huiles, parfums, fruits à coque…)',
+  'Traitement médical ou médicaments en cours',
+];
+const MASSAGES_FICHE = ['Sur mesure', 'Sportif', 'Relaxant', 'Réconfort', 'Ayurvédique', 'Chong Mai', 'Bol tibétain', 'Réflexologie abdominale'];
+
+const CSS_FICHE = `@page{size:210mm 297mm;margin:0}
+body{background:#fffdf8}
+.feuille{position:relative;width:794px;height:1123px;overflow:hidden;padding:30px 40px 0;background:linear-gradient(180deg,var(--creme) 0%,#fbf3e2 100%);page-break-after:always;break-after:page;font-size:12px}
+.feuille:last-child{page-break-after:auto;break-after:auto}
+.deco{position:absolute;border-radius:50%;background:#f6e3b4;opacity:.4}
+.entete{position:relative;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.entete img{width:196px;height:auto}
+.entete .titres{text-align:right}
+.entete h1{font-family:var(--titres);font-weight:600;font-size:24px;line-height:1.15;margin:0;color:var(--brun)}
+.entete .sous{font-size:10.5px;color:var(--brun-doux);margin:3px 0 0}
+.entete .meta{font-size:11px;font-weight:700;color:var(--or-texte);margin-top:5px}
+.section{position:relative;margin-top:13px}
+.s-titre{display:flex;align-items:center;gap:9px;margin:0 0 8px}
+.s-titre .ico{width:28px;height:28px;border-radius:50%;border:2px solid var(--or);background:var(--creme);display:flex;align-items:center;justify-content:center;font-size:14px;flex:none}
+.s-titre h2{font-family:var(--titres);font-weight:600;font-size:16px;margin:0;color:var(--brun)}
+.s-titre .trait{flex:1;height:2px;background:linear-gradient(90deg,var(--or),rgba(217,167,59,0))}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:4px 24px}
+.champ{display:flex;align-items:flex-end;min-height:24px;border-bottom:1.3px solid var(--bordure)}
+.champ label{font-size:9.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--or-texte);white-space:nowrap;padding-bottom:2px}
+.plein{grid-column:1 / -1}
+.cb{display:inline-block;width:13px;height:13px;border:1.7px solid var(--or);border-radius:4px;background:#fff;flex:none}
+.opt{display:inline-flex;align-items:center;gap:5px;margin:3px 12px 3px 0;white-space:nowrap}
+.rang{display:flex;flex-wrap:wrap;align-items:center;margin-top:3px}
+.rang .lib{font-size:9.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--or-texte);margin-right:10px}
+.grille4{display:grid;grid-template-columns:repeat(4,auto);gap:0 8px;justify-content:start}
+.sante{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+.q{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:25px;border-bottom:1px dotted var(--bordure);line-height:1.2}
+.q .on{display:inline-flex;gap:8px;align-items:center;font-weight:700;white-space:nowrap;font-size:11px}
+.q .on span{display:inline-flex;align-items:center;gap:4px}
+.ligne{border-bottom:1.3px solid var(--bordure);height:23px}
+.note{font-size:9.5px;color:var(--brun-doux);margin:5px 0 0;font-style:italic}
+.pied{position:absolute;left:0;right:0;bottom:0;height:46px}
+.pied svg{position:absolute;left:0;bottom:22px}
+.pied p{position:absolute;left:0;right:0;bottom:6px;margin:0;text-align:center;font-size:10px;font-weight:700;color:var(--or-texte)}
+.zones{display:grid;grid-template-columns:auto auto 1fr;gap:16px;align-items:start}
+.sil{text-align:center;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--or-texte)}
+.tableau{width:100%;border-collapse:collapse}
+.tableau th{font-size:9.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--or-texte);background:#f6e3b4;text-align:left;padding:6px 8px;border:1px solid var(--bordure)}
+.tableau td{height:27px;border:1px solid var(--bordure);background:rgba(255,255,255,.6)}
+.consent{font-size:11px;line-height:1.4}
+.consent .opt{display:flex;align-items:flex-start;white-space:normal;margin:0 0 6px}
+.consent .cb{margin-top:2px}
+.rgpd{font-size:9.5px;line-height:1.4;color:var(--brun-doux);margin:6px 0 0}
+.sigs{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:10px}
+.sig{border:1.5px solid var(--or);border-radius:12px;height:100px;padding:8px 12px;background:rgba(255,255,255,.7)}
+.sig b{font-size:9.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--or-texte)}`;
+
+const vague = (largeur) => {
+  let d = 'M0 14';
+  for (let x = 0; x < largeur; x += 140) d += ' q35 -9 70 0 t70 0';
+  return `<svg width="${largeur}" height="28" viewBox="0 0 ${largeur} 28"><path d="${d}" fill="none" stroke="#d9a73b" stroke-width="2.4" stroke-linecap="round"/></svg>`;
+};
+const pied = `<div class="pied">${vague(794)}<p>Sushumna · 4 cours Victor Hugo, 45100 Orléans · ${CONTACT.tel} · ${CONTACT.site} · Document confidentiel</p></div>`;
+
+const feuille1 = `<section class="feuille">
+  <div class="deco" style="width:330px;height:330px;right:-110px;top:-120px"></div>
+  <div class="deco" style="width:260px;height:260px;left:-100px;bottom:120px"></div>
+  <div class="entete"><img src="${LOGO_URL}" alt="Sushumna">
+    <div class="titres"><h1>Fiche de renseignements client</h1><p class="sous">Confidentielle · à remplir avant la séance</p><p class="meta">Fiche n° ______ &nbsp;·&nbsp; Date : ____ / ____ / ________</p></div></div>
+
+  <div class="section">${sectionTitre('🙂', 'Vous')}
+    <div class="g2">${champ('Nom')}${champ('Prénom')}${champ('Date de naissance')}${champ('Profession')}${champ('Téléphone')}${champ('E-mail')}${champ('Adresse', 'plein')}${champ('Contact en cas d’urgence (nom)')}${champ('Téléphone du contact')}</div>
+    <div class="rang"><span class="lib">Comment m’avez-vous connu ?</span>${opt('Google')}${opt('Instagram')}${opt('Bouche-à-oreille')}${opt('Carte cadeau')}${opt('Autre : ________')}</div>
+  </div>
+
+  <div class="section">${sectionTitre('🧴', 'Votre séance')}
+    <div class="grille4">${MASSAGES_FICHE.map(opt).join('')}</div>
+    <div class="rang"><span class="lib">Durée</span>${opt('1h')}${opt('1h10 (réconfort)')}${opt('1h30')}${opt('2h')}<span class="lib" style="margin-left:14px">Formule 4 massages</span>${opt('1h')}${opt('2h')}</div>
+    <div class="rang"><span class="lib">Première séance</span>${opt('Oui')}${opt('Non')}<span class="lib" style="margin-left:14px">Carte cadeau</span>${opt('Oui')}${opt('Non')}</div>
+    <div class="champ" style="margin-top:6px"><label>Ce que vous attendez de la séance</label></div><div class="ligne"></div>
+  </div>
+
+  <div class="section">${sectionTitre('🩺', 'Votre santé')}
+    <div class="sante">${SANTE.map((q) => `<div class="q"><span>${q}</span><span class="on"><span>${cb}Oui</span><span>${cb}Non</span></span></div>`).join('')}</div>
+    <div class="champ" style="margin-top:6px"><label>Précisions si « oui »</label></div><div class="ligne"></div>
+    <div class="g2" style="margin-top:2px">${champ('Médecin traitant (facultatif)')}${champ('Téléphone du médecin')}</div>
+    <p class="note">Grossesse : un massage est possible avec l’avis du médecin, mais pas avec moi (pas de formation au massage prénatal).</p>
+  </div>
+
+  <div class="section">${sectionTitre('🎯', 'Vos préférences')}
+    <div class="rang"><span class="lib">Pression</span>${opt('Légère')}${opt('Moyenne')}${opt('Ferme')}<span class="lib" style="margin-left:12px">Chatouilleux(se)</span>${opt('Oui')}${opt('Non')}<span class="lib" style="margin-left:12px">Sans parfum</span>${opt('Oui')}${opt('Non')}</div>
+    <div class="g2" style="margin-top:4px">${champ('Zones à privilégier')}${champ('Zones à éviter')}${champ('Activité physique (type, fréquence)')}${champ('Niveau de stress (0 à 10)')}</div>
+    <div class="rang"><span class="lib">Sommeil</span>${opt('Bon')}${opt('Moyen')}${opt('Difficile')}</div>
+    <div class="champ" style="margin-top:6px"><label>Autre chose à me signaler ?</label></div><div class="ligne"></div><div class="ligne"></div>
+  </div>
+  ${pied}
+</section>`;
+
+const feuille2 = `<section class="feuille">
+  <div class="deco" style="width:300px;height:300px;left:-110px;top:-110px"></div>
+  <div class="deco" style="width:340px;height:340px;right:-130px;bottom:150px"></div>
+  <div class="entete"><img src="${LOGO_URL}" alt="Sushumna" style="width:160px">
+    <div class="titres"><h1>Fiche client · suite</h1><p class="meta">Nom : ______________________ &nbsp; Prénom : ______________________</p></div></div>
+
+  <div class="section">${sectionTitre('🧍', 'Zones de tension ou de douleur')}
+    <div class="zones">
+      <div class="sil">${silhouette(false)}<br>Face</div>
+      <div class="sil">${silhouette(true)}<br>Dos</div>
+      <div><p class="note" style="margin:0 0 4px">Entourez ou hachurez les zones concernées.</p>
+        <div class="champ"><label>Depuis quand ?</label></div>
+        <div class="champ"><label>Intensité de la gêne (0 à 10)</label></div>
+        <div class="ligne"></div><div class="ligne"></div>
+        <div class="champ"><label>Zones où vous ne souhaitez pas de massage</label></div><div class="ligne"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">${sectionTitre('📋', 'Notes du praticien · première séance')}
+    <div class="ligne"></div><div class="ligne"></div><div class="ligne"></div>
+  </div>
+
+  <div class="section">${sectionTitre('📝', 'Suivi des séances')}
+    <table class="tableau"><tr><th style="width:92px">Date</th><th style="width:190px">Massage</th><th style="width:62px">Durée</th><th>Observations · ressenti après la séance</th></tr>
+    ${Array.from({ length: 7 }, () => '<tr><td></td><td></td><td></td><td></td></tr>').join('')}</table>
+  </div>
+
+  <div class="section">${sectionTitre('✍️', 'Consentement')}
+    <div class="consent">
+      <div class="opt">${cb}<span>J’ai répondu avec sincérité et je m’engage à signaler tout changement de ma santé.</span></div>
+      <div class="opt">${cb}<span>Je comprends que le massage bien-être est un moment de détente : ce n’est pas un acte médical ni un massage thérapeutique, et il ne remplace pas un avis ou un traitement médical.</span></div>
+      <div class="opt">${cb}<span>J’accepte que les informations de cette fiche, y compris celles sur ma santé, soient conservées pour le suivi de mes séances.</span></div>
+    </div>
+    <p class="rgpd">Ces informations sont utilisées uniquement par Maxence Vaz (Sushumna) pour le suivi de vos séances. Elles ne sont jamais transmises à des tiers. Vous pouvez les consulter, les faire modifier ou supprimer à tout moment sur simple demande. Si le client est mineur : autorisation d’un représentant légal.</p>
+    <div class="sigs">
+      <div class="sig"><b>Client · fait à ____________ le ____ / ____ / ________</b></div>
+      <div class="sig"><b>Praticien · Maxence Vaz</b></div>
+    </div>
+  </div>
+  ${pied}
+</section>`;
+
+PAGES.push({
+  nom: 'fiche-client', w: 794, h: 1123 * 2, echelle: 3.125, feuilles: 2,
+  sorties: ['fiche-client-recto', 'fiche-client-verso'], pdf: 'fiche-client.pdf',
+  html: document_({ w: 794, h: 1123 * 2, css: CSS_FICHE, body: `<div class="page" style="display:block;justify-content:flex-start;align-items:stretch;text-align:left">${feuille1}${feuille2}</div>` }),
+});
+
 /* ---------- Rendu ---------- */
 (async () => {
   fs.mkdirSync(SOURCES, { recursive: true });
@@ -783,7 +958,15 @@ ${bulles}
       await page.goto('file://' + fichierHtml, { waitUntil: 'load' });
       await page.evaluate(() => document.fonts.ready);
       await page.waitForTimeout(300);
-      if (p.coupes) {
+      if (p.feuilles) {
+        const hFeuille = parseInt(p.h, 10) / p.feuilles;
+        for (let k = 0; k < p.feuilles; k++) {
+          await page.screenshot({ path: path.join(JPEG, `${p.sorties[k]}.jpg`), type: 'jpeg', quality: 92, clip: { x: 0, y: k * hFeuille, width: parseInt(p.w, 10), height: hFeuille } });
+        }
+        if (p.pdf) {
+          await page.pdf({ path: path.join(DOSSIER, p.pdf), width: '210mm', height: '297mm', printBackground: true, margin: { top: 0, right: 0, bottom: 0, left: 0 } });
+        }
+      } else if (p.coupes) {
         for (let k = 0; k < p.coupes; k++) {
           const sortie = path.join(JPEG, p.nom, `${k + 1}.jpg`);
           fs.mkdirSync(path.dirname(sortie), { recursive: true });
