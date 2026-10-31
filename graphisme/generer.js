@@ -768,7 +768,7 @@ const cb = '<i class="cb"></i>';
 const opt = (t) => `<span class="opt">${cb}${t}</span>`;
 const champ = (label, extra = '') => `<div class="champ ${extra}"><label>${label}</label></div>`;
 const sectionTitre = (emoji, titre) => `<div class="s-titre"><span class="ico">${emoji}</span><h2>${titre}</h2><span class="trait"></span></div>`;
-const silhouette = (dos) => `<svg viewBox="0 0 100 224" width="118" height="264">
+const silhouette = (dos, h = 264) => `<svg viewBox="0 0 100 224" width="${Math.round((h * 100) / 224)}" height="${h}">
   <g fill="#d9a73b" stroke="#d9a73b" stroke-width="4" stroke-linejoin="round">
     <circle cx="50" cy="17" r="14"/><rect x="43" y="28" width="14" height="12" rx="4"/>
     <rect x="30" y="38" width="40" height="74" rx="16"/>
@@ -792,7 +792,6 @@ const SANTE = [
   'Cancer en cours de traitement',
   'Problème cardiaque, hypertension',
   'Problème de peau (eczéma, mycose, plaie…)',
-  'Varices',
   'Ostéoporose, hernie discale',
   'Allergies (huiles, parfums, fruits à coque…)',
   'Traitement médical ou médicaments en cours',
@@ -810,7 +809,7 @@ body{background:#fffdf8}
 .entete h1{font-family:var(--titres);font-weight:600;font-size:24px;line-height:1.15;margin:0;color:var(--brun)}
 .entete .sous{font-size:10.5px;color:var(--brun-doux);margin:3px 0 0}
 .entete .meta{font-size:11px;font-weight:700;color:var(--or-texte);margin-top:5px}
-.section{position:relative;margin-top:20px}
+.section{position:relative;margin-top:15px}
 .s-titre{display:flex;align-items:center;gap:9px;margin:0 0 8px}
 .s-titre .ico{width:28px;height:28px;border-radius:50%;border:2px solid var(--or);background:var(--creme);display:flex;align-items:center;justify-content:center;font-size:14px;flex:none}
 .s-titre h2{font-family:var(--titres);font-weight:600;font-size:16px;margin:0;color:var(--brun)}
@@ -828,7 +827,7 @@ body{background:#fffdf8}
 .q{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:28px;border-bottom:1px dotted var(--bordure);line-height:1.2}
 .q .on{display:inline-flex;gap:8px;align-items:center;font-weight:700;white-space:nowrap;font-size:11px}
 .q .on span{display:inline-flex;align-items:center;gap:4px}
-.ligne{border-bottom:1.3px solid var(--bordure);height:27px}
+.ligne{border-bottom:1.3px solid var(--bordure);height:25px}
 .note{font-size:9.5px;color:var(--brun-doux);margin:5px 0 0;font-style:italic}
 .pied{position:absolute;left:0;right:0;bottom:0;height:46px}
 .pied svg{position:absolute;left:0;bottom:22px}
@@ -838,7 +837,7 @@ body{background:#fffdf8}
 .tableau{width:100%;border-collapse:collapse}
 .tableau th{font-size:9.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--or-texte);background:#f6e3b4;text-align:left;padding:6px 8px;border:1px solid var(--bordure)}
 .tableau td.libre{background:rgba(255,255,255,.35)}
-.tableau td{height:27px;border:1px solid var(--bordure);background:rgba(255,255,255,.6)}
+.tableau td{height:26px;border:1px solid var(--bordure);background:rgba(255,255,255,.6)}
 .consent{font-size:11px;line-height:1.4}
 .consent .opt{display:flex;align-items:flex-start;white-space:normal;margin:0 0 6px}
 .consent .cb{margin-top:2px}
@@ -862,7 +861,7 @@ const feuille1 = `<section class="feuille">
 
   <div class="section">${sectionTitre('🙂', 'Client')}
     <div class="g2">${champ('Nom')}${champ('Prénom')}${champ('Date de naissance')}${champ('Profession')}${champ('Téléphone')}</div>
-    <div class="rang" style="margin-top:8px"><span class="lib" style="flex-basis:100%;margin-bottom:2px">Comment m’avez-vous connu ?</span>${opt('Google')}${opt('Instagram')}${opt('Bouche-à-oreille')}${opt('Parrainage')}${opt('Carte cadeau')}${opt('Autre : ________')}</div>
+    <div class="rang" style="margin-top:8px"><span class="lib" style="flex-basis:100%;margin-bottom:2px">Comment m’avez-vous connu ?</span>${opt('Google')}${opt('Instagram')}${opt('Bouche-à-oreille')}${opt('Carte cadeau')}${opt('Parrainage')}<span class="champ" style="flex:1;min-width:230px"><label>Nom et prénom du parrain</label></span></div>
   </div>
 
   <div class="section">${sectionTitre('🩺', 'Santé')}
@@ -872,22 +871,14 @@ const feuille1 = `<section class="feuille">
 
   <div class="section">${sectionTitre('🎯', 'Préférences')}
     <div class="rang"><span class="lib">Pression</span>${opt('Légère')}${opt('Moyenne')}${opt('Ferme')}<span class="lib" style="margin-left:18px">Sommeil</span>${opt('Bon')}${opt('Moyen')}${opt('Difficile')}</div>
-    <div class="g2" style="margin-top:6px">${champ('Zones à privilégier')}${champ('Zones à éviter')}${champ('Type d’huile', 'plein')}${champ('Activité physique (type, fréquence)')}${champ('Niveau de stress (0 à 10)')}</div>
+    <div class="g2" style="margin-top:6px">${champ('Zones à éviter', 'plein')}${champ('Type d’huile', 'plein')}${champ('Activité physique (type, fréquence)')}${champ('Niveau de stress (0 à 10)')}</div>
     <div class="champ" style="margin-top:10px"><label>Autres choses à me signaler ?</label></div><div class="ligne"></div><div class="ligne"></div>
   </div>
-  ${pied}
-</section>`;
-
-const feuille2 = `<section class="feuille">
-  <div class="deco" style="width:300px;height:300px;left:-110px;top:-110px"></div>
-  <div class="deco" style="width:340px;height:340px;right:-130px;bottom:150px"></div>
-  <div class="entete"><img src="${LOGO_URL}" alt="Sushumna" style="width:160px">
-    <div class="titres"><h1>Fiche client · suite</h1><p class="meta">Nom : ______________________ &nbsp; Prénom : ______________________</p></div></div>
 
   <div class="section">${sectionTitre('🧍', 'Zones de tension ou de douleur')}
     <div class="zones">
-      <div class="sil">${silhouette(false)}<br>Face</div>
-      <div class="sil">${silhouette(true)}<br>Dos</div>
+      <div class="sil">${silhouette(false, 188)}<br>Face</div>
+      <div class="sil">${silhouette(true, 188)}<br>Dos</div>
       <div>
         <div class="champ"><label>Depuis quand ?</label></div>
         <div class="champ"><label>Intensité de la gêne (0 à 10)</label></div>
@@ -897,13 +888,22 @@ const feuille2 = `<section class="feuille">
     </div>
   </div>
 
+  ${pied}
+</section>`;
+
+const feuille2 = `<section class="feuille">
+  <div class="deco" style="width:300px;height:300px;left:-110px;top:-110px"></div>
+  <div class="deco" style="width:340px;height:340px;right:-130px;bottom:150px"></div>
+  <div class="entete"><img src="${LOGO_URL}" alt="Sushumna" style="width:160px">
+    <div class="titres"><h1>Fiche client · suite</h1><p class="meta">Nom : ______________________ &nbsp; Prénom : ______________________</p></div></div>
+
   <div class="section">${sectionTitre('📋', 'Notes du praticien')}
     <div class="ligne"></div><div class="ligne"></div><div class="ligne"></div><div class="ligne"></div>
   </div>
 
   <div class="section">${sectionTitre('📝', 'Suivi des séances')}
     <table class="tableau"><tr><th style="width:92px">Date</th><th style="width:190px">Massage</th><th style="width:62px">Durée</th><th>Observations · ressenti après la séance</th></tr>
-    ${Array.from({ length: 6 }, () => '<tr><td></td><td></td><td></td><td></td></tr><tr><td class="libre" colspan="4"></td></tr>').join('')}</table>
+    ${Array.from({ length: 13 }, () => '<tr><td></td><td></td><td></td><td></td></tr><tr><td class="libre" colspan="4"></td></tr>').join('')}</table>
   </div>
   ${pied}
 </section>`;
