@@ -811,7 +811,7 @@ body{background:#fffdf8}
 .entete h1{font-family:var(--titres);font-weight:600;font-size:24px;line-height:1.15;margin:0;color:var(--brun)}
 .entete .sous{font-size:10.5px;color:var(--brun-doux);margin:3px 0 0}
 .entete .meta{font-size:11px;font-weight:700;color:var(--or-texte);margin-top:5px}
-.section{position:relative;margin-top:13px}
+.section{position:relative;margin-top:20px}
 .s-titre{display:flex;align-items:center;gap:9px;margin:0 0 8px}
 .s-titre .ico{width:28px;height:28px;border-radius:50%;border:2px solid var(--or);background:var(--creme);display:flex;align-items:center;justify-content:center;font-size:14px;flex:none}
 .s-titre h2{font-family:var(--titres);font-weight:600;font-size:16px;margin:0;color:var(--brun)}
@@ -826,10 +826,10 @@ body{background:#fffdf8}
 .rang .lib{font-size:9.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--or-texte);margin-right:10px}
 .grille4{display:grid;grid-template-columns:repeat(4,auto);gap:0 8px;justify-content:start}
 .sante{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
-.q{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:25px;border-bottom:1px dotted var(--bordure);line-height:1.2}
+.q{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:28px;border-bottom:1px dotted var(--bordure);line-height:1.2}
 .q .on{display:inline-flex;gap:8px;align-items:center;font-weight:700;white-space:nowrap;font-size:11px}
 .q .on span{display:inline-flex;align-items:center;gap:4px}
-.ligne{border-bottom:1.3px solid var(--bordure);height:23px}
+.ligne{border-bottom:1.3px solid var(--bordure);height:27px}
 .note{font-size:9.5px;color:var(--brun-doux);margin:5px 0 0;font-style:italic}
 .pied{position:absolute;left:0;right:0;bottom:0;height:46px}
 .pied svg{position:absolute;left:0;bottom:22px}
@@ -838,6 +838,7 @@ body{background:#fffdf8}
 .sil{text-align:center;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--or-texte)}
 .tableau{width:100%;border-collapse:collapse}
 .tableau th{font-size:9.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--or-texte);background:#f6e3b4;text-align:left;padding:6px 8px;border:1px solid var(--bordure)}
+.tableau td.libre{background:rgba(255,255,255,.35)}
 .tableau td{height:27px;border:1px solid var(--bordure);background:rgba(255,255,255,.6)}
 .consent{font-size:11px;line-height:1.4}
 .consent .opt{display:flex;align-items:flex-start;white-space:normal;margin:0 0 6px}
@@ -858,32 +859,22 @@ const feuille1 = `<section class="feuille">
   <div class="deco" style="width:330px;height:330px;right:-110px;top:-120px"></div>
   <div class="deco" style="width:260px;height:260px;left:-100px;bottom:120px"></div>
   <div class="entete"><img src="${LOGO_URL}" alt="Sushumna">
-    <div class="titres"><h1>Fiche de renseignements client</h1><p class="sous">Confidentielle · à remplir avant la séance</p><p class="meta">Fiche n° ______ &nbsp;·&nbsp; Date : ____ / ____ / ________</p></div></div>
+    <div class="titres"><h1>Fiche de renseignements client</h1></div></div>
 
-  <div class="section">${sectionTitre('🙂', 'Vous')}
-    <div class="g2">${champ('Nom')}${champ('Prénom')}${champ('Date de naissance')}${champ('Profession')}${champ('Téléphone')}${champ('E-mail')}${champ('Adresse', 'plein')}${champ('Contact en cas d’urgence (nom)')}${champ('Téléphone du contact')}</div>
-    <div class="rang"><span class="lib">Comment m’avez-vous connu ?</span>${opt('Google')}${opt('Instagram')}${opt('Bouche-à-oreille')}${opt('Carte cadeau')}${opt('Autre : ________')}</div>
+  <div class="section">${sectionTitre('🙂', 'Client')}
+    <div class="g2">${champ('Nom')}${champ('Prénom')}${champ('Date de naissance')}${champ('Profession')}${champ('Téléphone')}</div>
+    <div class="rang" style="margin-top:8px"><span class="lib" style="flex-basis:100%;margin-bottom:2px">Comment m’avez-vous connu ?</span>${opt('Google')}${opt('Instagram')}${opt('Bouche-à-oreille')}${opt('Parrainage')}${opt('Carte cadeau')}${opt('Autre : ________')}</div>
   </div>
 
-  <div class="section">${sectionTitre('🧴', 'Votre séance')}
-    <div class="grille4">${MASSAGES_FICHE.map(opt).join('')}</div>
-    <div class="rang"><span class="lib">Durée</span>${opt('1h')}${opt('1h10 (réconfort)')}${opt('1h30')}${opt('2h')}<span class="lib" style="margin-left:14px">Formule 4 massages</span>${opt('1h')}${opt('2h')}</div>
-    <div class="rang"><span class="lib">Première séance</span>${opt('Oui')}${opt('Non')}<span class="lib" style="margin-left:14px">Carte cadeau</span>${opt('Oui')}${opt('Non')}</div>
-    <div class="champ" style="margin-top:6px"><label>Ce que vous attendez de la séance</label></div><div class="ligne"></div>
-  </div>
-
-  <div class="section">${sectionTitre('🩺', 'Votre santé')}
+  <div class="section">${sectionTitre('🩺', 'Santé')}
     <div class="sante">${SANTE.map((q) => `<div class="q"><span>${q}</span><span class="on"><span>${cb}Oui</span><span>${cb}Non</span></span></div>`).join('')}</div>
-    <div class="champ" style="margin-top:6px"><label>Précisions si « oui »</label></div><div class="ligne"></div>
-    <div class="g2" style="margin-top:2px">${champ('Médecin traitant (facultatif)')}${champ('Téléphone du médecin')}</div>
-    <p class="note">Grossesse : un massage est possible avec l’avis du médecin, mais pas avec moi (pas de formation au massage prénatal).</p>
+    <div class="champ" style="margin-top:10px"><label>Précisions si « oui »</label></div><div class="ligne"></div><div class="ligne"></div>
   </div>
 
-  <div class="section">${sectionTitre('🎯', 'Vos préférences')}
-    <div class="rang"><span class="lib">Pression</span>${opt('Légère')}${opt('Moyenne')}${opt('Ferme')}<span class="lib" style="margin-left:12px">Chatouilleux(se)</span>${opt('Oui')}${opt('Non')}<span class="lib" style="margin-left:12px">Sans parfum</span>${opt('Oui')}${opt('Non')}</div>
-    <div class="g2" style="margin-top:4px">${champ('Zones à privilégier')}${champ('Zones à éviter')}${champ('Activité physique (type, fréquence)')}${champ('Niveau de stress (0 à 10)')}</div>
-    <div class="rang"><span class="lib">Sommeil</span>${opt('Bon')}${opt('Moyen')}${opt('Difficile')}</div>
-    <div class="champ" style="margin-top:6px"><label>Autre chose à me signaler ?</label></div><div class="ligne"></div><div class="ligne"></div>
+  <div class="section">${sectionTitre('🎯', 'Préférences')}
+    <div class="rang"><span class="lib">Pression</span>${opt('Légère')}${opt('Moyenne')}${opt('Ferme')}<span class="lib" style="margin-left:18px">Sommeil</span>${opt('Bon')}${opt('Moyen')}${opt('Difficile')}</div>
+    <div class="g2" style="margin-top:6px">${champ('Zones à privilégier')}${champ('Zones à éviter')}${champ('Type d’huile', 'plein')}${champ('Activité physique (type, fréquence)')}${champ('Niveau de stress (0 à 10)')}</div>
+    <div class="champ" style="margin-top:10px"><label>Autres choses à me signaler ?</label></div><div class="ligne"></div><div class="ligne"></div>
   </div>
   ${pied}
 </section>`;
@@ -898,7 +889,7 @@ const feuille2 = `<section class="feuille">
     <div class="zones">
       <div class="sil">${silhouette(false)}<br>Face</div>
       <div class="sil">${silhouette(true)}<br>Dos</div>
-      <div><p class="note" style="margin:0 0 4px">Entourez ou hachurez les zones concernées.</p>
+      <div>
         <div class="champ"><label>Depuis quand ?</label></div>
         <div class="champ"><label>Intensité de la gêne (0 à 10)</label></div>
         <div class="ligne"></div><div class="ligne"></div>
@@ -907,26 +898,13 @@ const feuille2 = `<section class="feuille">
     </div>
   </div>
 
-  <div class="section">${sectionTitre('📋', 'Notes du praticien · première séance')}
-    <div class="ligne"></div><div class="ligne"></div><div class="ligne"></div>
+  <div class="section">${sectionTitre('📋', 'Notes du praticien')}
+    <div class="ligne"></div><div class="ligne"></div><div class="ligne"></div><div class="ligne"></div>
   </div>
 
   <div class="section">${sectionTitre('📝', 'Suivi des séances')}
     <table class="tableau"><tr><th style="width:92px">Date</th><th style="width:190px">Massage</th><th style="width:62px">Durée</th><th>Observations · ressenti après la séance</th></tr>
-    ${Array.from({ length: 7 }, () => '<tr><td></td><td></td><td></td><td></td></tr>').join('')}</table>
-  </div>
-
-  <div class="section">${sectionTitre('✍️', 'Consentement')}
-    <div class="consent">
-      <div class="opt">${cb}<span>J’ai répondu avec sincérité et je m’engage à signaler tout changement de ma santé.</span></div>
-      <div class="opt">${cb}<span>Je comprends que le massage bien-être est un moment de détente : ce n’est pas un acte médical ni un massage thérapeutique, et il ne remplace pas un avis ou un traitement médical.</span></div>
-      <div class="opt">${cb}<span>J’accepte que les informations de cette fiche, y compris celles sur ma santé, soient conservées pour le suivi de mes séances.</span></div>
-    </div>
-    <p class="rgpd">Ces informations sont utilisées uniquement par Maxence Vaz (Sushumna) pour le suivi de vos séances. Elles ne sont jamais transmises à des tiers. Vous pouvez les consulter, les faire modifier ou supprimer à tout moment sur simple demande. Si le client est mineur : autorisation d’un représentant légal.</p>
-    <div class="sigs">
-      <div class="sig"><b>Client · fait à ____________ le ____ / ____ / ________</b></div>
-      <div class="sig"><b>Praticien · Maxence Vaz</b></div>
-    </div>
+    ${Array.from({ length: 6 }, () => '<tr><td></td><td></td><td></td><td></td></tr><tr><td class="libre" colspan="4"></td></tr>').join('')}</table>
   </div>
   ${pied}
 </section>`;

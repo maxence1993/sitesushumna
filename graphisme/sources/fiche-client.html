@@ -30,7 +30,7 @@ body{background:#fffdf8}
 .entete h1{font-family:var(--titres);font-weight:600;font-size:24px;line-height:1.15;margin:0;color:var(--brun)}
 .entete .sous{font-size:10.5px;color:var(--brun-doux);margin:3px 0 0}
 .entete .meta{font-size:11px;font-weight:700;color:var(--or-texte);margin-top:5px}
-.section{position:relative;margin-top:13px}
+.section{position:relative;margin-top:20px}
 .s-titre{display:flex;align-items:center;gap:9px;margin:0 0 8px}
 .s-titre .ico{width:28px;height:28px;border-radius:50%;border:2px solid var(--or);background:var(--creme);display:flex;align-items:center;justify-content:center;font-size:14px;flex:none}
 .s-titre h2{font-family:var(--titres);font-weight:600;font-size:16px;margin:0;color:var(--brun)}
@@ -45,10 +45,10 @@ body{background:#fffdf8}
 .rang .lib{font-size:9.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--or-texte);margin-right:10px}
 .grille4{display:grid;grid-template-columns:repeat(4,auto);gap:0 8px;justify-content:start}
 .sante{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
-.q{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:25px;border-bottom:1px dotted var(--bordure);line-height:1.2}
+.q{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:28px;border-bottom:1px dotted var(--bordure);line-height:1.2}
 .q .on{display:inline-flex;gap:8px;align-items:center;font-weight:700;white-space:nowrap;font-size:11px}
 .q .on span{display:inline-flex;align-items:center;gap:4px}
-.ligne{border-bottom:1.3px solid var(--bordure);height:23px}
+.ligne{border-bottom:1.3px solid var(--bordure);height:27px}
 .note{font-size:9.5px;color:var(--brun-doux);margin:5px 0 0;font-style:italic}
 .pied{position:absolute;left:0;right:0;bottom:0;height:46px}
 .pied svg{position:absolute;left:0;bottom:22px}
@@ -57,6 +57,7 @@ body{background:#fffdf8}
 .sil{text-align:center;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--or-texte)}
 .tableau{width:100%;border-collapse:collapse}
 .tableau th{font-size:9.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--or-texte);background:#f6e3b4;text-align:left;padding:6px 8px;border:1px solid var(--bordure)}
+.tableau td.libre{background:rgba(255,255,255,.35)}
 .tableau td{height:27px;border:1px solid var(--bordure);background:rgba(255,255,255,.6)}
 .consent{font-size:11px;line-height:1.4}
 .consent .opt{display:flex;align-items:flex-start;white-space:normal;margin:0 0 6px}
@@ -87,32 +88,22 @@ body{background:#fffdf8}
   <div class="deco" style="width:330px;height:330px;right:-110px;top:-120px"></div>
   <div class="deco" style="width:260px;height:260px;left:-100px;bottom:120px"></div>
   <div class="entete"><img src="file:///home/user/sitesushumna/graphisme/assets/logo-hd.png" alt="Sushumna">
-    <div class="titres"><h1>Fiche de renseignements client</h1><p class="sous">Confidentielle · à remplir avant la séance</p><p class="meta">Fiche n° ______ &nbsp;·&nbsp; Date : ____ / ____ / ________</p></div></div>
+    <div class="titres"><h1>Fiche de renseignements client</h1></div></div>
 
-  <div class="section"><div class="s-titre"><span class="ico">🙂</span><h2>Vous</h2><span class="trait"></span></div>
-    <div class="g2"><div class="champ "><label>Nom</label></div><div class="champ "><label>Prénom</label></div><div class="champ "><label>Date de naissance</label></div><div class="champ "><label>Profession</label></div><div class="champ "><label>Téléphone</label></div><div class="champ "><label>E-mail</label></div><div class="champ plein"><label>Adresse</label></div><div class="champ "><label>Contact en cas d’urgence (nom)</label></div><div class="champ "><label>Téléphone du contact</label></div></div>
-    <div class="rang"><span class="lib">Comment m’avez-vous connu ?</span><span class="opt"><i class="cb"></i>Google</span><span class="opt"><i class="cb"></i>Instagram</span><span class="opt"><i class="cb"></i>Bouche-à-oreille</span><span class="opt"><i class="cb"></i>Carte cadeau</span><span class="opt"><i class="cb"></i>Autre : ________</span></div>
+  <div class="section"><div class="s-titre"><span class="ico">🙂</span><h2>Client</h2><span class="trait"></span></div>
+    <div class="g2"><div class="champ "><label>Nom</label></div><div class="champ "><label>Prénom</label></div><div class="champ "><label>Date de naissance</label></div><div class="champ "><label>Profession</label></div><div class="champ "><label>Téléphone</label></div></div>
+    <div class="rang" style="margin-top:8px"><span class="lib" style="flex-basis:100%;margin-bottom:2px">Comment m’avez-vous connu ?</span><span class="opt"><i class="cb"></i>Google</span><span class="opt"><i class="cb"></i>Instagram</span><span class="opt"><i class="cb"></i>Bouche-à-oreille</span><span class="opt"><i class="cb"></i>Parrainage</span><span class="opt"><i class="cb"></i>Carte cadeau</span><span class="opt"><i class="cb"></i>Autre : ________</span></div>
   </div>
 
-  <div class="section"><div class="s-titre"><span class="ico">🧴</span><h2>Votre séance</h2><span class="trait"></span></div>
-    <div class="grille4"><span class="opt"><i class="cb"></i>Sur mesure</span><span class="opt"><i class="cb"></i>Sportif</span><span class="opt"><i class="cb"></i>Relaxant</span><span class="opt"><i class="cb"></i>Réconfort</span><span class="opt"><i class="cb"></i>Ayurvédique</span><span class="opt"><i class="cb"></i>Chong Mai</span><span class="opt"><i class="cb"></i>Bol tibétain</span><span class="opt"><i class="cb"></i>Réflexologie abdominale</span></div>
-    <div class="rang"><span class="lib">Durée</span><span class="opt"><i class="cb"></i>1h</span><span class="opt"><i class="cb"></i>1h10 (réconfort)</span><span class="opt"><i class="cb"></i>1h30</span><span class="opt"><i class="cb"></i>2h</span><span class="lib" style="margin-left:14px">Formule 4 massages</span><span class="opt"><i class="cb"></i>1h</span><span class="opt"><i class="cb"></i>2h</span></div>
-    <div class="rang"><span class="lib">Première séance</span><span class="opt"><i class="cb"></i>Oui</span><span class="opt"><i class="cb"></i>Non</span><span class="lib" style="margin-left:14px">Carte cadeau</span><span class="opt"><i class="cb"></i>Oui</span><span class="opt"><i class="cb"></i>Non</span></div>
-    <div class="champ" style="margin-top:6px"><label>Ce que vous attendez de la séance</label></div><div class="ligne"></div>
-  </div>
-
-  <div class="section"><div class="s-titre"><span class="ico">🩺</span><h2>Votre santé</h2><span class="trait"></span></div>
+  <div class="section"><div class="s-titre"><span class="ico">🩺</span><h2>Santé</h2><span class="trait"></span></div>
     <div class="sante"><div class="q"><span>Fièvre, infection, maladie contagieuse</span><span class="on"><span><i class="cb"></i>Oui</span><span><i class="cb"></i>Non</span></span></div><div class="q"><span>Phlébite, thrombose</span><span class="on"><span><i class="cb"></i>Oui</span><span><i class="cb"></i>Non</span></span></div><div class="q"><span>Traitement anticoagulant</span><span class="on"><span><i class="cb"></i>Oui</span><span><i class="cb"></i>Non</span></span></div><div class="q"><span>Fracture, entorse, blessure ou opération récente</span><span class="on"><span><i class="cb"></i>Oui</span><span><i class="cb"></i>Non</span></span></div><div class="q"><span>Cancer en cours de traitement</span><span class="on"><span><i class="cb"></i>Oui</span><span><i class="cb"></i>Non</span></span></div><div class="q"><span>Problème cardiaque, hypertension</span><span class="on"><span><i class="cb"></i>Oui</span><span><i class="cb"></i>Non</span></span></div><div class="q"><span>Problème de peau (eczéma, mycose, plaie…)</span><span class="on"><span><i class="cb"></i>Oui</span><span><i class="cb"></i>Non</span></span></div><div class="q"><span>Varices</span><span class="on"><span><i class="cb"></i>Oui</span><span><i class="cb"></i>Non</span></span></div><div class="q"><span>Ostéoporose, hernie discale</span><span class="on"><span><i class="cb"></i>Oui</span><span><i class="cb"></i>Non</span></span></div><div class="q"><span>Grossesse en cours</span><span class="on"><span><i class="cb"></i>Oui</span><span><i class="cb"></i>Non</span></span></div><div class="q"><span>Allergies (huiles, parfums, fruits à coque…)</span><span class="on"><span><i class="cb"></i>Oui</span><span><i class="cb"></i>Non</span></span></div><div class="q"><span>Traitement médical ou médicaments en cours</span><span class="on"><span><i class="cb"></i>Oui</span><span><i class="cb"></i>Non</span></span></div></div>
-    <div class="champ" style="margin-top:6px"><label>Précisions si « oui »</label></div><div class="ligne"></div>
-    <div class="g2" style="margin-top:2px"><div class="champ "><label>Médecin traitant (facultatif)</label></div><div class="champ "><label>Téléphone du médecin</label></div></div>
-    <p class="note">Grossesse : un massage est possible avec l’avis du médecin, mais pas avec moi (pas de formation au massage prénatal).</p>
+    <div class="champ" style="margin-top:10px"><label>Précisions si « oui »</label></div><div class="ligne"></div><div class="ligne"></div>
   </div>
 
-  <div class="section"><div class="s-titre"><span class="ico">🎯</span><h2>Vos préférences</h2><span class="trait"></span></div>
-    <div class="rang"><span class="lib">Pression</span><span class="opt"><i class="cb"></i>Légère</span><span class="opt"><i class="cb"></i>Moyenne</span><span class="opt"><i class="cb"></i>Ferme</span><span class="lib" style="margin-left:12px">Chatouilleux(se)</span><span class="opt"><i class="cb"></i>Oui</span><span class="opt"><i class="cb"></i>Non</span><span class="lib" style="margin-left:12px">Sans parfum</span><span class="opt"><i class="cb"></i>Oui</span><span class="opt"><i class="cb"></i>Non</span></div>
-    <div class="g2" style="margin-top:4px"><div class="champ "><label>Zones à privilégier</label></div><div class="champ "><label>Zones à éviter</label></div><div class="champ "><label>Activité physique (type, fréquence)</label></div><div class="champ "><label>Niveau de stress (0 à 10)</label></div></div>
-    <div class="rang"><span class="lib">Sommeil</span><span class="opt"><i class="cb"></i>Bon</span><span class="opt"><i class="cb"></i>Moyen</span><span class="opt"><i class="cb"></i>Difficile</span></div>
-    <div class="champ" style="margin-top:6px"><label>Autre chose à me signaler ?</label></div><div class="ligne"></div><div class="ligne"></div>
+  <div class="section"><div class="s-titre"><span class="ico">🎯</span><h2>Préférences</h2><span class="trait"></span></div>
+    <div class="rang"><span class="lib">Pression</span><span class="opt"><i class="cb"></i>Légère</span><span class="opt"><i class="cb"></i>Moyenne</span><span class="opt"><i class="cb"></i>Ferme</span><span class="lib" style="margin-left:18px">Sommeil</span><span class="opt"><i class="cb"></i>Bon</span><span class="opt"><i class="cb"></i>Moyen</span><span class="opt"><i class="cb"></i>Difficile</span></div>
+    <div class="g2" style="margin-top:6px"><div class="champ "><label>Zones à privilégier</label></div><div class="champ "><label>Zones à éviter</label></div><div class="champ plein"><label>Type d’huile</label></div><div class="champ "><label>Activité physique (type, fréquence)</label></div><div class="champ "><label>Niveau de stress (0 à 10)</label></div></div>
+    <div class="champ" style="margin-top:10px"><label>Autres choses à me signaler ?</label></div><div class="ligne"></div><div class="ligne"></div>
   </div>
   <div class="pied"><svg width="794" height="28" viewBox="0 0 794 28"><path d="M0 14 q35 -9 70 0 t70 0 q35 -9 70 0 t70 0 q35 -9 70 0 t70 0 q35 -9 70 0 t70 0 q35 -9 70 0 t70 0 q35 -9 70 0 t70 0" fill="none" stroke="#d9a73b" stroke-width="2.4" stroke-linecap="round"/></svg><p>Sushumna · 4 cours Victor Hugo, 45100 Orléans · 07 50 46 01 10 · massage-sushumna.com · Document confidentiel</p></div>
 </section><section class="feuille">
@@ -153,7 +144,7 @@ body{background:#fffdf8}
   </g>
   <path d="M50 32 L50 108" stroke="#e6d5b5" stroke-width="2" stroke-dasharray="3 4" fill="none"/><path d="M38 58 Q44 70 50 66 M62 58 Q56 70 50 66" stroke="#e6d5b5" stroke-width="2" fill="none"/>
 </svg><br>Dos</div>
-      <div><p class="note" style="margin:0 0 4px">Entourez ou hachurez les zones concernées.</p>
+      <div>
         <div class="champ"><label>Depuis quand ?</label></div>
         <div class="champ"><label>Intensité de la gêne (0 à 10)</label></div>
         <div class="ligne"></div><div class="ligne"></div>
@@ -162,26 +153,13 @@ body{background:#fffdf8}
     </div>
   </div>
 
-  <div class="section"><div class="s-titre"><span class="ico">📋</span><h2>Notes du praticien · première séance</h2><span class="trait"></span></div>
-    <div class="ligne"></div><div class="ligne"></div><div class="ligne"></div>
+  <div class="section"><div class="s-titre"><span class="ico">📋</span><h2>Notes du praticien</h2><span class="trait"></span></div>
+    <div class="ligne"></div><div class="ligne"></div><div class="ligne"></div><div class="ligne"></div>
   </div>
 
   <div class="section"><div class="s-titre"><span class="ico">📝</span><h2>Suivi des séances</h2><span class="trait"></span></div>
     <table class="tableau"><tr><th style="width:92px">Date</th><th style="width:190px">Massage</th><th style="width:62px">Durée</th><th>Observations · ressenti après la séance</th></tr>
-    <tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></table>
-  </div>
-
-  <div class="section"><div class="s-titre"><span class="ico">✍️</span><h2>Consentement</h2><span class="trait"></span></div>
-    <div class="consent">
-      <div class="opt"><i class="cb"></i><span>J’ai répondu avec sincérité et je m’engage à signaler tout changement de ma santé.</span></div>
-      <div class="opt"><i class="cb"></i><span>Je comprends que le massage bien-être est un moment de détente : ce n’est pas un acte médical ni un massage thérapeutique, et il ne remplace pas un avis ou un traitement médical.</span></div>
-      <div class="opt"><i class="cb"></i><span>J’accepte que les informations de cette fiche, y compris celles sur ma santé, soient conservées pour le suivi de mes séances.</span></div>
-    </div>
-    <p class="rgpd">Ces informations sont utilisées uniquement par Maxence Vaz (Sushumna) pour le suivi de vos séances. Elles ne sont jamais transmises à des tiers. Vous pouvez les consulter, les faire modifier ou supprimer à tout moment sur simple demande. Si le client est mineur : autorisation d’un représentant légal.</p>
-    <div class="sigs">
-      <div class="sig"><b>Client · fait à ____________ le ____ / ____ / ________</b></div>
-      <div class="sig"><b>Praticien · Maxence Vaz</b></div>
-    </div>
+    <tr><td></td><td></td><td></td><td></td></tr><tr><td class="libre" colspan="4"></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td class="libre" colspan="4"></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td class="libre" colspan="4"></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td class="libre" colspan="4"></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td class="libre" colspan="4"></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td class="libre" colspan="4"></td></tr></table>
   </div>
   <div class="pied"><svg width="794" height="28" viewBox="0 0 794 28"><path d="M0 14 q35 -9 70 0 t70 0 q35 -9 70 0 t70 0 q35 -9 70 0 t70 0 q35 -9 70 0 t70 0 q35 -9 70 0 t70 0 q35 -9 70 0 t70 0" fill="none" stroke="#d9a73b" stroke-width="2.4" stroke-linecap="round"/></svg><p>Sushumna · 4 cours Victor Hugo, 45100 Orléans · 07 50 46 01 10 · massage-sushumna.com · Document confidentiel</p></div>
 </section></div>
