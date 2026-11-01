@@ -1163,6 +1163,23 @@ PAGES.push({
 </div>` }),
 });
 
+/* ---------- Jeu concours : visuel épuré pour l'aperçu de la grille (carré, texte centré) ---------- */
+PAGES.push({
+  nom: '72-concours-apercu-grille', w: 1080, h: 1080, echelle: 1,
+  html: document_({ w: 1080, h: 1080,
+    css: `.page{background:radial-gradient(circle at 50% 45%,#ffffff 0,var(--creme) 55%,var(--sable-2) 100%)}
+.deco{position:absolute;border-radius:50%;background:#f6e3b4;opacity:.5}
+.anneau{width:780px;height:780px;border-radius:50%;border:9px solid var(--or);background:radial-gradient(circle,var(--creme) 0,#fbf3e2 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 24px 60px rgba(92,67,48,.18);position:relative}
+.anneau .surtitre{font-size:38px;letter-spacing:.34em;margin:0 0 22px}
+.anneau .titre{font-size:84px;line-height:1.08;margin:0 0 34px;max-width:600px}
+.anneau .valeur{background:var(--or);color:var(--brun);font-weight:800;font-size:38px;padding:12px 36px;border-radius:999px;box-shadow:0 10px 22px rgba(217,167,59,.45)}`,
+    body: `<div class="page">
+  <div class="deco" style="width:420px;height:420px;left:-140px;top:-120px"></div>
+  <div class="deco" style="width:360px;height:360px;right:-120px;bottom:-110px"></div>
+  <div class="anneau"><p class="surtitre">Jeu concours</p><h1 class="titre">Gagnez un massage relaxant d’1h</h1><span class="valeur">D’une valeur de ${CONCOURS.valeur}</span></div>
+</div>` }),
+});
+
 /* ---------- Rendu ---------- */
 (async () => {
   fs.mkdirSync(SOURCES, { recursive: true });
