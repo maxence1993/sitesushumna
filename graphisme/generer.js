@@ -1129,6 +1129,40 @@ PAGES.push({
 </div>` }),
 });
 
+PAGES.push({
+  nom: '71-concours-le-lot', w: 1080, h: 1080, echelle: 1,
+  html: document_({ w: 1080, h: 1080,
+    css: `.page{justify-content:flex-start;background:var(--creme)}
+.entete-photo{position:relative;width:100%;height:420px;flex:none}
+.entete-photo img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.entete-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(46,32,22,0) 55%,var(--creme) 100%)}
+.badge{position:absolute;right:50px;top:60px;z-index:2;background:var(--or);color:var(--brun);font-weight:800;font-size:28px;padding:9px 26px;border-radius:999px;box-shadow:0 8px 20px rgba(0,0,0,.28);white-space:nowrap}
+.corps{position:relative;width:100%;padding:0 70px;margin-top:-70px;text-align:left;display:flex;flex-direction:column;flex:1}
+.titre{font-size:64px;line-height:1.08;margin:0}
+.accroche{font-family:var(--titres);font-style:italic;font-size:30px;color:var(--or-texte);margin:6px 0 20px}
+.bloc{margin-bottom:18px}
+.bloc h3{font-family:var(--texte);font-size:18px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--or-texte);margin:0 0 5px}
+.bloc p{font-size:26px;line-height:1.38;margin:0;color:var(--brun)}
+.bloc ul{list-style:none;padding:0;margin:0}
+.bloc li{position:relative;padding-left:36px;font-size:26px;line-height:1.38;margin-bottom:4px}
+.bloc li::before{content:'✦';position:absolute;left:0;top:0;color:var(--or);font-size:21px;line-height:1.6}
+.bas{display:flex;align-items:center;gap:22px;margin-top:8px}
+.prix{flex:1;display:flex;justify-content:space-between;align-items:center;background:#fff8e6;border:2px solid var(--or);border-radius:22px;padding:10px 26px}
+.prix span{font-size:24px;font-weight:700;color:var(--brun);line-height:1.25}
+.prix b{font-family:var(--titres);font-weight:600;font-size:46px;color:var(--or-texte)}
+.bas img{width:190px;height:auto;flex:none}`,
+    body: `<div class="entete-photo"><img src="file://${path.join(DOSSIER, '..', 'photos', 'massage-relaxant.jpg')}" alt=""></div>
+<span class="badge">🎁 Le lot à gagner</span>
+<div class="corps">
+  <h1 class="titre">${relaxant.nom}</h1>
+  <p class="accroche">${relaxant.accroche}</p>
+  <div class="bloc"><h3>En quoi ça consiste</h3><p>${relaxant.consiste}</p></div>
+  <div class="bloc"><h3>Pour qui</h3><p>${relaxant.pourQui}</p></div>
+  <div class="bloc"><h3>Ce que ça apporte</h3><ul>${relaxant.apporte.map((a) => `<li>${a}</li>`).join('')}</ul></div>
+  <div class="bas"><div class="prix"><span>Durée : 1h<br>${CONCOURS.validite}</span><b>${CONCOURS.valeur}</b></div><img src="${LOGO_URL}" alt="Sushumna"></div>
+</div>` }),
+});
+
 /* ---------- Rendu ---------- */
 (async () => {
   fs.mkdirSync(SOURCES, { recursive: true });
