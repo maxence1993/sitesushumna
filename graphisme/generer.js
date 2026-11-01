@@ -1022,6 +1022,44 @@ PAGES.push({
   html: document_({ w: 794, h: 1123, css: CSS_AFFICHE, body: `<div class="page" style="display:block;justify-content:flex-start;align-items:stretch;text-align:center">${affiche}</div>` }),
 });
 
+/* ---------- Jeu concours Instagram (carré 1080 × 1080) ---------- */
+const CONCOURS = {
+  lot: 'Gagnez un massage relaxant d’1h',
+  valeur: euros(PRIX_SEANCES.find((t) => t.duree === '1h' && !t.massage).prix),
+  regles: ['Likez la publication', 'Partagez-la en story', 'Taguez quelqu’un en commentaire'],
+  tirage: 'Tirage au sort le 10 novembre',
+};
+PAGES.push({
+  nom: '68-concours-massage-relaxant', w: 1080, h: 1080, echelle: 1,
+  html: document_({ w: 1080, h: 1080,
+    css: `.page{display:block;background:linear-gradient(180deg,var(--creme) 0%,var(--sable-2) 100%)}
+.deco{position:absolute;border-radius:50%;background:#f6e3b4;opacity:.45}
+.logo{position:absolute;left:70px;top:58px;width:250px;height:auto}
+.photo{position:absolute;left:660px;top:70px;width:350px;height:350px;border-radius:50%;overflow:hidden;border:9px solid var(--or);box-shadow:0 16px 38px rgba(92,67,48,.25)}
+.photo img{width:100%;height:100%;object-fit:cover;object-position:center 38%}
+.texte{position:absolute;left:70px;top:160px;width:590px;text-align:left}
+.surtitre{font-size:26px}
+.titre{font-family:var(--titres);font-weight:600;font-size:62px;line-height:1.08;margin:12px 0 16px;color:var(--brun)}
+.valeur{display:inline-block;background:var(--or);color:var(--brun);font-weight:800;font-size:28px;padding:8px 22px;border-radius:999px;box-shadow:0 8px 18px rgba(217,167,59,.4)}
+.regles{position:absolute;left:70px;right:70px;top:488px}
+.regles h2{font-family:var(--titres);font-weight:600;font-size:36px;margin:0 0 14px;color:var(--or-texte);text-align:left}
+.regle{display:flex;align-items:center;gap:26px;background:var(--creme);border:2px solid var(--bordure);border-radius:28px;padding:9px 30px;margin-bottom:13px;box-shadow:0 8px 22px rgba(92,67,48,.08);text-align:left}
+.regle .n{width:56px;height:56px;border-radius:50%;border:4px solid var(--or);background:var(--creme);display:flex;align-items:center;justify-content:center;font-family:var(--titres);font-weight:600;font-size:34px;color:var(--or-texte);flex:none}
+.regle span{font-size:38px;font-weight:700;color:var(--brun)}
+.tirage{position:absolute;left:70px;right:70px;bottom:48px;background:linear-gradient(135deg,var(--brun) 0%,#5b3f26 100%);border-radius:30px;padding:16px 20px;text-align:center}
+.tirage b{display:block;font-family:var(--titres);font-weight:600;font-size:46px;color:var(--or-clair)}
+.tirage span{display:block;margin-top:4px;font-size:26px;color:#f3e8d3;font-weight:700}`,
+    body: `<div class="page">
+  <div class="deco" style="width:520px;height:520px;right:-170px;top:-150px"></div>
+  <div class="deco" style="width:420px;height:420px;left:-150px;bottom:140px"></div>
+  <img class="logo" src="${LOGO_URL}" alt="Sushumna">
+  <div class="photo"><img src="file://${path.join(DOSSIER, '..', 'photos', 'massage-relaxant.jpg')}" alt=""></div>
+  <div class="texte"><p class="surtitre">Jeu concours</p><h1 class="titre">${CONCOURS.lot}</h1><span class="valeur">D’une valeur de ${CONCOURS.valeur}</span></div>
+  <div class="regles"><h2>Pour participer</h2>${CONCOURS.regles.map((r, i) => `<div class="regle"><div class="n">${i + 1}</div><span>${r}</span></div>`).join('')}</div>
+  <div class="tirage"><b>${CONCOURS.tirage}</b><span>${CONTACT.insta}</span></div>
+</div>` }),
+});
+
 /* ---------- Rendu ---------- */
 (async () => {
   fs.mkdirSync(SOURCES, { recursive: true });
