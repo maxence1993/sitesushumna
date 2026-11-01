@@ -1191,7 +1191,7 @@ PAGES.push({
     body: `<div class="page">
   <div class="deco" style="width:640px;height:640px;right:-230px;top:-170px"></div>
   <div class="deco" style="width:560px;height:560px;left:-220px;bottom:-130px"></div>
-  <div class="anneau"><h1 class="titre">J’ai une<br>surprise<br><span style="white-space:nowrap">pour vous 😁</span></h1></div>
+  <div class="anneau"><h1 class="titre">J’ai une<br>surprise<br>pour vous<br><span style="font-size:1.1em;line-height:1.3">😁</span></h1></div>
 </div>` }),
 });
 
