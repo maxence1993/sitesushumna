@@ -656,7 +656,7 @@ PAGES.push(pagePlanning({
 }));
 
 PAGES.push(pagePlanning({
-  nom: '65-planning-semaine-prochaine', titre: 'Semaine prochaine', sous: 'Du 2 au 8 novembre, pour réserver votre massage',
+  nom: '65-planning-semaine-du-2-novembre', titre: 'Cette semaine', sous: 'Du 2 au 8 novembre, pour réserver votre massage',
   ferme: 'Lundi, jeudi et samedi : fermé',
   jours: [
     { jour: 'Mardi 3 novembre', horaires: '15h15 – 17h30', detail: 'Massage à réserver entre 15h15 et 17h30 (fin du massage avant 17h30).' },
