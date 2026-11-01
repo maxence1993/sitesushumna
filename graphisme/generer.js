@@ -1026,7 +1026,8 @@ PAGES.push({
 const CONCOURS = {
   lot: 'Gagnez un massage relaxant d’1h',
   valeur: euros(PRIX_SEANCES.find((t) => t.duree === '1h' && !t.massage).prix),
-  regles: ['Likez la publication', 'Partagez-la en story', 'Taguez quelqu’un en commentaire'],
+  regles: ['Soyez abonné(e) à notre compte', 'Likez la publication', 'Partagez-la en story', 'Taguez quelqu’un en commentaire'],
+  validite: 'Massage valable 2 mois',
   tirage: 'Tirage au sort le 10 novembre',
 };
 PAGES.push({
@@ -1041,13 +1042,13 @@ PAGES.push({
 .surtitre{font-size:26px}
 .titre{font-family:var(--titres);font-weight:600;font-size:62px;line-height:1.08;margin:12px 0 16px;color:var(--brun)}
 .valeur{display:inline-block;background:var(--or);color:var(--brun);font-weight:800;font-size:28px;padding:8px 22px;border-radius:999px;box-shadow:0 8px 18px rgba(217,167,59,.4)}
-.regles{position:absolute;left:70px;right:70px;top:488px}
-.regles h2{font-family:var(--titres);font-weight:600;font-size:36px;margin:0 0 14px;color:var(--or-texte);text-align:left}
-.regle{display:flex;align-items:center;gap:26px;background:var(--creme);border:2px solid var(--bordure);border-radius:28px;padding:9px 30px;margin-bottom:13px;box-shadow:0 8px 22px rgba(92,67,48,.08);text-align:left}
-.regle .n{width:56px;height:56px;border-radius:50%;border:4px solid var(--or);background:var(--creme);display:flex;align-items:center;justify-content:center;font-family:var(--titres);font-weight:600;font-size:34px;color:var(--or-texte);flex:none}
-.regle span{font-size:38px;font-weight:700;color:var(--brun)}
-.tirage{position:absolute;left:70px;right:70px;bottom:48px;background:linear-gradient(135deg,var(--brun) 0%,#5b3f26 100%);border-radius:30px;padding:16px 20px;text-align:center}
-.tirage b{display:block;font-family:var(--titres);font-weight:600;font-size:46px;color:var(--or-clair)}
+.regles{position:absolute;left:70px;right:70px;top:468px}
+.regles h2{font-family:var(--titres);font-weight:600;font-size:34px;margin:0 0 10px;color:var(--or-texte);text-align:left}
+.regle{display:flex;align-items:center;gap:26px;background:var(--creme);border:2px solid var(--bordure);border-radius:28px;padding:6px 30px;margin-bottom:10px;box-shadow:0 8px 22px rgba(92,67,48,.08);text-align:left}
+.regle .n{width:50px;height:50px;border-radius:50%;border:4px solid var(--or);background:var(--creme);display:flex;align-items:center;justify-content:center;font-family:var(--titres);font-weight:600;font-size:34px;color:var(--or-texte);flex:none}
+.regle span{font-size:36px;font-weight:700;color:var(--brun)}
+.tirage{position:absolute;left:70px;right:70px;bottom:36px;background:linear-gradient(135deg,var(--brun) 0%,#5b3f26 100%);border-radius:30px;padding:12px 20px;text-align:center}
+.tirage b{display:block;font-family:var(--titres);font-weight:600;font-size:44px;color:var(--or-clair)}
 .tirage span{display:block;margin-top:4px;font-size:26px;color:#f3e8d3;font-weight:700}`,
     body: `<div class="page">
   <div class="deco" style="width:520px;height:520px;right:-170px;top:-150px"></div>
@@ -1056,7 +1057,7 @@ PAGES.push({
   <div class="photo"><img src="file://${path.join(DOSSIER, '..', 'photos', 'massage-relaxant.jpg')}" alt=""></div>
   <div class="texte"><p class="surtitre">Jeu concours</p><h1 class="titre">${CONCOURS.lot}</h1><span class="valeur">D’une valeur de ${CONCOURS.valeur}</span></div>
   <div class="regles"><h2>Pour participer</h2>${CONCOURS.regles.map((r, i) => `<div class="regle"><div class="n">${i + 1}</div><span>${r}</span></div>`).join('')}</div>
-  <div class="tirage"><b>${CONCOURS.tirage}</b><span>${CONTACT.insta}</span></div>
+  <div class="tirage"><b>${CONCOURS.tirage}</b><span>${CONCOURS.validite} · ${CONTACT.insta}</span></div>
 </div>` }),
 });
 
@@ -1066,17 +1067,17 @@ PAGES.push({
   html: document_({ w: 1080, h: 1920,
     css: `.page{display:block;background:linear-gradient(180deg,var(--creme) 0%,var(--sable-2) 100%)}
 .deco{position:absolute;border-radius:50%;background:#f6e3b4;opacity:.45}
-.logo{position:absolute;left:50%;top:210px;transform:translateX(-50%);width:330px;height:auto}
-.photo{position:absolute;left:50%;top:400px;transform:translateX(-50%);width:470px;height:470px;border-radius:50%;overflow:hidden;border:11px solid var(--or);box-shadow:0 20px 46px rgba(92,67,48,.25)}
+.logo{position:absolute;left:50%;top:190px;transform:translateX(-50%);width:300px;height:auto}
+.photo{position:absolute;left:50%;top:350px;transform:translateX(-50%);width:400px;height:400px;border-radius:50%;overflow:hidden;border:11px solid var(--or);box-shadow:0 20px 46px rgba(92,67,48,.25)}
 .photo img{width:100%;height:100%;object-fit:cover;object-position:center 38%}
-.texte{position:absolute;left:70px;right:70px;top:905px;text-align:center}
+.texte{position:absolute;left:70px;right:70px;top:780px;text-align:center}
 .surtitre{font-size:30px}
-.titre{font-family:var(--titres);font-weight:600;font-size:84px;line-height:1.08;margin:12px 0 20px;color:var(--brun)}
+.titre{font-family:var(--titres);font-weight:600;font-size:80px;line-height:1.08;margin:10px 0 16px;color:var(--brun)}
 .valeur{display:inline-block;background:var(--or);color:var(--brun);font-weight:800;font-size:34px;padding:10px 28px;border-radius:999px;box-shadow:0 8px 18px rgba(217,167,59,.4)}
-.regles{position:absolute;left:70px;right:70px;top:1250px}
-.regle{display:flex;align-items:center;gap:26px;background:var(--creme);border:2px solid var(--bordure);border-radius:30px;padding:14px 32px;margin-bottom:16px;box-shadow:0 8px 22px rgba(92,67,48,.08);text-align:left}
-.regle .n{width:66px;height:66px;border-radius:50%;border:4px solid var(--or);background:var(--creme);display:flex;align-items:center;justify-content:center;font-family:var(--titres);font-weight:600;font-size:38px;color:var(--or-texte);flex:none}
-.regle span{font-size:42px;font-weight:700;color:var(--brun)}
+.regles{position:absolute;left:70px;right:70px;top:1135px}
+.regle{display:flex;align-items:center;gap:26px;background:var(--creme);border:2px solid var(--bordure);border-radius:30px;padding:10px 32px;margin-bottom:14px;box-shadow:0 8px 22px rgba(92,67,48,.08);text-align:left}
+.regle .n{width:60px;height:60px;border-radius:50%;border:4px solid var(--or);background:var(--creme);display:flex;align-items:center;justify-content:center;font-family:var(--titres);font-weight:600;font-size:34px;color:var(--or-texte);flex:none}
+.regle span{font-size:40px;font-weight:700;color:var(--brun)}
 .tirage{position:absolute;left:70px;right:70px;top:1612px;background:linear-gradient(135deg,var(--brun) 0%,#5b3f26 100%);border-radius:32px;padding:22px 20px;text-align:center}
 .tirage b{display:block;font-family:var(--titres);font-weight:600;font-size:52px;color:var(--or-clair)}
 .tirage span{display:block;margin-top:4px;font-size:28px;color:#f3e8d3;font-weight:700}`,
@@ -1087,7 +1088,7 @@ PAGES.push({
   <div class="photo"><img src="file://${path.join(DOSSIER, '..', 'photos', 'massage-relaxant.jpg')}" alt=""></div>
   <div class="texte"><p class="surtitre">Jeu concours</p><h1 class="titre">${CONCOURS.lot}</h1><span class="valeur">D’une valeur de ${CONCOURS.valeur}</span></div>
   <div class="regles">${CONCOURS.regles.map((r, i) => `<div class="regle"><div class="n">${i + 1}</div><span>${r}</span></div>`).join('')}</div>
-  <div class="tirage"><b>${CONCOURS.tirage}</b><span>${CONTACT.insta}</span></div>
+  <div class="tirage"><b>${CONCOURS.tirage}</b><span>${CONCOURS.validite} · ${CONTACT.insta}</span></div>
 </div>` }),
 });
 
@@ -1112,6 +1113,7 @@ PAGES.push({
 .prix{display:flex;justify-content:space-between;align-items:center;background:#fff8e6;border:2px solid var(--or);border-radius:28px;padding:18px 40px;margin-top:6px}
 .prix span{font-size:38px;font-weight:700;color:var(--brun)}
 .prix b{font-family:var(--titres);font-weight:600;font-size:56px;color:var(--or-texte)}
+.valide{margin:14px 0 0;text-align:center;font-size:32px;font-weight:800;color:var(--or-texte)}
 .pied-story{margin-top:44px;width:260px;height:auto;align-self:center}`,
     body: `<div class="entete-photo"><img src="file://${path.join(DOSSIER, '..', 'photos', 'massage-relaxant.jpg')}" alt=""></div>
 <span class="badge">🎁 Le lot à gagner</span>
@@ -1122,6 +1124,7 @@ PAGES.push({
   <div class="bloc"><h3>Pour qui</h3><p>${relaxant.pourQui}</p></div>
   <div class="bloc"><h3>Ce que ça apporte</h3><ul>${relaxant.apporte.map((a) => `<li>${a}</li>`).join('')}</ul></div>
   <div class="prix"><span>Durée : 1h</span><b>${CONCOURS.valeur}</b></div>
+  <p class="valide">${CONCOURS.validite} à compter du tirage</p>
   <img class="pied-story" src="${LOGO_URL}" alt="Sushumna">
 </div>` }),
 });
