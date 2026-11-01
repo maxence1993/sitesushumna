@@ -326,7 +326,7 @@ const surCreme = (inner, extraCss = '') => ({
 });
 
 const grille = [
-  ['13-grille-accueil', surPhoto('accueil.jpg', { surtitre: 'Sushumna · Orléans', titre: 'Un moment pour vous', sous: 'Massages bien-être personnalisés', position: 'center 30%' })],
+  ['13-grille-accueil', surPhoto('accueil.jpg', { surtitre: 'Sushumna · Orléans', titre: 'Les différents massages', sous: 'Massages bien-être personnalisés', position: 'center 30%' })],
   ['14-grille-bienvenue', surCreme(`<img src="../assets/embleme-hd.png" alt="" style="height:200px;width:auto;margin-bottom:30px">
 <p class="surtitre" style="font-size:28px">Bienvenue</p>
 <h2 class="titre" style="font-size:84px;margin:16px 0 26px">Le bonheur est en vous</h2>
