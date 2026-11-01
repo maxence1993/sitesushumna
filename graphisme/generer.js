@@ -1180,6 +1180,21 @@ PAGES.push({
 </div>` }),
 });
 
+/* ---------- Story teaser : « J'ai une surprise pour vous » (1080 × 1920) ---------- */
+PAGES.push({
+  nom: '73-story-surprise', w: 1080, h: 1920, echelle: 1,
+  html: document_({ w: 1080, h: 1920,
+    css: `.page{background:linear-gradient(180deg,var(--creme) 0%,var(--sable-2) 100%)}
+.deco{position:absolute;border-radius:50%;background:#f6e3b4;opacity:.5}
+.anneau{width:860px;height:860px;border-radius:50%;border:11px solid var(--or);background:radial-gradient(circle,var(--creme) 0,#fbf3e2 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 30px 70px rgba(92,67,48,.2);position:relative}
+.anneau .titre{font-size:94px;line-height:1.14;margin:0}`,
+    body: `<div class="page">
+  <div class="deco" style="width:640px;height:640px;right:-230px;top:-170px"></div>
+  <div class="deco" style="width:560px;height:560px;left:-220px;bottom:-130px"></div>
+  <div class="anneau"><h1 class="titre">J’ai une<br>surprise<br><span style="white-space:nowrap">pour vous 😁</span></h1></div>
+</div>` }),
+});
+
 /* ---------- Rendu ---------- */
 (async () => {
   fs.mkdirSync(SOURCES, { recursive: true });
