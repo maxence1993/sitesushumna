@@ -1026,7 +1026,7 @@ PAGES.push({
 const CONCOURS = {
   lot: 'Gagnez un massage relaxant d’1h',
   valeur: euros(PRIX_SEANCES.find((t) => t.duree === '1h' && !t.massage).prix),
-  regles: ['Soyez abonné(e) à notre compte', 'Likez la publication', 'Partagez-la en story', 'Taguez quelqu’un en commentaire'],
+  regles: ['Soyez abonné(e)', 'Likez la publication', 'Partagez-la en story', 'Taguez quelqu’un en commentaire'],
   validite: 'Massage valable 2 mois',
   tirage: 'Tirage au sort le 10 novembre',
 };
